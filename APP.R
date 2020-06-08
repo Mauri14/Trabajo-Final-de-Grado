@@ -1986,7 +1986,8 @@ server <- function(input, output){
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
-      theme (axis.title = element_text(face="bold"))
+      theme (axis.title.y = element_text(face="bold", vjust = -5))+
+      theme (axis.title.x = element_text(face="bold"))
     ggplotly(p)
     #ggplotly(p)
     
