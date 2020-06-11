@@ -924,7 +924,7 @@ contenido <- dashboardBody(
                                                                                                                                                  "Tasa bruta de asistencia de 3 a 5 años a educación preescolar"="746",
                                                                                                                                                  "Tasa bruta de asistencia de 12 a 17 años a educación media"="1808"))),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionEdu")),
-                         box(title = "Mapa de Uruguay", status = "danger", solidHeader = TRUE, 
+                         box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_edu",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_edu",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
               tabPanel("Tabla", DTOutput("datos1"), fluidRow(p(class = 'text-center', downloadButton('dd1', 'Descargar'))))
@@ -938,7 +938,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Personas afiliadas a emergencias móviles por tramos de edad"="529",
                                                                                                                                                   "Personas por tipo de atención en salud"="517"))),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionSalud")),
-                         box(title = "Mapa de Uruguay", status = "danger", solidHeader = TRUE, 
+                         box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_salud",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_salud",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
               tabPanel("Tabla", DTOutput("datos2"), fluidRow(p(class = 'text-center', downloadButton('dd2', 'Descargar'))))
@@ -962,7 +962,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Tasa de actividad por tramos de edad"="607",
                                                                                                                                                   "Población por condición de actividad por sexo"="610"))),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionLab")),
-                         box(title = "Mapa de Uruguay", status = "danger", solidHeader = TRUE, 
+                         box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_lab",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_lab",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
               tabPanel("Tabla", DTOutput("datos3"), fluidRow(p(class = 'text-center', downloadButton('dd3', 'Descargar'))))
@@ -981,7 +981,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Hogares con al menos un auto o camioneta"="1929",
                                                                                                                                                   "Hogares en situación de pobreza"="553"))),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionIng")),
-                         box(title = "Mapa de Uruguay", status = "danger", solidHeader = TRUE, 
+                         box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_ing",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_ing",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
               tabPanel("Tabla", DTOutput("datos4"), fluidRow(p(class = 'text-center', downloadButton('dd4', 'Descargar'))))
@@ -999,7 +999,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Hogares con computadora o laptop"="594",
                                                                                                                                                   "Hogares con al menos una computadora del Plan Ceibal"="584"))),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionTec")),
-                         box(title = "Mapa de Uruguay", status = "danger", solidHeader = TRUE, 
+                         box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_tec",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_tec",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
               tabPanel("Tabla", DTOutput("datos5"), fluidRow(p(class = 'text-center', downloadButton('dd5', 'Descargar'))))
@@ -1013,7 +1013,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Población por lugar de nacimiento"="654",
                                                                                                                                                   "Población por lugar de residencia anterior"="655"))),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionDemo")),
-                         box(title = "Mapa de Uruguay", status = "danger", solidHeader = TRUE, 
+                         box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_demo",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_demo",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800)
                          )),
@@ -1033,7 +1033,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Hogares por presencia y uso de baño"="766",
                                                                                                                                                   "Hogares por tipo de relación con la vivienda"="774"))),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE ,uiOutput("SeleccionHog")),
-                         box(title = "Mapa de Uruguay", status = "danger", solidHeader = TRUE, 
+                         box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_hog",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_hog",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800)
                          )),
