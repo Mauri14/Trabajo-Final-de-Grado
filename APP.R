@@ -927,7 +927,8 @@ contenido <- dashboardBody(
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_edu",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_edu",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
-              tabPanel("Tabla", DTOutput("datos1"), fluidRow(p(class = 'text-center', downloadButton('dd1', 'Descargar'))))
+              tabPanel("Tabla", DTOutput("datos1"), fluidRow(p(class = 'text-center', downloadButton('dd1', 'Descargar')))),
+              tabPanel("IC")
             )
     ),
     tabItem(tabName = "Salud", 
@@ -941,7 +942,8 @@ contenido <- dashboardBody(
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_salud",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_salud",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
-              tabPanel("Tabla", DTOutput("datos2"), fluidRow(p(class = 'text-center', downloadButton('dd2', 'Descargar'))))
+              tabPanel("Tabla", DTOutput("datos2"), fluidRow(p(class = 'text-center', downloadButton('dd2', 'Descargar')))),
+              tabPanel("IC")
             )
     ),
     tabItem(tabName = "laboral", 
@@ -965,7 +967,8 @@ contenido <- dashboardBody(
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_lab",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_lab",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
-              tabPanel("Tabla", DTOutput("datos3"), fluidRow(p(class = 'text-center', downloadButton('dd3', 'Descargar'))))
+              tabPanel("Tabla", DTOutput("datos3"), fluidRow(p(class = 'text-center', downloadButton('dd3', 'Descargar')))),
+              tabPanel("IC")
             )
     ),
     tabItem(tabName = "ingresos", 
@@ -984,7 +987,8 @@ contenido <- dashboardBody(
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_ing",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_ing",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
-              tabPanel("Tabla", DTOutput("datos4"), fluidRow(p(class = 'text-center', downloadButton('dd4', 'Descargar'))))
+              tabPanel("Tabla", DTOutput("datos4"), fluidRow(p(class = 'text-center', downloadButton('dd4', 'Descargar')))),
+              tabPanel("IC")
             )
     ),
     tabItem(tabName = "tec", 
@@ -1002,7 +1006,8 @@ contenido <- dashboardBody(
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_tec",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_tec",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
-              tabPanel("Tabla", DTOutput("datos5"), fluidRow(p(class = 'text-center', downloadButton('dd5', 'Descargar'))))
+              tabPanel("Tabla", DTOutput("datos5"), fluidRow(p(class = 'text-center', downloadButton('dd5', 'Descargar')))),
+              tabPanel("IC")
             )
     ),
     tabItem(tabName = "demo", 
@@ -1017,7 +1022,8 @@ contenido <- dashboardBody(
                              plotlyOutput("map_demo",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_demo",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800)
                          )),
-              tabPanel("Tabla", DTOutput("datos6"), fluidRow(p(class = 'text-center', downloadButton('dd6', 'Descargar'))))
+              tabPanel("Tabla", DTOutput("datos6"), fluidRow(p(class = 'text-center', downloadButton('dd6', 'Descargar')))),
+              tabPanel("IC")
             )
     ),
     tabItem(tabName = "hogares", 
@@ -1037,7 +1043,8 @@ contenido <- dashboardBody(
                              plotlyOutput("map_hog",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_hog",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800)
                          )),
-              tabPanel("Tabla", DTOutput("datos7"), fluidRow(p(class = 'text-center', downloadButton('dd7', 'Descargar'))))
+              tabPanel("Tabla", DTOutput("datos7"), fluidRow(p(class = 'text-center', downloadButton('dd7', 'Descargar')))),
+              tabPanel("IC")
             )
     )
   )
