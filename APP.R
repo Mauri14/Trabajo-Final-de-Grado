@@ -2035,6 +2035,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatEdu))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2044,6 +2045,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatEdu))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2053,6 +2055,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatEdu))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2071,6 +2074,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatSalud))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2080,6 +2084,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatSalud))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2099,6 +2104,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatLab))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2108,6 +2114,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatLab))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2117,6 +2124,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatLab))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2136,6 +2144,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatIng))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2145,6 +2154,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatIng))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2164,6 +2174,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatTec))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2173,6 +2184,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatTec))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2182,6 +2194,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatTec))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2199,6 +2212,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatDemo))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2218,6 +2232,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatHog))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
@@ -2227,6 +2242,7 @@ server <- function(input, output){
                  fill = !!sym(input$CatHog))) +
       geom_polygon()  +
       geom_path(color = "white") +
+      scale_fill_gradient(low = "#56B1F7", high = "#132B43")+
       coord_equal() +
       theme(title = element_blank(),
             axis.text = element_blank())
