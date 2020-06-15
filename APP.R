@@ -1749,6 +1749,7 @@ server <- function(input, output){
       ggplot(aes(x=depto, y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1759,6 +1760,7 @@ server <- function(input, output){
       separate(Categoría, c("Sexo", "Categoría"), "_0")%>%
       ggplot(aes(x=`00_dpto`, y= Valor, fill= Categoría))+
       geom_bar(position = "fill", stat = "identity")+
+      scale_fill_brewer(palette = "Set2")+
       facet_wrap(~Sexo)+
       scale_y_continuous(labels = scales::percent)+
       coord_flip()+
@@ -1770,6 +1772,7 @@ server <- function(input, output){
       gather(key= Tramo_etario, value= Valor, -depto)%>% 
       ggplot(aes(x=depto, y= Valor, fill= Tramo_etario))+
       geom_bar(position = "dodge", stat = "identity")+
+      scale_fill_brewer(palette = "Set2")+
       scale_y_continuous(labels = scales::percent)+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
@@ -1780,6 +1783,7 @@ server <- function(input, output){
       gather(key= Sexo, value= Valor, -depto)%>% 
       ggplot(aes(x=depto, y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Indicador")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1808,6 +1812,7 @@ server <- function(input, output){
       ggplot(aes(x=depto, y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1818,6 +1823,7 @@ server <- function(input, output){
       ggplot(aes(x=depto, y= Valor, fill= Tramo_etario))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1848,6 +1854,7 @@ server <- function(input, output){
       ggplot(aes(x=depto, y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1870,6 +1877,7 @@ server <- function(input, output){
       ggplot(aes(x=depto, y= Valor, fill= Tramo_etario))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1882,6 +1890,7 @@ server <- function(input, output){
       geom_bar(position = "fill", stat = "identity")+
       facet_wrap(~Sexo)+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1902,6 +1911,7 @@ server <- function(input, output){
       ggplot(aes(x=depto, y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1912,6 +1922,7 @@ server <- function(input, output){
       ggplot(aes(x=depto, y= Valor, fill= Tramo_etario))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1941,6 +1952,7 @@ server <- function(input, output){
       ggplot(aes(x=depto, y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -1951,6 +1963,7 @@ server <- function(input, output){
       separate(Categoría, c("Sexo", "Categoría"), "_0")%>%
       ggplot(aes(x=`00_dpto`, y= Valor, fill= Categoría))+
       geom_bar(position = "fill", stat = "identity")+
+      scale_fill_brewer(palette = "Set2")+
       facet_wrap(~Sexo)+
       scale_y_continuous(labels = scales::percent)+
       coord_flip()+
@@ -1983,6 +1996,7 @@ server <- function(input, output){
       geom_bar(position = "fill", stat = "identity")+
       facet_wrap(~Sexo)+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
@@ -2013,6 +2027,7 @@ server <- function(input, output){
       ggplot(aes(x=dpto, y= Valor, fill= Categoría))+
       geom_bar(position = "fill", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
+      scale_fill_brewer(palette = "Set2")+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
       theme(axis.text.y = element_text(face="bold"))+
