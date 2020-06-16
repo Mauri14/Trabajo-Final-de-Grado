@@ -845,6 +845,316 @@ funcion9<-function(diseno, variable, nombre, a1, b) {
   
   
 }
+
+funcion2inf<-function(diseno, filtro, variable, nombre, a1, b)  {
+  
+  
+  departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                    "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
+  Ind0<-departamentos
+  desv0<- departamentos
+  nombres<-c("00_dpto")
+  tot0<-departamentos
+  desvios0<-departamentos
+  l<-length(b)
+  a2<-paste0(a1,"_se")
+  
+  for (i in 1:l) {
+    nam<- paste("Indicador", i, sep="")
+    assign(nam, diseno%>%
+             filter(eval(parse(text=filtro)))%>%
+             mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
+                                 "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres" ))%>%
+             mutate(e26= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))%>%
+             group_by(dpto,e26)%>%
+             summarise(estimacion= survey_mean(eval(parse(text=variable))==b[i]))
+           
+    )
+    nam2<- paste("Ind", i, sep="")
+    assign(nam2, eval(parse(text=nam))%>%
+             select(c(dpto,e26,estimacion))%>%
+             spread(e26, estimacion))
+    
+    totalesb<-diseno%>%
+      filter(eval(parse(text=filtro)))%>%
+      group_by(e26)%>%
+      summarise(estimacion.tot= survey_mean(eval(parse(text=variable))==b[i]))
+    
+    totalesbi<-totalesb%>%
+      mutate(sexo= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))%>%
+      select(c(sexo,estimacion.tot))%>%
+      spread(sexo, estimacion.tot)
+    
+    
+    totalesbi<-cbind("Total País",totalesbi)
+    colnames(totalesbi)<-c("dpto", "Hombre", "Mujer")
+    
+    assign(nam2,rbind(eval(parse(text=nam2)),totalesbi))
+    
+    Ind0<-left_join(Ind0, eval(parse(text=nam2)), by="dpto")
+    
+    
+    nam3<-paste("desv", i, sep="")
+    assign(nam3, eval(parse(text=nam))%>%
+             select(c(dpto,e26,estimacion_se))%>%
+             spread(e26, estimacion_se))
+    
+    totalesse<-totalesb%>%
+      mutate(sexo= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))%>%
+      select(c(sexo,estimacion.tot_se))%>%
+      spread(sexo, estimacion.tot_se)
+    
+    
+    totalesse<-cbind("Total País",totalesse)
+    colnames(totalesse)<-c("dpto", "Hombre", "Mujer")
+    
+    assign(nam3,rbind(eval(parse(text=nam3)),totalesse))
+    
+    
+    desv0<-left_join(desv0, eval(parse(text=nam3)), by="dpto")
+    
+    
+    
+    
+    nombres<-cbind(nombres, paste("Hombre", a1[i], sep="_"), paste("Mujer", a1[i], sep="_"))        
+    
+    
+    tot<- paste("Total", i, sep="")
+    assign(tot, diseno%>%
+             filter(eval(parse(text=filtro)))%>%
+             mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
+                                 "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres" ))%>%
+             group_by(dpto)%>%
+             summarise(estimacion= survey_mean(eval(parse(text=variable))==b[i]))
+           
+    )
+    totales2<- paste("Tot", i, sep="")
+    assign(totales2, eval(parse(text=tot))%>%
+             select(c(dpto,estimacion)))
+    
+    totalesb2<-diseno%>%
+      filter(eval(parse(text=filtro)))%>%
+      summarise(estimacion.tot= survey_mean(eval(parse(text=variable))==b[i]))
+    
+    totalesb2<-cbind("Total País",totalesb2)
+    colnames(totalesb2)<-c("dpto", "estimacion", "estimacion_se")
+    
+    totalesbb2<-totalesb2%>%
+      select(c(dpto, estimacion))
+    
+    assign(totales2,rbind(eval(parse(text=totales2)),totalesbb2))
+    
+    tot0<-left_join(tot0, eval(parse(text=totales2)), by="dpto")
+    
+    
+    totales3<-paste("desvios", i, sep="")
+    assign(totales3, eval(parse(text=tot))%>%
+             select(c(dpto,estimacion_se)))
+    
+    totales2se<-totalesb2%>%
+      select(c(dpto, estimacion_se))
+    
+    assign(totales3,rbind(eval(parse(text=totales3)),totales2se))
+    
+    
+    desvios0<-left_join(desvios0, eval(parse(text=totales3)), by="dpto")
+    
+    
+    
+    
+  }
+  colnames(tot0)<-c("00_dpto",paste0("Total_",a1))
+  colnames(desvios0)<-c("00_dpto",paste0("Total_",a2))
+  colnames(Ind0)<-nombres  
+  colnames(desv0)<-nombres  
+  
+  Ind0<- left_join(Ind0, tot0)
+  desv0<-left_join(desv0, desvios0)
+  
+  
+  
+  sup<-Ind0[,-1]+ (1.96*desv0[,-1])
+  sup<-cbind(departamentos, sup)
+  
+  inf<-Ind0[,-1]- (1.96*desv0[,-1])
+  inf<-cbind(departamentos, inf)
+  
+  auxe<- order(colnames(Ind0)) 
+  
+  
+  Ind0<- Ind0%>%
+    select(auxe)
+  
+  desv0<- desv0%>%
+    select(auxe)
+  
+  inf<- inf%>%
+    select(auxe)
+  
+  sup<- sup%>%
+    select(auxe)
+  
+  inf[inf<0]<-0
+  sup[sup>1]<-1
+  
+  return(inf)
+  
+}
+
+funcion2sup<-function(diseno, filtro, variable, nombre, a1, b)  {
+  
+  
+  departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                    "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
+  Ind0<-departamentos
+  desv0<- departamentos
+  nombres<-c("00_dpto")
+  tot0<-departamentos
+  desvios0<-departamentos
+  l<-length(b)
+  a2<-paste0(a1,"_se")
+  
+  for (i in 1:l) {
+    nam<- paste("Indicador", i, sep="")
+    assign(nam, diseno%>%
+             filter(eval(parse(text=filtro)))%>%
+             mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
+                                 "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres" ))%>%
+             mutate(e26= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))%>%
+             group_by(dpto,e26)%>%
+             summarise(estimacion= survey_mean(eval(parse(text=variable))==b[i]))
+           
+    )
+    nam2<- paste("Ind", i, sep="")
+    assign(nam2, eval(parse(text=nam))%>%
+             select(c(dpto,e26,estimacion))%>%
+             spread(e26, estimacion))
+    
+    totalesb<-diseno%>%
+      filter(eval(parse(text=filtro)))%>%
+      group_by(e26)%>%
+      summarise(estimacion.tot= survey_mean(eval(parse(text=variable))==b[i]))
+    
+    totalesbi<-totalesb%>%
+      mutate(sexo= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))%>%
+      select(c(sexo,estimacion.tot))%>%
+      spread(sexo, estimacion.tot)
+    
+    
+    totalesbi<-cbind("Total País",totalesbi)
+    colnames(totalesbi)<-c("dpto", "Hombre", "Mujer")
+    
+    assign(nam2,rbind(eval(parse(text=nam2)),totalesbi))
+    
+    Ind0<-left_join(Ind0, eval(parse(text=nam2)), by="dpto")
+    
+    
+    nam3<-paste("desv", i, sep="")
+    assign(nam3, eval(parse(text=nam))%>%
+             select(c(dpto,e26,estimacion_se))%>%
+             spread(e26, estimacion_se))
+    
+    totalesse<-totalesb%>%
+      mutate(sexo= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))%>%
+      select(c(sexo,estimacion.tot_se))%>%
+      spread(sexo, estimacion.tot_se)
+    
+    
+    totalesse<-cbind("Total País",totalesse)
+    colnames(totalesse)<-c("dpto", "Hombre", "Mujer")
+    
+    assign(nam3,rbind(eval(parse(text=nam3)),totalesse))
+    
+    
+    desv0<-left_join(desv0, eval(parse(text=nam3)), by="dpto")
+    
+    
+    
+    
+    nombres<-cbind(nombres, paste("Hombre", a1[i], sep="_"), paste("Mujer", a1[i], sep="_"))        
+    
+    
+    tot<- paste("Total", i, sep="")
+    assign(tot, diseno%>%
+             filter(eval(parse(text=filtro)))%>%
+             mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
+                                 "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres" ))%>%
+             group_by(dpto)%>%
+             summarise(estimacion= survey_mean(eval(parse(text=variable))==b[i]))
+           
+    )
+    totales2<- paste("Tot", i, sep="")
+    assign(totales2, eval(parse(text=tot))%>%
+             select(c(dpto,estimacion)))
+    
+    totalesb2<-diseno%>%
+      filter(eval(parse(text=filtro)))%>%
+      summarise(estimacion.tot= survey_mean(eval(parse(text=variable))==b[i]))
+    
+    totalesb2<-cbind("Total País",totalesb2)
+    colnames(totalesb2)<-c("dpto", "estimacion", "estimacion_se")
+    
+    totalesbb2<-totalesb2%>%
+      select(c(dpto, estimacion))
+    
+    assign(totales2,rbind(eval(parse(text=totales2)),totalesbb2))
+    
+    tot0<-left_join(tot0, eval(parse(text=totales2)), by="dpto")
+    
+    
+    totales3<-paste("desvios", i, sep="")
+    assign(totales3, eval(parse(text=tot))%>%
+             select(c(dpto,estimacion_se)))
+    
+    totales2se<-totalesb2%>%
+      select(c(dpto, estimacion_se))
+    
+    assign(totales3,rbind(eval(parse(text=totales3)),totales2se))
+    
+    
+    desvios0<-left_join(desvios0, eval(parse(text=totales3)), by="dpto")
+    
+    
+    
+    
+  }
+  colnames(tot0)<-c("00_dpto",paste0("Total_",a1))
+  colnames(desvios0)<-c("00_dpto",paste0("Total_",a2))
+  colnames(Ind0)<-nombres  
+  colnames(desv0)<-nombres  
+  
+  Ind0<- left_join(Ind0, tot0)
+  desv0<-left_join(desv0, desvios0)
+  
+  
+  
+  sup<-Ind0[,-1]+ (1.96*desv0[,-1])
+  sup<-cbind(departamentos, sup)
+  
+  inf<-Ind0[,-1]- (1.96*desv0[,-1])
+  inf<-cbind(departamentos, inf)
+  
+  auxe<- order(colnames(Ind0)) 
+  
+  
+  Ind0<- Ind0%>%
+    select(auxe)
+  
+  desv0<- desv0%>%
+    select(auxe)
+  
+  inf<- inf%>%
+    select(auxe)
+  
+  sup<- sup%>%
+    select(auxe)
+  
+  inf[inf<0]<-0
+  
+  
+  return(sup)
+  
+}
 ##########
 ## ui.R ##
 ##########
@@ -1023,7 +1333,24 @@ contenido <- dashboardBody(
                          box(title= "Gráfico de barras", plotlyOutput("barras_demo",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800)
                          )),
               tabPanel("Tabla", DTOutput("datos6"), fluidRow(p(class = 'text-center', downloadButton('dd6', 'Descargar')))),
-              tabPanel("IC")
+              tabPanel("IC",
+                       fluidRow(
+                         tabBox(
+                           width = 12,
+                           tabPanel(
+                             status= "primary",
+                             title = "Inferior",
+                             DTOutput("InfDemo")
+                           ),
+                           tabPanel(
+                             status= "success",
+                             title = "Superior",
+                             DTOutput("SupDemo")
+                             
+                           )
+                         )
+                         
+                       ))
             )
     ),
     tabItem(tabName = "hogares", 
@@ -1591,6 +1918,27 @@ server <- function(input, output){
     
   })
   
+  #################
+  
+  i678Inf<- reactive({funcion2inf(pr(), "1==1", "e236_mod", "Indicador678", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i654Inf<- reactive({funcion2inf(pr(), "1==1", "e37", "Indicador654", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i655Inf<- reactive({funcion2inf(pr(), "1==1", "e39", "Indicador655", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(0,1,2,3))})
+  
+  indicador_demoInf<- reactive({if(input$Nombre6 == "678") i678Inf()
+    else if(input$Nombre6 == "654") i654Inf()
+    else if(input$Nombre6 == "655") i655Inf()
+  })
+  
+  i678Sup<- reactive({funcion2sup(pr(), "1==1", "e236_mod", "Indicador678", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i654Sup<- reactive({funcion2sup(pr(), "1==1", "e37", "Indicador654", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i655Sup<- reactive({funcion2sup(pr(), "1==1", "e39", "Indicador655", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(0,1,2,3))})
+  
+  indicador_demoSup<- reactive({if(input$Nombre6 == "678") i678Sup()
+    else if(input$Nombre6 == "654") i654Sup()
+    else if(input$Nombre6 == "655") i655Sup()
+  })
+  
+  
   output$datos1 <- renderDT({
     
     inFile <- input$datos
@@ -1704,6 +2052,42 @@ server <- function(input, output){
       return('No data')
     
     datatable(indicador_hog(), 
+              options = list(info = F,
+                             paging = F,
+                             searching = T,
+                             stripeClasses = F, 
+                             lengthChange = F,
+                             scrollX = T),
+              rownames = F) %>% formatRound(c(-1), 4)
+    
+    
+  })
+  
+  output$InfDemo <- renderDT({
+    
+    inFile <- input$datos
+    if (is.null(inFile))
+      return('No data')
+    
+    datatable(indicador_demoInf(), 
+              options = list(info = F,
+                             paging = F,
+                             searching = T,
+                             stripeClasses = F, 
+                             lengthChange = F,
+                             scrollX = T),
+              rownames = F) %>% formatRound(c(-1), 4)
+    
+    
+  })
+  
+  output$SupDemo <- renderDT({
+    
+    inFile <- input$datos
+    if (is.null(inFile))
+      return('No data')
+    
+    datatable(indicador_demoSup(), 
               options = list(info = F,
                              paging = F,
                              searching = T,
