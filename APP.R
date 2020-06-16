@@ -995,7 +995,7 @@ funcion2inf<-function(diseno, filtro, variable, nombre, a1, b)  {
     select(auxe)
   
   inf[inf<0]<-0
-  sup[sup>1]<-1
+  
   
   return(inf)
   
@@ -1148,9 +1148,6 @@ funcion2sup<-function(diseno, filtro, variable, nombre, a1, b)  {
   
   sup<- sup%>%
     select(auxe)
-  
-  inf[inf<0]<-0
-  
   
   return(sup)
   
