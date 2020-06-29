@@ -1,0 +1,73 @@
+---
+title: "Procesamiento de la Encuesta Continua de Hogares a partir de una Shiny app"
+author: "Mauricio Pittamiglio"
+date: "3/6/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+#Tema
+
+El objetivo de este trabajo es generar una herramienta computacional que facilite el procesamiento de la ECH mediante el cálculo de indicadores, aportando además una visualización interactiva de los resultados.
+
+Como experiencia personal trabajé con la ECH, principalmente con el cálculo de indicadores a partir de esta encuesta, y contar con una herramienta como la realizada en este trabajo simplifica mucho la tarea. 
+
+Otra de las ventajas de esta aplicación es la disponibilidad en la web y el no necesitar de conocimientos en R o en algún otro programa estadístico para poder obtener las estimaciones puntuales e intervalos de confianza para los indicadores, pudiendo visualizar interactivamente los resultados a partir de tablas o distintos gráficos.
+
+#Introducción
+
+La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
+
+Se trabajará con 55? indicadores que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Dichos indicadores abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otros. 
+
+Estos indicadores se calculan tanto a nivel nacional como a nivel departamental. 
+
+
+#Métodos estadísticos
+
+
+##Estimaciones puntuales
+
+
+##Estimación de las varianzas
+
+
+##Intervalos de confianza
+
+
+#Computación estadística
+
+Shiny es una librería que permite crear fácilmente aplicaciones web interactivas a partir de R. La interactividad de estas aplicaciones permite la manipulación de los datos sin la necesidad de manipular el código, es decir, en caso de estar disponible en alguna página web, puede ser fácilmente utilizada por personas que no tengan conocimientos de R.
+
+Estas aplicaciones cuentan con programación reactiva. Esto significa que al cambiar los valores de entrada (inputs) se volveran a ejecutar las partes del código de R correspondientes, lo que a su vez hará que se actualicen las salidas (outputs) modificadas, es decir, la modificación de un valor reactivo llevará automaticamente a todas las expresiones reactivas que dependen directa o indirectamente de este valor a ejecutarse nuevamente. 
+
+Se cuenta además con widgets pre-construidos que facilitan la construcción de aplicaciones bonitas e interactivas. Un widget es un elemento web que los usuarios pueden interactuar con él enviando mensajes a la aplicación Shiny.
+
+Una Shiny app contiene al menos dos archivos: un script para la interfaz del usuario (ui) donde se controla el diseño de la aplicación; y un script para realizar los cálculos necesarios (server). En el server se debe especificar como convertir los valores de entrada (inputs) en resultados (outputs).
+
+##Esta App
+
+En esta aplicación en particular, previo a la creación del ui y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
+
+###ui
+
+La ui cuenta con tres partes, el encabezado (*dashboardHeader*), la barra lateral (*dashboardSidebar*) y el contenido (*dashboardBody*).
+
+Dentro del encabezado solo aparece el título y un link que lleva directamente a la página del INE donde están disponibles las bases de datos de la ECH.
+
+La barra lateral es utilizada para cargar las bases y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función *fileInput* y se deben cargar por separadas las bases de personas y de hogares de la ECH. También se incluye un widget mediante la función *selectInput* para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPMs.
+
+En el body se especifica el contenido de cada una de las secciones. La ventana introductoria cuenta con... . 
+
+La sección de los indicadores cuenta con 3 pestañas. En la primera de ellas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (*downloadButton*) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones.
+
+###server
+
+En esta parte de la App se realizan todos los cálculos necesarios. En primer lugar se crean todos los elementos reactivos (las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función *reactive*. Luego se crean todos los componentes de salida con funciones render, las tablas con *renderDT* y los gráficos con *renderPlotly*. Tanto las tablas como los gráficos se crean con outputs diferentes para cada una de las categorías de indicadores.
+
+Plotly hace los gráficos interactivos, ya que cuenta con varias opciones para poder visualizarlos mejor y permite descargarlos como imagen.
+
+
