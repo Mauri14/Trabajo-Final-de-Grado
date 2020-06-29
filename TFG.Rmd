@@ -23,7 +23,8 @@ La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininter
 
 Se trabajará con 55? indicadores que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Dichos indicadores abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otros. 
 
-Estos indicadores se calculan tanto a nivel nacional como a nivel departamental. 
+Estos indicadores se calculan tanto a nivel de todo el país como a nivel departamental. 
+
 
 
 #Métodos estadísticos
@@ -40,6 +41,12 @@ Estos indicadores se calculan tanto a nivel nacional como a nivel departamental.
 
 #Computación estadística
 
+
+##Estimación de los indicadores
+
+
+##Shiny App
+
 Shiny es una librería que permite crear fácilmente aplicaciones web interactivas a partir de R. La interactividad de estas aplicaciones permite la manipulación de los datos sin la necesidad de manipular el código, es decir, en caso de estar disponible en alguna página web, puede ser fácilmente utilizada por personas que no tengan conocimientos de R.
 
 Estas aplicaciones cuentan con programación reactiva. Esto significa que al cambiar los valores de entrada (inputs) se volveran a ejecutar las partes del código de R correspondientes, lo que a su vez hará que se actualicen las salidas (outputs) modificadas, es decir, la modificación de un valor reactivo llevará automaticamente a todas las expresiones reactivas que dependen directa o indirectamente de este valor a ejecutarse nuevamente. 
@@ -48,11 +55,11 @@ Se cuenta además con widgets pre-construidos que facilitan la construcción de 
 
 Una Shiny app contiene al menos dos archivos: un script para la interfaz del usuario (ui) donde se controla el diseño de la aplicación; y un script para realizar los cálculos necesarios (server). En el server se debe especificar como convertir los valores de entrada (inputs) en resultados (outputs).
 
-##Esta App
+###Esta App
 
 En esta aplicación en particular, previo a la creación del ui y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
-###ui
+####ui
 
 La ui cuenta con tres partes, el encabezado (*dashboardHeader*), la barra lateral (*dashboardSidebar*) y el contenido (*dashboardBody*).
 
@@ -62,12 +69,12 @@ La barra lateral es utilizada para cargar las bases y para seleccionar la secci�
 
 En el body se especifica el contenido de cada una de las secciones. La ventana introductoria cuenta con... . 
 
-La sección de los indicadores cuenta con 3 pestañas. En la primera de ellas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (*downloadButton*) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones.
+La sección de los indicadores cuenta con 3 pestañas. En la primera de ellas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (*downloadButton*) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior.
 
-###server
+####server
 
-En esta parte de la App se realizan todos los cálculos necesarios. En primer lugar se crean todos los elementos reactivos (las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función *reactive*. Luego se crean todos los componentes de salida con funciones render, las tablas con *renderDT* y los gráficos con *renderPlotly*. Tanto las tablas como los gráficos se crean con outputs diferentes para cada una de las categorías de indicadores.
+En esta parte de la App se realizan todos los cálculos necesarios. En primer lugar se crean todos los elementos reactivos (se guardan las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función *reactive*. Luego se crean todos los componentes de salida con funciones render, las tablas con *renderDT* y los gráficos con *renderPlotly*. Tanto las tablas como los gráficos se crean con outputs diferentes para cada una de las categorías de indicadores.
 
-Plotly hace los gráficos interactivos, ya que cuenta con varias opciones para poder visualizarlos mejor y permite descargarlos como imagen.
+Plotly hace los gráficos interactivos, cuenta con varias opciones para poder visualizarlos de manera más precisa y permite descargarlos como imagen.
 
 
