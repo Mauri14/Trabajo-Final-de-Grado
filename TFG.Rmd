@@ -21,7 +21,7 @@ Otra de las ventajas de esta aplicación es la disponibilidad en la web y el no 
 
 La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
 
-Se trabajará con 55? indicadores que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Dichos indicadores abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otros. 
+Se trabajará con 53 indicadores que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Los indicadores abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. 
 
 Estos indicadores se calculan tanto a nivel de todo el país como a nivel departamental. 
 
@@ -43,6 +43,37 @@ Estos indicadores se calculan tanto a nivel de todo el país como a nivel depart
 
 
 ##Estimación de los indicadores
+
+Para la estimación de los indicadores se crearon 9 funciones, según las distintas desagregaciones que estos tienen y los diferentes cálculos que conllevan. Todas las funciones necesitan de algunos insumos para estimar los indicadores correspondientes tanto para cada departamento como para todo el país. 
+
+Las primeras 7 funciones son para los indicadores que se obtienen a partir de la base de personas de la ECH, mientras las últimas 2 trabajan con la base de hogares.
+
+La primera función se utiliza para los indicadores que necesitan del cálculo de la media para una variable dicotómica, desagregando además por sexo. Esta función necesita como insumo el diseño, el filtro a aplicar de ser necesario y la variable dicotómica.
+
+La segunda función es utilizada para los indicadores en los cuales es necesario calcular la media de una variable con más de 2 categorías, y también se desagrega por sexo. Los insumos necesarios son: el diseño, el filtro, la variable y las distintas categorías de esta.
+
+Las funciones 3 y 4 se utilizaron únicamente para el cálculo de un indicador cada una. La función 3 para el indicador *Tasa de analfabetismo de la población de 15 años y más por tramos de edad*, mientras la 4 para el indicador *Personas afiliadas a emergencias móviles por tramos de edad*. Para ambos se calcula la media de una variable dicotómica desagregando por tramos de edad, pero estos son distintos entre sí.
+
+La función 5 es similar a las funciones 3 y 4, con la diferencia de que esta es utilizada para el cálculo de varios indicadores que son desagregados en los mismos tramos etarios.
+
+Para la estimación del indicador *Promedio de años de educación de las personas de 25 años y más por sexo*, se utiliza la función 6. La variable en este caso es cuantitativa, se promedia y se desagrega por sexo.
+
+La función 7 se utiliza para los indicadores que hacen referencia a tasas brutas, es decir, necesitan del cálculo de un ratio.
+
+Los indicadores *Población total por condición de actividad por sexo* y *Personas por tipo de atención en salud*, fueron calculados sin el uso de ninguna función.
+
+Las funciones 8 y 9, como se mencionó anteriormente, son las utilizadas para la estimación de los indicadores que se obtienen a partir de la base de hogares de la ECH. La función 8 se utiliza para los indicadores que requieren el cálculo de la media de una variable dicotómica, mientras que en la 9, la variable en cuestión presenta más de 2 categorías, por lo tanto como insumo además del diseño y la variable, necesita las categorías de esta.
+
+El indicador *Hogares por tipo de relación con la vivienda* fue estimado sin el uso de ninguna función. 
+
+###Listado de indicadores
+
+tablita
+indicador/categoria/funcion/variable/desagregacion/base
+
+###Descripción de los diseños
+
+Para los diseños se utiliza la librería *srvyr*. En el correspondiente con la opción .... se utiliza como ids la variable *numero*, que hace referencia al hogar al que el individuo pertenece. Mientras para el otro diseño se utiliza la variable *UPM_ID* como ids y además se le agregan los estratos. Se procede de esta manera tanto para la base de personas como para la de hogares.
 
 
 ##Shiny App
@@ -73,7 +104,7 @@ La sección de los indicadores cuenta con 3 pestañas. En la primera de ellas se
 
 ####server
 
-En esta parte de la App se realizan todos los cálculos necesarios. En primer lugar se crean todos los elementos reactivos (se guardan las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función *reactive*. Luego se crean todos los componentes de salida con funciones render, las tablas con *renderDT* y los gráficos con *renderPlotly*. Tanto las tablas como los gráficos se crean con outputs diferentes para cada una de las categorías de indicadores.
+En esta parte de la App se realizan todos los cálculos necesarios. En primer lugar se crean todos los elementos reactivos (se guardan las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función *reactive*. Luego se crean todos los componentes de salida con funciones render, las tablas con *renderDT* y los gráficos con *renderPlotly*. Tanto las tablas como los gráficos se crean en outputs diferentes para cada una de las categorías de indicadores.
 
 Plotly hace los gráficos interactivos, cuenta con varias opciones para poder visualizarlos de manera más precisa y permite descargarlos como imagen.
 
