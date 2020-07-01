@@ -27,7 +27,7 @@ mapa_uru$popup<- recode(mapa_uru$popup,"ARTIGAS"="Artigas","CANELONES"="Canelone
 #####Funciones######
 
 
-funcion1<-function(diseno, filtro, variable, nombre)  {
+funcion1<-function(diseno, filtro, variable)  {
   
   Indicador<-diseno%>%
     filter(eval(parse(text=filtro)))%>%
@@ -132,7 +132,7 @@ funcion1<-function(diseno, filtro, variable, nombre)  {
   
 }
 
-funcion2<-function(diseno, filtro, variable, nombre, a1, b)  {
+funcion2<-function(diseno, filtro, variable, a1, b)  {
   
   
   departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
@@ -287,7 +287,7 @@ funcion2<-function(diseno, filtro, variable, nombre, a1, b)  {
   
 }
 
-funcion3<-function(diseno, filtro, variable, nombre)  {
+funcion3<-function(diseno, filtro, variable)  {
   
   Indicador<-diseno%>%
     filter(eval(parse(text=filtro)))%>%
@@ -389,7 +389,7 @@ funcion3<-function(diseno, filtro, variable, nombre)  {
   return(IndicadorA)
 }
 
-funcion4<-function(diseno, filtro, variable, nombre)  {
+funcion4<-function(diseno, filtro, variable)  {
   
   Indicador<-diseno%>%
     filter(eval(parse(text=filtro)))%>%
@@ -493,7 +493,7 @@ funcion4<-function(diseno, filtro, variable, nombre)  {
   
 }
 
-funcion5<-function(diseno, filtro, variable, nombre)  {
+funcion5<-function(diseno, filtro, variable)  {
   
   Indicador<-diseno%>%
     filter(eval(parse(text=filtro)))%>%
@@ -597,7 +597,7 @@ funcion5<-function(diseno, filtro, variable, nombre)  {
   
 }
 
-funcion6<-function(diseno, filtro, variable, nombre)  {
+funcion6<-function(diseno, filtro, variable)  {
   
   Indicador<-diseno%>%
     filter(eval(parse(text=filtro)))%>%
@@ -697,7 +697,7 @@ funcion6<-function(diseno, filtro, variable, nombre)  {
   return(IndicadorA)
 }
 
-funcion7<- function(diseno, var1, var2, nombre) {
+funcion7<- function(diseno, var1, var2) {
   
   tabla1<-diseno%>%
     group_by(dpto)%>%
@@ -734,7 +734,7 @@ funcion7<- function(diseno, var1, var2, nombre) {
   
 }
 
-funcion8<- function(diseno, variable, nombre) {
+funcion8<- function(diseno, variable) {
   
   tabla1<-diseno%>%
     group_by(dpto)%>%
@@ -772,7 +772,7 @@ funcion8<- function(diseno, variable, nombre) {
   
 }
 
-funcion9<-function(diseno, variable, nombre, a1, b) {
+funcion9<-function(diseno, variable, a1, b) {
   
   departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
                                     "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
@@ -846,7 +846,7 @@ funcion9<-function(diseno, variable, nombre, a1, b) {
   
 }
 
-funcion2inf<-function(diseno, filtro, variable, nombre, a1, b)  {
+funcion2inf<-function(diseno, filtro, variable, a1, b)  {
   
   
   departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
@@ -1001,7 +1001,7 @@ funcion2inf<-function(diseno, filtro, variable, nombre, a1, b)  {
   
 }
 
-funcion2sup<-function(diseno, filtro, variable, nombre, a1, b)  {
+funcion2sup<-function(diseno, filtro, variable, a1, b)  {
   
   
   departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
@@ -1476,25 +1476,25 @@ server <- function(input, output){
     return(ph)
   })
   
-  i741<- reactive({funcion1(pr(), "e_25a44d ==1 | e_45a64d ==1","estudios_terciarios==1","Indicador741" )})
-  i751<- reactive({funcion1(pr(), "e27>=3 & e27<=5","e193==1","Indicador751" )})
-  i1807<-reactive({funcion1(pr(), "e27>=12 & e27<=17", "edmedia==1", "Indicador1807")})
-  i740<- reactive({funcion1(pr(), "e27>=18", "secundaria_utu2==1", "Indicador740")})
-  i748<- reactive({funcion1(pr(), "e27<=2", "e238==1", "Indicador748")})
-  i732<- reactive({funcion1(pr(), "e27>=12 & e27<=17", "adol_estudios==1", "Indicador732")})
-  i756<- reactive({funcion1(pr(), "e27>=6 & e27<=11", "e197==1", "Indicador756")})
-  i739<- reactive({funcion1(pr(), "e27>=15", "e51_4==3", "Indicador739")})
-  i689<- reactive({funcion1(pr(), "e27>=15", "e48==2", "Indicador689")})
-  i690<- reactive({funcion1(pr(), "e27>=14 & e27<=24", "nini==1", "Indicador690")})
-  i696<- reactive({funcion2(pr(), "e27>=25", "niveledu", "Indicador696", c("01_Sin_instrucción", "02_Primaria", "03_Secundaria", "04_Ter_no_universitario", "05_Magi_Prof", "06_Universitario"),
+  i741<- reactive({funcion1(pr(), "e_25a44d ==1 | e_45a64d ==1","estudios_terciarios==1")})
+  i751<- reactive({funcion1(pr(), "e27>=3 & e27<=5","e193==1")})
+  i1807<-reactive({funcion1(pr(), "e27>=12 & e27<=17", "edmedia==1")})
+  i740<- reactive({funcion1(pr(), "e27>=18", "secundaria_utu2==1")})
+  i748<- reactive({funcion1(pr(), "e27<=2", "e238==1")})
+  i732<- reactive({funcion1(pr(), "e27>=12 & e27<=17", "adol_estudios==1")})
+  i756<- reactive({funcion1(pr(), "e27>=6 & e27<=11", "e197==1")})
+  i739<- reactive({funcion1(pr(), "e27>=15", "e51_4==3")})
+  i689<- reactive({funcion1(pr(), "e27>=15", "e48==2")})
+  i690<- reactive({funcion1(pr(), "e27>=14 & e27<=24", "nini==1")})
+  i696<- reactive({funcion2(pr(), "e27>=25", "niveledu", c("01_Sin_instrucción", "02_Primaria", "03_Secundaria", "04_Ter_no_universitario", "05_Magi_Prof", "06_Universitario"),
                             c(0,1,2,3,4,5))})
-  i725<- reactive({funcion2(pr(), "pobpcoac == 2", "niveledu", "Indicador725", c("01_Sin_instrucción", "02_Primaria", "03_Secundaria", "04_Ter_no_universitario", "05_Magi_Prof", "06_Universitario"),
+  i725<- reactive({funcion2(pr(), "pobpcoac == 2", "niveledu", c("01_Sin_instrucción", "02_Primaria", "03_Secundaria", "04_Ter_no_universitario", "05_Magi_Prof", "06_Universitario"),
                             c(0,1,2,3,4,5))})
-  i1020<- reactive({funcion3(pr(), "e27>=15", "e48==2", "Indicador1020")})
-  i1380<- reactive({funcion6(pr(), "e27>=25", "a_estudio", "Indicador1380")})
-  i747<- reactive({funcion7(pr(), "e197", "e6a11", "Indicador747")})
-  i746<- reactive({funcion7(pr(), "e193", "e3a5", "Indicador746")})
-  i1808<-reactive({funcion7(pr(), "edmedia", "e12a17", "Indicador1808")})
+  i1020<- reactive({funcion3(pr(), "e27>=15", "e48==2")})
+  i1380<- reactive({funcion6(pr(), "e27>=25", "a_estudio")})
+  i747<- reactive({funcion7(pr(), "e197", "e6a11")})
+  i746<- reactive({funcion7(pr(), "e193", "e3a5")})
+  i1808<-reactive({funcion7(pr(), "edmedia", "e12a17")})
   
   indicador_edu<- reactive({ if(input$Nombre == "741") i741()
     else if(input$Nombre == "751") i751()
@@ -1515,8 +1515,8 @@ server <- function(input, output){
     else if(input$Nombre == "1808") i1808()
   })
   
-  i501<- reactive({funcion1(pr(),"1==1","e46==1","Indicador501")})
-  i529<- reactive({funcion4(pr(), "1==1", "e46==1", "Indicador529")})
+  i501<- reactive({funcion1(pr(),"1==1","e46==1")})
+  i529<- reactive({funcion4(pr(), "1==1", "e46==1")})
   i517<- reactive({
     pta<-pr()%>%
       mutate(no_tiene=ifelse(e45_1 == 2 & e45_2 == 2 & e45_3 == 2 & e45_4 == 2 & e45_5 == 2 & e45_6 == 2 & e45_7 == 2,1,0))%>%
@@ -1600,17 +1600,17 @@ server <- function(input, output){
     
   })
   
-  i533<- reactive({funcion1(pr(), "e27>13", "pobpcoac==2", "Indicador533")})
-  i521<- reactive({funcion1(pr(), "pobpcoac == 2", "subempleo==1", "Indicador521")})
-  i526<- reactive({funcion1(pr(), "e27>13 & pobpcoac==2", "f82==2", "Indicador526")})
-  i618<- reactive({funcion1(pr(), "pobpcoac==2", "f80==2", "Indicador618")})
-  i608<- reactive({funcion1(pr(), "e27>13", "activo==1", "Indicador608")})
-  i502<- reactive({funcion1(pr(), "e27>13 & activo==1", "desocupados==1", "Indicador502")})  
-  i609<- reactive({funcion2(pr(), "f116==1", "f121", "Indicador609", c("01_As_privado","02_As_público", "03_Miembro_coop_de_prod", "04_Patrón", "05_Cp_sin_local", "06_Cp_con_local", "07_Miembro_hogar_no_rem", "08_Programa_social_empleo"), c(1,2,3,4,5,6,7,8))})
-  i611<- reactive({funcion2(pr(), "pobpcoac==2", "f73", "Indicador611", c("01_As_privado","02_As_público", "03_Miembro_coop_de_prod", "04_Patrón", "05_Cp_sin_local", "06_Cp_con_local", "07_Miembro_hogar_no_rem", "08_Programa_social_empleo"), c(1,2,3,4,5,6,7,8))})
-  i531<- reactive({funcion5(pr(), "e27>13 & activo==1", "desocupados", "Indicador531")})
-  i607<- reactive({funcion5(pr(), "e27>13", "activo==1", "Indicador607")})
-  i534<- reactive({funcion5(pr(), "e27>13", "pobpcoac==2", "Indicador534")})
+  i533<- reactive({funcion1(pr(), "e27>13", "pobpcoac==2")})
+  i521<- reactive({funcion1(pr(), "pobpcoac == 2", "subempleo==1")})
+  i526<- reactive({funcion1(pr(), "e27>13 & pobpcoac==2", "f82==2")})
+  i618<- reactive({funcion1(pr(), "pobpcoac==2", "f80==2")})
+  i608<- reactive({funcion1(pr(), "e27>13", "activo==1")})
+  i502<- reactive({funcion1(pr(), "e27>13 & activo==1", "desocupados==1")})  
+  i609<- reactive({funcion2(pr(), "f116==1", "f121", c("01_As_privado","02_As_público", "03_Miembro_coop_de_prod", "04_Patrón", "05_Cp_sin_local", "06_Cp_con_local", "07_Miembro_hogar_no_rem", "08_Programa_social_empleo"), c(1,2,3,4,5,6,7,8))})
+  i611<- reactive({funcion2(pr(), "pobpcoac==2", "f73", c("01_As_privado","02_As_público", "03_Miembro_coop_de_prod", "04_Patrón", "05_Cp_sin_local", "06_Cp_con_local", "07_Miembro_hogar_no_rem", "08_Programa_social_empleo"), c(1,2,3,4,5,6,7,8))})
+  i531<- reactive({funcion5(pr(), "e27>13 & activo==1", "desocupados")})
+  i607<- reactive({funcion5(pr(), "e27>13", "activo==1")})
+  i534<- reactive({funcion5(pr(), "e27>13", "pobpcoac==2")})
   i610<- reactive({
     departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
                                       "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
@@ -1813,11 +1813,11 @@ server <- function(input, output){
     else if(input$Nombre3 == "610") i610()
   })
   
-  i568<- reactive({funcion1(pr(),"1==1", "pobre06==1", "Indicador568")})
-  i1636<-reactive({funcion1(pr(), "e27>=14 & e27<=29", "pobre06==1","Indicador1636")}) 
-  i577<- reactive({funcion8(ph(), "hacinamiento", "Indicador577")})
-  i1929<-reactive({funcion8(ph(), "d21_18==1", "Indicador1929")})
-  i553<- reactive({funcion8(ph(), "pobre06", "Indicador553")})
+  i568<- reactive({funcion1(pr(),"1==1", "pobre06==1")})
+  i1636<-reactive({funcion1(pr(), "e27>=14 & e27<=29", "pobre06==1")}) 
+  i577<- reactive({funcion8(ph(), "hacinamiento")})
+  i1929<-reactive({funcion8(ph(), "d21_18==1")})
+  i553<- reactive({funcion8(ph(), "pobre06")})
   
   
   indicador_ing<- reactive({ if(input$Nombre4 == "526") i526()
@@ -1831,13 +1831,13 @@ server <- function(input, output){
     
   })
   
-  i605<- reactive({funcion1(pr(), "e27>5","e62==1","Indicador605")})
-  i581<- reactive({funcion1(pr(),"e27>5","e60==1","Indicador581")})
-  i603<- reactive({funcion1(pr(),"e27>5","e61==1","Indicador603")})
-  i582<- reactive({funcion2(pr(), "e27>5 & e62==1", "e65", "Indicador582", c("01_una_al_dia","02_una_a_la_semana", "03_una_al_mes", "04_no_sabe"), c(1,2,3,4))})
-  i591<- reactive({funcion8(ph(), "d21_16==1", "Indicador591")})
-  i594<- reactive({funcion8(ph(), "d21_15==1", "Indicador594")})
-  i584<- reactive({funcion8(ph(), "d21_15_1==1", "Indicador584")})
+  i605<- reactive({funcion1(pr(), "e27>5","e62==1")})
+  i581<- reactive({funcion1(pr(),"e27>5","e60==1")})
+  i603<- reactive({funcion1(pr(),"e27>5","e61==1")})
+  i582<- reactive({funcion2(pr(), "e27>5 & e62==1", "e65", c("01_una_al_dia","02_una_a_la_semana", "03_una_al_mes", "04_no_sabe"), c(1,2,3,4))})
+  i591<- reactive({funcion8(ph(), "d21_16==1")})
+  i594<- reactive({funcion8(ph(), "d21_15==1")})
+  i584<- reactive({funcion8(ph(), "d21_15_1==1")})
   
   
   indicador_tec<- reactive({if(input$Nombre5 == "605") i605()
@@ -1849,20 +1849,20 @@ server <- function(input, output){
     else if(input$Nombre5 == "584") i584()
   })
   
-  i678<- reactive({funcion2(pr(), "1==1", "e236_mod", "Indicador678", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
-  i654<- reactive({funcion2(pr(), "1==1", "e37", "Indicador654", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
-  i655<- reactive({funcion2(pr(), "1==1", "e39", "Indicador655", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(0,1,2,3))})
+  i678<- reactive({funcion2(pr(), "1==1", "e236_mod", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i654<- reactive({funcion2(pr(), "1==1", "e37", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i655<- reactive({funcion2(pr(), "1==1", "e39", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(0,1,2,3))})
   
   indicador_demo<- reactive({if(input$Nombre6 == "678") i678()
     else if(input$Nombre6 == "654") i654()
     else if(input$Nombre6 == "655") i655()
   })
   
-  i764<- reactive({funcion9(ph(), "d16", "Indicador764", c("dpto", "No tiene baño", "Red general", "Fosa sept_pozo negro", "Entubado_hacia_arroyo", "Otro"), c(0,1,2,3,4))})
-  i782<- reactive({funcion9(ph(), "d18", "Indicador782", c("dpto", "Energía eléctrica", "Cargador batería", "Supergas_Queroseno", "Velas"), c(1,2,3,4))})
-  i783<- reactive({funcion9(ph(), "d11", "Indicador783", c("dpto", "Red general", "Pozo surg_no proteg", "Pozo surg_proteg", "Aljibe", "Arroyo_río", "Otro"), c(1,2,3,4,5,6))})
-  i765<- reactive({funcion9(ph(), "d19", "Indicador765", c("dpto", "Lugar privado", "Compartido", "No tiene"), c(1,2,3))})
-  i766<- reactive({funcion9(ph(), "d15", "Indicador766", c("dpto","No tiene", "Exclusivo", "Compartido"), c(0,1,2))})
+  i764<- reactive({funcion9(ph(), "d16", c("dpto", "No tiene baño", "Red general", "Fosa sept_pozo negro", "Entubado_hacia_arroyo", "Otro"), c(0,1,2,3,4))})
+  i782<- reactive({funcion9(ph(), "d18", c("dpto", "Energía eléctrica", "Cargador batería", "Supergas_Queroseno", "Velas"), c(1,2,3,4))})
+  i783<- reactive({funcion9(ph(), "d11", c("dpto", "Red general", "Pozo surg_no proteg", "Pozo surg_proteg", "Aljibe", "Arroyo_río", "Otro"), c(1,2,3,4,5,6))})
+  i765<- reactive({funcion9(ph(), "d19", c("dpto", "Lugar privado", "Compartido", "No tiene"), c(1,2,3))})
+  i766<- reactive({funcion9(ph(), "d15", c("dpto","No tiene", "Exclusivo", "Compartido"), c(0,1,2))})
   i774<- reactive({I774<-ph()%>%
     group_by(dpto)%>%
     summarise(Propietarios=survey_mean(propietarios),
@@ -1917,18 +1917,18 @@ server <- function(input, output){
   
   #################
   
-  i678Inf<- reactive({funcion2inf(pr(), "1==1", "e236_mod", "Indicador678", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
-  i654Inf<- reactive({funcion2inf(pr(), "1==1", "e37", "Indicador654", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
-  i655Inf<- reactive({funcion2inf(pr(), "1==1", "e39", "Indicador655", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(0,1,2,3))})
+  i678Inf<- reactive({funcion2inf(pr(), "1==1", "e236_mod", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i654Inf<- reactive({funcion2inf(pr(), "1==1", "e37", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i655Inf<- reactive({funcion2inf(pr(), "1==1", "e39", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(0,1,2,3))})
   
   indicador_demoInf<- reactive({if(input$Nombre6 == "678") i678Inf()
     else if(input$Nombre6 == "654") i654Inf()
     else if(input$Nombre6 == "655") i655Inf()
   })
   
-  i678Sup<- reactive({funcion2sup(pr(), "1==1", "e236_mod", "Indicador678", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
-  i654Sup<- reactive({funcion2sup(pr(), "1==1", "e37", "Indicador654", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
-  i655Sup<- reactive({funcion2sup(pr(), "1==1", "e39", "Indicador655", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(0,1,2,3))})
+  i678Sup<- reactive({funcion2sup(pr(), "1==1", "e236_mod", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i654Sup<- reactive({funcion2sup(pr(), "1==1", "e37", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(1,2,3,4))})
+  i655Sup<- reactive({funcion2sup(pr(), "1==1", "e39", c("01_misma", "02_otra_loc", "03_otro_depto", "04_otro_país"), c(0,1,2,3))})
   
   indicador_demoSup<- reactive({if(input$Nombre6 == "678") i678Sup()
     else if(input$Nombre6 == "654") i654Sup()

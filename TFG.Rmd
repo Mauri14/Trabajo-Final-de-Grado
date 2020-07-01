@@ -68,12 +68,15 @@ El indicador *Hogares por tipo de relación con la vivienda* fue estimado sin el
 
 ###Listado de indicadores
 
-tablita
-indicador/categoria/funcion/variable/desagregacion/base
+
+Indicador     | Categoría     | Función     | Variable     | Desagregación  | Base    
+---------------- | --------------| --------| ----------------  | -------------  | ----------
+Población entre 25 y 65 años con estudios terciarios por sexo | Educación | 1 | estudios_terciarios | Dpto - Sexo | Personas
+Tasa neta de asistencia de 3 a 5 años en educación preescolar por sexo | Educación | 1 | e193 | Dpto - Sexo | Personas
 
 ###Descripción de los diseños
 
-Para los diseños se utiliza la librería *srvyr*. En el correspondiente con la opción .... se utiliza como ids la variable *numero*, que hace referencia al hogar al que el individuo pertenece. Mientras para el otro diseño se utiliza la variable *UPM_ID* como ids y además se le agregan los estratos. Se procede de esta manera tanto para la base de personas como para la de hogares.
+Para los diseños se utiliza la librería *srvyr*. En el correspondiente con la opción .... se utiliza como ids (clusters) la variable *numero*, que hace referencia al hogar al que el individuo pertenece. Mientras para el otro diseño se utiliza la variable *UPM_ID* como ids y además se le agregan los estratos. Se procede de esta manera tanto para la base de personas como para la de hogares.
 
 
 ##Shiny App
