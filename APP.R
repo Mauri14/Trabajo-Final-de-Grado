@@ -3357,13 +3357,154 @@ server <- function(input, output){
   
   #salud
   i529Inf<- reactive({funcion4inf(pr(), "1==1", "e46==1")})
+  i501Inf<- reactive({funcion1inf(pr(),"1==1","e46==1")})
+  i517Inf<- reactive({
+    pta<-pr()%>%
+      mutate(no_tiene=ifelse(e45_1 == 2 & e45_2 == 2 & e45_3 == 2 & e45_4 == 2 & e45_5 == 2 & e45_6 == 2 & e45_7 == 2,1,0))%>%
+      group_by(dpto)%>%
+      summarise(Asse=survey_mean(e45_1==1),
+                IAMC=survey_mean(e45_2==1),
+                Policial_militar=survey_mean(e45_4==1),
+                Seguro_privado=survey_mean(e45_3==1),
+                BPS=survey_mean(e45_5==1),
+                Pol_municipal=survey_mean(e45_6==1),
+                Otro=survey_mean(e45_7==1),
+                Sin_cobertura=survey_mean(no_tiene))
+    
+    #total pais
+    t<-pr()%>%
+      mutate(no_tiene=ifelse(e45_1 == 2 & e45_2 == 2 & e45_3 == 2 & e45_4 == 2 & e45_5 == 2 & e45_6 == 2 & e45_7 == 2,1,0))%>%
+      summarise(Asse=survey_mean(e45_1==1),
+                IAMC=survey_mean(e45_2==1),
+                Policial_militar=survey_mean(e45_4==1),
+                Seguro_privado=survey_mean(e45_3==1),
+                BPS=survey_mean(e45_5==1),
+                Pol_municipal=survey_mean(e45_6==1),
+                Otro=survey_mean(e45_7==1),
+                Sin_cobertura=survey_mean(no_tiene))
+    
+    
+    pta<-rbind(pta[,2:17], t)
+    
+    departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                      "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
+    
+    pta<-cbind(departamentos, pta)
+    
+    pta_ind<- pta%>%
+      select(c(1,2,4,6,8,10,12,14,16))
+    
+    pta_desv<- pta%>%
+      select(c(1,3,5,7,9,11,13,15,17))
+    
+    pta_sup<- as.data.frame(cbind(departamentos, pta_ind$Asse+(1.96*pta_desv$Asse_se), pta_ind$IAMC+(1.96*pta_desv$IAMC_se),
+                                  pta_ind$Policial_militar+(1.96*pta_desv$Policial_militar_se),pta_ind$Seguro_privado+(1.96*pta_desv$Seguro_privado_se),pta_ind$BPS+(1.96*pta_desv$BPS_se),
+                                  pta_ind$Pol_municipal+(1.96*pta_desv$Pol_municipal_se), pta_ind$Otro+(1.96*pta_desv$Otro_se), pta_ind$Sin_cobertura+(1.96*pta_desv$Sin_cobertura_se)))
+    
+    colnames(pta_sup)<- colnames(pta_ind)  
+    
+    pta_sup<- pta_sup%>%
+      mutate(Asse= ifelse(Asse>=1,1,Asse),
+             IAMC= ifelse(IAMC>=1,1,IAMC),
+             Policial_militar= ifelse(Policial_militar>=1,1,Policial_militar),
+             Seguro_privado= ifelse(Seguro_privado>=1,1,Seguro_privado),
+             BPS= ifelse(BPS>=1,1,BPS),
+             Pol_municipal= ifelse(Pol_municipal>=1,1,Pol_municipal),
+             Otro= ifelse(Otro>=1,1,Otro),
+             Sin_cobertura= ifelse(Sin_cobertura>=1,1,Sin_cobertura))
+    
+    
+    pta_inf<- as.data.frame(cbind(departamentos, pta_ind$Asse-(1.96*pta_desv$Asse_se), pta_ind$IAMC-(1.96*pta_desv$IAMC_se),
+                                  pta_ind$Policial_militar-(1.96*pta_desv$Policial_militar_se),pta_ind$Seguro_privado-(1.96*pta_desv$Seguro_privado_se),pta_ind$BPS-(1.96*pta_desv$BPS_se),
+                                  pta_ind$Pol_municipal-(1.96*pta_desv$Pol_municipal_se), pta_ind$Otro-(1.96*pta_desv$Otro_se), pta_ind$Sin_cobertura-(1.96*pta_desv$Sin_cobertura_se)))
+    
+    colnames(pta_inf)<- colnames(pta_ind)  
+    
+    pta_inf<- pta_inf%>%
+      mutate(Asse= ifelse(Asse<0,0,Asse),
+             IAMC= ifelse(IAMC<0,0,IAMC),
+             Policial_militar= ifelse(Policial_militar<0,0,Policial_militar),
+             Seguro_privado= ifelse(Seguro_privado<0,0,Seguro_privado),
+             BPS= ifelse(BPS<0,0,BPS),
+             Pol_municipal= ifelse(Pol_municipal<0,0,Pol_municipal),
+             Otro= ifelse(Otro<0,0,Otro),
+             Sin_cobertura= ifelse(Sin_cobertura<0,0,Sin_cobertura))
+    
+    i517Inf<- pta_inf
+    return(i517Inf)
+    
+  })
   
   indicador_saludInf<- reactive({if(input$Nombre2 == "529") i529Inf()
+    else if(input$Nombre2 == "501") i501Inf()
+    else if(input$Nombre2 == "517") i517Inf()
   })
   
   i529Sup<- reactive({funcion4sup(pr(), "1==1", "e46==1")})
+  i501Sup<- reactive({funcion1sup(pr(),"1==1","e46==1")})
+  i517Sup<- reactive({
+    pta<-pr()%>%
+      mutate(no_tiene=ifelse(e45_1 == 2 & e45_2 == 2 & e45_3 == 2 & e45_4 == 2 & e45_5 == 2 & e45_6 == 2 & e45_7 == 2,1,0))%>%
+      group_by(dpto)%>%
+      summarise(Asse=survey_mean(e45_1==1),
+                IAMC=survey_mean(e45_2==1),
+                Policial_militar=survey_mean(e45_4==1),
+                Seguro_privado=survey_mean(e45_3==1),
+                BPS=survey_mean(e45_5==1),
+                Pol_municipal=survey_mean(e45_6==1),
+                Otro=survey_mean(e45_7==1),
+                Sin_cobertura=survey_mean(no_tiene))
+    
+    #total pais
+    t<-pr()%>%
+      mutate(no_tiene=ifelse(e45_1 == 2 & e45_2 == 2 & e45_3 == 2 & e45_4 == 2 & e45_5 == 2 & e45_6 == 2 & e45_7 == 2,1,0))%>%
+      summarise(Asse=survey_mean(e45_1==1),
+                IAMC=survey_mean(e45_2==1),
+                Policial_militar=survey_mean(e45_4==1),
+                Seguro_privado=survey_mean(e45_3==1),
+                BPS=survey_mean(e45_5==1),
+                Pol_municipal=survey_mean(e45_6==1),
+                Otro=survey_mean(e45_7==1),
+                Sin_cobertura=survey_mean(no_tiene))
+    
+    
+    pta<-rbind(pta[,2:17], t)
+    
+    departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                      "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
+    
+    pta<-cbind(departamentos, pta)
+    
+    pta_ind<- pta%>%
+      select(c(1,2,4,6,8,10,12,14,16))
+    
+    pta_desv<- pta%>%
+      select(c(1,3,5,7,9,11,13,15,17))
+    
+    pta_sup<- as.data.frame(cbind(departamentos, pta_ind$Asse+(1.96*pta_desv$Asse_se), pta_ind$IAMC+(1.96*pta_desv$IAMC_se),
+                                  pta_ind$Policial_militar+(1.96*pta_desv$Policial_militar_se),pta_ind$Seguro_privado+(1.96*pta_desv$Seguro_privado_se),pta_ind$BPS+(1.96*pta_desv$BPS_se),
+                                  pta_ind$Pol_municipal+(1.96*pta_desv$Pol_municipal_se), pta_ind$Otro+(1.96*pta_desv$Otro_se), pta_ind$Sin_cobertura+(1.96*pta_desv$Sin_cobertura_se)))
+    
+    colnames(pta_sup)<- colnames(pta_ind)  
+    
+    pta_sup<- pta_sup%>%
+      mutate(Asse= ifelse(Asse>=1,1,Asse),
+             IAMC= ifelse(IAMC>=1,1,IAMC),
+             Policial_militar= ifelse(Policial_militar>=1,1,Policial_militar),
+             Seguro_privado= ifelse(Seguro_privado>=1,1,Seguro_privado),
+             BPS= ifelse(BPS>=1,1,BPS),
+             Pol_municipal= ifelse(Pol_municipal>=1,1,Pol_municipal),
+             Otro= ifelse(Otro>=1,1,Otro),
+             Sin_cobertura= ifelse(Sin_cobertura>=1,1,Sin_cobertura))
+    
+    i517Sup<- pta_sup
+    return(i517Sup)
+    
+  })
   
   indicador_saludSup<- reactive({if(input$Nombre2 == "529") i529Sup()
+    else if(input$Nombre2 == "501") i501Sup()
+    else if(input$Nombre2 == "517") i517Sup()
   })
   
   #laboral
