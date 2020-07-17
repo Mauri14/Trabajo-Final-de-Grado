@@ -3520,6 +3520,192 @@ server <- function(input, output){
   i618Inf<- reactive({funcion1inf(pr(), "pobpcoac==2", "f80==2")})
   i608Inf<- reactive({funcion1inf(pr(), "e27>13", "activo==1")})
   i502Inf<- reactive({funcion1inf(pr(), "e27>13 & activo==1", "desocupados==1")})
+  i610Inf<- reactive({
+    departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                      "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
+    
+    pca<-pr()%>%
+      mutate(desocupados=ifelse(pobpcoac==3 | pobpcoac==4 | pobpcoac==5,1,0))%>%
+      mutate(inactivos=ifelse(pobpcoac==6 | pobpcoac==7 | pobpcoac==8 | pobpcoac==9 | pobpcoac==10 | pobpcoac==11,1,0))%>%
+      group_by(dpto,e26)%>%
+      summarise(Menores14=survey_mean(pobpcoac==1),
+                Ocupados=survey_mean(pobpcoac==2),
+                Desocupados=survey_mean(desocupados),
+                Inactivos=survey_mean(inactivos))
+    
+    pca<-pca%>%
+      mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
+                          "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres" ))%>%
+      mutate(e26= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))
+    
+    
+    pca_totales<- pr()%>%
+      mutate(desocupados=ifelse(pobpcoac==3 | pobpcoac==4 | pobpcoac==5,1,0))%>%
+      mutate(inactivos=ifelse(pobpcoac==6 | pobpcoac==7 | pobpcoac==8 | pobpcoac==9 | pobpcoac==10 | pobpcoac==11,1,0))%>%
+      group_by(e26)%>%
+      summarise(Menores14=survey_mean(pobpcoac==1),
+                Ocupados=survey_mean(pobpcoac==2),
+                Desocupados=survey_mean(desocupados),
+                Inactivos=survey_mean(inactivos))%>%
+      mutate(e26= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))
+    
+    pca_totales_dpto<-pr()%>%
+      mutate(desocupados=ifelse(pobpcoac==3 | pobpcoac==4 | pobpcoac==5,1,0))%>%
+      mutate(inactivos=ifelse(pobpcoac==6 | pobpcoac==7 | pobpcoac==8 | pobpcoac==9 | pobpcoac==10 | pobpcoac==11,1,0))%>%
+      group_by(dpto)%>%
+      summarise(Menores14=survey_mean(pobpcoac==1),
+                Ocupados=survey_mean(pobpcoac==2),
+                Desocupados=survey_mean(desocupados),
+                Inactivos=survey_mean(inactivos))%>%
+      mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
+                          "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres" ))
+    
+    pca_total_pais<-pr()%>%
+      mutate(desocupados=ifelse(pobpcoac==3 | pobpcoac==4 | pobpcoac==5,1,0))%>%
+      mutate(inactivos=ifelse(pobpcoac==6 | pobpcoac==7 | pobpcoac==8 | pobpcoac==9 | pobpcoac==10 | pobpcoac==11,1,0))%>%
+      summarise(Menores14=survey_mean(pobpcoac==1),
+                Ocupados=survey_mean(pobpcoac==2),
+                Desocupados=survey_mean(desocupados),
+                Inactivos=survey_mean(inactivos))
+    
+    ###Hombre
+    pca_hombres<- pca%>%
+      filter(e26=="Hombre")
+    
+    pca_hombres_ind<- pca_hombres%>%
+      select(c(1,3,5,7,9))
+    
+    
+    colnames(pca_hombres_ind)[2:5]<-paste0("Hombre_",colnames(pca_hombres_ind)[2:5])
+    
+    pca_tot_hom_ind<-pca_totales%>%
+      filter(e26=="Hombre")%>%
+      select(c(2,4,6,8))
+    
+    pca_tot_hom_ind<-cbind(dpto= "Total País", pca_tot_hom_ind)
+    
+    colnames(pca_tot_hom_ind)[2:5]<-paste0("Hombre_",colnames(pca_tot_hom_ind)[2:5])
+    
+    
+    pca_hombres_ind<-rbind(pca_hombres_ind, pca_tot_hom_ind)
+    
+    ##desvio
+    
+    pca_hombres_desv<- pca_hombres%>%
+      select(c(1,4,6,8,10))
+    
+    
+    colnames(pca_hombres_desv)[2:5]<-paste0("Hombre_",colnames(pca_hombres_desv)[2:5])
+    
+    pca_tot_hom_desv<-pca_totales%>%
+      filter(e26=="Hombre")%>%
+      select(c(3,5,7,9))
+    
+    pca_tot_hom_desv<-cbind(dpto= "Total País", pca_tot_hom_desv)
+    
+    colnames(pca_tot_hom_desv)[2:5]<-paste0("Hombre_",colnames(pca_tot_hom_desv)[2:5])
+    
+    
+    pca_hombres_desv<-rbind(pca_hombres_desv, pca_tot_hom_desv)
+    
+    
+    
+    ###Mujer
+    pca_mujeres<- pca%>%
+      filter(e26=="Mujer")
+    
+    pca_mujeres_ind<- pca_mujeres%>%
+      select(c(1,3,5,7,9))
+    
+    
+    colnames(pca_mujeres_ind)[2:5]<-paste0("Mujer_",colnames(pca_mujeres_ind)[2:5])
+    
+    pca_tot_muj_ind<-pca_totales%>%
+      filter(e26=="Mujer")%>%
+      select(c(2,4,6,8))
+    
+    pca_tot_muj_ind<-cbind(dpto= "Total País", pca_tot_muj_ind)
+    
+    colnames(pca_tot_muj_ind)[2:5]<-paste0("Mujer_",colnames(pca_tot_muj_ind)[2:5])
+    
+    
+    pca_mujeres_ind<-rbind(pca_mujeres_ind, pca_tot_muj_ind)
+    
+    ##desvio
+    
+    pca_mujeres_desv<- pca_mujeres%>%
+      select(c(1,4,6,8,10))
+    
+    
+    colnames(pca_mujeres_desv)[2:5]<-paste0("Mujer_",colnames(pca_mujeres_desv)[2:5])
+    
+    pca_tot_muj_desv<-pca_totales%>%
+      filter(e26=="Mujer")%>%
+      select(c(3,5,7,9))
+    
+    pca_tot_muj_desv<-cbind(dpto= "Total País", pca_tot_muj_desv)
+    
+    colnames(pca_tot_muj_desv)[2:5]<-paste0("Mujer_",colnames(pca_tot_muj_desv)[2:5])
+    
+    
+    pca_mujeres_desv<-rbind(pca_mujeres_desv, pca_tot_muj_desv)
+    
+    
+    ###Totales
+    
+    pca_dpto_ind<- pca_totales_dpto%>%
+      select(c(1,2,4,6,8))
+    
+    
+    pca_total_pais<-cbind(dpto= "Total País", pca_total_pais)
+    
+    pca_total_pais_ind<-pca_total_pais%>%
+      select(c(1,2,4,6,8))
+    
+    pca_dpto_ind<-rbind(pca_dpto_ind, pca_total_pais_ind)
+    
+    ##desvio
+    
+    pca_dpto_desv<- pca_totales_dpto%>%
+      select(c(1,3,5,7,9))
+    
+    pca_total_pais_desv<-pca_total_pais%>%
+      select(c(1,3,5,7,9))
+    
+    pca_dpto_desv<-rbind(pca_dpto_desv, pca_total_pais_desv)
+    
+    ## pegado de las 3 tablas
+    pca_dpto_ind<-as.data.frame(pca_dpto_ind)
+    pca_hombres_ind<-as.data.frame(pca_hombres_ind)
+    pca_mujeres_ind<-as.data.frame(pca_mujeres_ind)
+    
+    Ind610<- left_join(pca_hombres_ind, pca_mujeres_ind,  by= "dpto")
+    Ind610<- left_join(Ind610, pca_dpto_ind,  by= "dpto")
+    
+    ##desvios
+    pca_dpto_desv<-as.data.frame(pca_dpto_desv)
+    pca_hombres_desv<-as.data.frame(pca_hombres_desv)
+    pca_mujeres_desv<-as.data.frame(pca_mujeres_desv)
+    
+    desv610<- left_join(pca_hombres_desv, pca_mujeres_desv,  by= "dpto")
+    desv610<- left_join(desv610, pca_dpto_desv,  by= "dpto")
+    
+    ##superior
+    sup610<- Ind610[,2:13] +(1.96*desv610[,2:13])
+    
+    sup610<- cbind(departamentos, sup610)
+    
+    
+    ##inferior
+    inf610<- Ind610[,2:13] -(1.96*desv610[,2:13])
+    
+    inf610<- cbind(departamentos, inf610)
+    
+    
+    colnames(Ind610)[10:13]<-paste0("Total_",colnames(Ind610)[10:13])
+    i610Inf<-inf610
+    return(i610Inf)
+  })
   
   indicador_labInf<- reactive({if(input$Nombre3 == "531") i531Inf()
     else if(input$Nombre3 == "607") i607Inf()
@@ -3533,6 +3719,7 @@ server <- function(input, output){
     else if(input$Nombre3 == "608") i608Inf()
     else if(input$Nombre3 == "502") i502Inf()
     else if(input$Nombre3 == "690") i690Inf()
+    else if(input$Nombre3 == "610") i610Inf()
   })
   
   i531Sup<- reactive({funcion5sup(pr(), "e27>13 & activo==1", "desocupados")})
@@ -3546,6 +3733,187 @@ server <- function(input, output){
   i618Sup<- reactive({funcion1sup(pr(), "pobpcoac==2", "f80==2")})
   i608Sup<- reactive({funcion1sup(pr(), "e27>13", "activo==1")})
   i502Sup<- reactive({funcion1sup(pr(), "e27>13 & activo==1", "desocupados==1")})
+  i610Sup<- reactive({
+    departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                      "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
+    
+    pca<-pr()%>%
+      mutate(desocupados=ifelse(pobpcoac==3 | pobpcoac==4 | pobpcoac==5,1,0))%>%
+      mutate(inactivos=ifelse(pobpcoac==6 | pobpcoac==7 | pobpcoac==8 | pobpcoac==9 | pobpcoac==10 | pobpcoac==11,1,0))%>%
+      group_by(dpto,e26)%>%
+      summarise(Menores14=survey_mean(pobpcoac==1),
+                Ocupados=survey_mean(pobpcoac==2),
+                Desocupados=survey_mean(desocupados),
+                Inactivos=survey_mean(inactivos))
+    
+    pca<-pca%>%
+      mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
+                          "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres" ))%>%
+      mutate(e26= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))
+    
+    
+    pca_totales<- pr()%>%
+      mutate(desocupados=ifelse(pobpcoac==3 | pobpcoac==4 | pobpcoac==5,1,0))%>%
+      mutate(inactivos=ifelse(pobpcoac==6 | pobpcoac==7 | pobpcoac==8 | pobpcoac==9 | pobpcoac==10 | pobpcoac==11,1,0))%>%
+      group_by(e26)%>%
+      summarise(Menores14=survey_mean(pobpcoac==1),
+                Ocupados=survey_mean(pobpcoac==2),
+                Desocupados=survey_mean(desocupados),
+                Inactivos=survey_mean(inactivos))%>%
+      mutate(e26= recode(as.factor(e26), "1"= "Hombre", "2"= "Mujer"))
+    
+    pca_totales_dpto<-pr()%>%
+      mutate(desocupados=ifelse(pobpcoac==3 | pobpcoac==4 | pobpcoac==5,1,0))%>%
+      mutate(inactivos=ifelse(pobpcoac==6 | pobpcoac==7 | pobpcoac==8 | pobpcoac==9 | pobpcoac==10 | pobpcoac==11,1,0))%>%
+      group_by(dpto)%>%
+      summarise(Menores14=survey_mean(pobpcoac==1),
+                Ocupados=survey_mean(pobpcoac==2),
+                Desocupados=survey_mean(desocupados),
+                Inactivos=survey_mean(inactivos))%>%
+      mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
+                          "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres" ))
+    
+    pca_total_pais<-pr()%>%
+      mutate(desocupados=ifelse(pobpcoac==3 | pobpcoac==4 | pobpcoac==5,1,0))%>%
+      mutate(inactivos=ifelse(pobpcoac==6 | pobpcoac==7 | pobpcoac==8 | pobpcoac==9 | pobpcoac==10 | pobpcoac==11,1,0))%>%
+      summarise(Menores14=survey_mean(pobpcoac==1),
+                Ocupados=survey_mean(pobpcoac==2),
+                Desocupados=survey_mean(desocupados),
+                Inactivos=survey_mean(inactivos))
+    
+    ###Hombre
+    pca_hombres<- pca%>%
+      filter(e26=="Hombre")
+    
+    pca_hombres_ind<- pca_hombres%>%
+      select(c(1,3,5,7,9))
+    
+    
+    colnames(pca_hombres_ind)[2:5]<-paste0("Hombre_",colnames(pca_hombres_ind)[2:5])
+    
+    pca_tot_hom_ind<-pca_totales%>%
+      filter(e26=="Hombre")%>%
+      select(c(2,4,6,8))
+    
+    pca_tot_hom_ind<-cbind(dpto= "Total País", pca_tot_hom_ind)
+    
+    colnames(pca_tot_hom_ind)[2:5]<-paste0("Hombre_",colnames(pca_tot_hom_ind)[2:5])
+    
+    
+    pca_hombres_ind<-rbind(pca_hombres_ind, pca_tot_hom_ind)
+    
+    ##desvio
+    
+    pca_hombres_desv<- pca_hombres%>%
+      select(c(1,4,6,8,10))
+    
+    
+    colnames(pca_hombres_desv)[2:5]<-paste0("Hombre_",colnames(pca_hombres_desv)[2:5])
+    
+    pca_tot_hom_desv<-pca_totales%>%
+      filter(e26=="Hombre")%>%
+      select(c(3,5,7,9))
+    
+    pca_tot_hom_desv<-cbind(dpto= "Total País", pca_tot_hom_desv)
+    
+    colnames(pca_tot_hom_desv)[2:5]<-paste0("Hombre_",colnames(pca_tot_hom_desv)[2:5])
+    
+    
+    pca_hombres_desv<-rbind(pca_hombres_desv, pca_tot_hom_desv)
+    
+    
+    
+    ###Mujer
+    pca_mujeres<- pca%>%
+      filter(e26=="Mujer")
+    
+    pca_mujeres_ind<- pca_mujeres%>%
+      select(c(1,3,5,7,9))
+    
+    
+    colnames(pca_mujeres_ind)[2:5]<-paste0("Mujer_",colnames(pca_mujeres_ind)[2:5])
+    
+    pca_tot_muj_ind<-pca_totales%>%
+      filter(e26=="Mujer")%>%
+      select(c(2,4,6,8))
+    
+    pca_tot_muj_ind<-cbind(dpto= "Total País", pca_tot_muj_ind)
+    
+    colnames(pca_tot_muj_ind)[2:5]<-paste0("Mujer_",colnames(pca_tot_muj_ind)[2:5])
+    
+    
+    pca_mujeres_ind<-rbind(pca_mujeres_ind, pca_tot_muj_ind)
+    
+    ##desvio
+    
+    pca_mujeres_desv<- pca_mujeres%>%
+      select(c(1,4,6,8,10))
+    
+    
+    colnames(pca_mujeres_desv)[2:5]<-paste0("Mujer_",colnames(pca_mujeres_desv)[2:5])
+    
+    pca_tot_muj_desv<-pca_totales%>%
+      filter(e26=="Mujer")%>%
+      select(c(3,5,7,9))
+    
+    pca_tot_muj_desv<-cbind(dpto= "Total País", pca_tot_muj_desv)
+    
+    colnames(pca_tot_muj_desv)[2:5]<-paste0("Mujer_",colnames(pca_tot_muj_desv)[2:5])
+    
+    
+    pca_mujeres_desv<-rbind(pca_mujeres_desv, pca_tot_muj_desv)
+    
+    
+    ###Totales
+    
+    pca_dpto_ind<- pca_totales_dpto%>%
+      select(c(1,2,4,6,8))
+    
+    
+    pca_total_pais<-cbind(dpto= "Total País", pca_total_pais)
+    
+    pca_total_pais_ind<-pca_total_pais%>%
+      select(c(1,2,4,6,8))
+    
+    pca_dpto_ind<-rbind(pca_dpto_ind, pca_total_pais_ind)
+    
+    ##desvio
+    
+    pca_dpto_desv<- pca_totales_dpto%>%
+      select(c(1,3,5,7,9))
+    
+    pca_total_pais_desv<-pca_total_pais%>%
+      select(c(1,3,5,7,9))
+    
+    pca_dpto_desv<-rbind(pca_dpto_desv, pca_total_pais_desv)
+    
+    ## pegado de las 3 tablas
+    pca_dpto_ind<-as.data.frame(pca_dpto_ind)
+    pca_hombres_ind<-as.data.frame(pca_hombres_ind)
+    pca_mujeres_ind<-as.data.frame(pca_mujeres_ind)
+    
+    Ind610<- left_join(pca_hombres_ind, pca_mujeres_ind,  by= "dpto")
+    Ind610<- left_join(Ind610, pca_dpto_ind,  by= "dpto")
+    
+    ##desvios
+    pca_dpto_desv<-as.data.frame(pca_dpto_desv)
+    pca_hombres_desv<-as.data.frame(pca_hombres_desv)
+    pca_mujeres_desv<-as.data.frame(pca_mujeres_desv)
+    
+    desv610<- left_join(pca_hombres_desv, pca_mujeres_desv,  by= "dpto")
+    desv610<- left_join(desv610, pca_dpto_desv,  by= "dpto")
+    
+    ##superior
+    sup610<- Ind610[,2:13] +(1.96*desv610[,2:13])
+    
+    sup610<- cbind(departamentos, sup610)
+    
+    
+    
+    colnames(Ind610)[10:13]<-paste0("Total_",colnames(Ind610)[10:13])
+    i610Sup<-sup610
+    return(i610Sup)
+  })
   
   indicador_labSup<- reactive({if(input$Nombre3 == "531") i531Sup()
     else if(input$Nombre3 == "607") i607Sup()
@@ -3559,6 +3927,7 @@ server <- function(input, output){
     else if(input$Nombre3 == "608") i608Sup()
     else if(input$Nombre3 == "502") i502Sup()
     else if(input$Nombre3 == "690") i690Sup()
+    else if(input$Nombre3 == "610") i610Sup()
   })
   #ing
   
