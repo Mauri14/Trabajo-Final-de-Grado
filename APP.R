@@ -4023,12 +4023,55 @@ server <- function(input, output){
   i783Inf<- reactive({funcion9inf(ph(), "d11", c("dpto", "Red general", "Pozo surg_no proteg", "Pozo surg_proteg", "Aljibe", "Arroyo_río", "Otro"), c(1,2,3,4,5,6))})
   i765Inf<- reactive({funcion9inf(ph(), "d19", c("dpto", "Lugar privado", "Compartido", "No tiene"), c(1,2,3))})
   i766Inf<- reactive({funcion9inf(ph(), "d15", c("dpto","No tiene", "Exclusivo", "Compartido"), c(0,1,2))})
+  i774Inf<- reactive({I774<-ph()%>%
+    group_by(dpto)%>%
+    summarise(Propietarios=survey_mean(propietarios),
+              Inquilinos=survey_mean(d8_1==5),
+              Ocupantes_con_permiso=survey_mean(Oc_con_permiso),
+              Ocupantes_sin_permiso=survey_mean(d8_1==9),
+              Coop_vivienda=survey_mean(d8_1==10))
+  #total pais
+  t<-ph()%>%
+    summarise(Propietarios=survey_mean(propietarios),
+              Inquilinos=survey_mean(d8_1==5),
+              Ocupantes_con_permiso=survey_mean(Oc_con_permiso),
+              Ocupantes_sin_permiso=survey_mean(d8_1==9),
+              Coop_vivienda=survey_mean(d8_1==10))
+  
+  I774<-rbind(I774[,2:11], t)
+  
+  departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                    "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
+  
+  I774<-cbind(departamentos, I774)
+  
+  I774_ind<- I774%>%
+    select(c(1,2,4,6,8,10))
+  
+  I774_desv<- I774%>%
+    select(c(1,3,5,7,9,11))
+  
+  sup<-I774_ind[,-1]+ (1.96*I774_desv[,-1])
+  sup<-cbind(departamentos, sup)
+  
+  inf<-I774_ind[,-1]- (1.96*I774_desv[,-1])
+  inf<-cbind(departamentos, inf)
+  
+  inf[inf<0]<-0
+  
+  
+  i774Inf<- inf
+  return(i774Inf)
+  })
   
   indicador_hogInf<- reactive({if(input$Nombre7 == "764") i764Inf()
     else if(input$Nombre7 == "782") i782Inf()
     else if(input$Nombre7 == "783") i783Inf()
     else if(input$Nombre7 == "765") i765Inf()
     else if(input$Nombre7 == "766") i766Inf()
+    else if(input$Nombre7 == "577") i577Inf()
+    else if(input$Nombre7 == "553") i553Inf()
+    else if(input$Nombre7 == "774") i774Inf()
   })
   
   i764Sup<- reactive({funcion9sup(ph(), "d16", c("dpto", "No tiene baño", "Red general", "Fosa sept_pozo negro", "Entubado_hacia_arroyo", "Otro"), c(0,1,2,3,4))})
@@ -4036,12 +4079,50 @@ server <- function(input, output){
   i783Sup<- reactive({funcion9sup(ph(), "d11", c("dpto", "Red general", "Pozo surg_no proteg", "Pozo surg_proteg", "Aljibe", "Arroyo_río", "Otro"), c(1,2,3,4,5,6))})
   i765Sup<- reactive({funcion9sup(ph(), "d19", c("dpto", "Lugar privado", "Compartido", "No tiene"), c(1,2,3))})
   i766Sup<- reactive({funcion9sup(ph(), "d15", c("dpto","No tiene", "Exclusivo", "Compartido"), c(0,1,2))})
+  i774Sup<- reactive({I774<-ph()%>%
+    group_by(dpto)%>%
+    summarise(Propietarios=survey_mean(propietarios),
+              Inquilinos=survey_mean(d8_1==5),
+              Ocupantes_con_permiso=survey_mean(Oc_con_permiso),
+              Ocupantes_sin_permiso=survey_mean(d8_1==9),
+              Coop_vivienda=survey_mean(d8_1==10))
+  #total pais
+  t<-ph()%>%
+    summarise(Propietarios=survey_mean(propietarios),
+              Inquilinos=survey_mean(d8_1==5),
+              Ocupantes_con_permiso=survey_mean(Oc_con_permiso),
+              Ocupantes_sin_permiso=survey_mean(d8_1==9),
+              Coop_vivienda=survey_mean(d8_1==10))
+  
+  I774<-rbind(I774[,2:11], t)
+  
+  departamentos<- data.frame(dpto=c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                    "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))
+  
+  I774<-cbind(departamentos, I774)
+  
+  I774_ind<- I774%>%
+    select(c(1,2,4,6,8,10))
+  
+  I774_desv<- I774%>%
+    select(c(1,3,5,7,9,11))
+  
+  sup<-I774_ind[,-1]+ (1.96*I774_desv[,-1])
+  sup<-cbind(departamentos, sup)
+  
+  
+  i774Sup<- sup
+  return(i774Sup)
+  })
   
   indicador_hogSup<- reactive({if(input$Nombre7 == "764") i764Sup()
     else if(input$Nombre7 == "782") i782Sup()
     else if(input$Nombre7 == "783") i783Sup()
     else if(input$Nombre7 == "765") i765Sup()
     else if(input$Nombre7 == "766") i766Sup()
+    else if(input$Nombre7 == "577") i577Sup()
+    else if(input$Nombre7 == "553") i553Sup()
+    else if(input$Nombre7 == "774") i774Sup()
   })
   output$datos1 <- renderDT({
     
