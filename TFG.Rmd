@@ -1,5 +1,5 @@
 ---
-title: "Procesamiento de la Encuesta Continua de Hogares a partir de una Shiny app"
+title: "Estimación en dominios de indicadores socioeconómicos a partir de la Encuesta Continua de Hogares"
 author: "Mauricio Pittamiglio"
 date: "3/6/2020"
 output: pdf_document
@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Tema
 
-El objetivo de este trabajo es generar una herramienta computacional que facilite el procesamiento de la ECH mediante el cálculo de indicadores, aportando además una visualización interactiva de los resultados.
+El objetivo de este trabajo es generar una herramienta computacional que facilite el procesamiento de la ECH mediante el cálculo de diversos indicadores y sus respectivos intervalos de confianza, aportando además una visualización interactiva de los resultados.
 
 Como experiencia personal trabajé con la ECH, principalmente con el cálculo de indicadores a partir de esta encuesta, y contar con una herramienta como la realizada en este trabajo simplifica mucho la tarea. 
 
@@ -19,13 +19,18 @@ Otra de las ventajas de esta aplicación es la disponibilidad en la web y el no 
 
 # Introducción
 
+Se trabajará con 53 indicadores que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Los indicadores abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Estos se calculan tanto a nivel de toda la población (total país), así como para distintas aperturas (dominios o áreas de estimación), las cuales son definidas a nivel geográfico (departamentos). 
+
 La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
 
-Se trabajará con 53 indicadores que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Los indicadores abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. 
+El diseño muestral de la ECH es aleatorio, estratificado, por conglomerados y en dos etapas de selección. Como primer paso
+para la selección de la muestra la población es particionada en estratos. El primer nivel es geográfico y corresponde a los diecinueve departamentos del país y a la zona metropolitana. En un segundo nivel, cada una de las localidades dentro del departamento es clasificada en cuatro categorías: i) localidades con más de 20.000 habitantes, ii) localidades entre 5.000 y menos de 20.000 habitantes, iii) localidades entre 200 y 5.000 habitantes y iv) áreas rurales y localidades con menos de 200 habitantes. Para Maldonado y Rocha se agrega un nivel más correspondiente a las zonas balnearias. En el departamento de Montevideo y zona metropolitana se conforman cinco y tres estratos socioeconómicos respectivamente.
 
-Estos indicadores se calculan tanto a nivel de todo el país como a nivel departamental. 
+Dentro de cada estrato y de forma independiente se selecciona, en una primera etapa, conglomerados de zonas censales (Unidades Primarias de muestreo - UPM) bajo un muestreo aleatorio, sistemático y proporcional al tamaño (PPS), utilizando como medida de tamaño (MOS) la cantidad de viviendas particulares según datos provenientes del último censo de población y vivienda del año 2011. Luego, en segunda etapa se seleccionan cinco viviendas titulares y dos viviendas suplentes en cada una de las UPM seleccionadas en la primera etapa, con igual probabilidad de selección bajo un muestreo aleatorio simple.
 
+Dentro de cada vivienda seleccionada se relevan características propias de la vivienda así como del hogar que reside en la misma e información de todos los integrantes que conforman el hogar. Esto implica que la ECH brinde información para computar distintos indicadores no solo a nivel de hogar sino también a nivel de persona. Es por esto, que el INE publica dos bases de datos, una base con información a nivel del hogar y la vivienda y otra base con información a nivel de personas.
 
+El tamaño de muestra efectivo anual de la ECH, es decir, la cantidad de hogares que cumplen los criterios de ser elegibles y respondieron se encuentra en el entorno de 42000 hogares (... en 2019).
 
 # Métodos estadísticos
 
