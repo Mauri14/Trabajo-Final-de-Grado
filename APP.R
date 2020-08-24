@@ -2445,6 +2445,8 @@ barra_lateral <- dashboardSidebar(
                        accept = c(".sav", ".RData")),
              fileInput("datosH", "Base de hogares .sav", multiple = TRUE,
                        accept = c(".sav", ".RData")),
+             fileInput("datosGeo", "Estratos y UPM .sav", multiple = TRUE,
+                       accept = c(".sav", ".RData")),
              selectInput("dis", "Diseño", choices = c("publica", "power"))),
     
     menuItem("Indicadores", icon = icon("chart-line"),
@@ -2764,6 +2766,15 @@ server <- function(input, output){
     read_sav(input$datosH$datapath)
   })
   
+  geo <- reactive({
+    inFile <- input$datosGeo
+    
+    if (is.null(inFile))
+      return(NULL)
+    
+    read_sav(input$datosGeo$datapath)
+  })
+  
   
   pr<- reactive( { 
     
@@ -2816,8 +2827,10 @@ server <- function(input, output){
       mutate(e3a5=ifelse(e27>=3 & e27<=5,1,0))%>%
       mutate(e12a17=ifelse(e27>=12 & e27<=17,1,0))
     
+    if(input$dis =="power") echP<- left_join(echP, geo(), by="numero")
+    
     if (input$dis == "publica") pr<-echP%>% as_survey_design(ids=numero, weight=pesoano)
-    else pr<-echP%>% as_survey_design(ids=UPM_ID, weight=pesoano, strata=ESTRATO)    
+    else pr<-echP%>% as_survey_design(ids=upm_fic, weight=pesoano, strata=estrato)    
     
     return(pr)
   })
@@ -2829,8 +2842,10 @@ server <- function(input, output){
       mutate(Oc_con_permiso= ifelse(d8_1==6|d8_1==7|d8_1==8,1,0))%>%
       mutate(hacinamiento= ifelse((d25/d9)>2,1,0))
     
+    if(input$dis =="power") echH<- left_join(echH, geo(), by="numero")
+    
     if (input$dis == "publica") ph<-echH%>% as_survey_design(ids=numero, weight=pesoano)
-    else ph<-echH%>% as_survey_design(ids=UPM_ID, weight=pesoano, strata=ESTRATO)    
+    else ph<-echH%>% as_survey_design(ids=upm_fic, weight=pesoano, strata=estrato)    
     
     return(ph)
   })
