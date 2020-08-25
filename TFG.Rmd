@@ -48,9 +48,74 @@ En su mayoría los indicadores presentados son totales y ratios (tasas, promedio
 
 En toda encuesta por muestreo, el objetivo es seleccionar una muestra aleatoria $s$ de tamaño $n$ de una población $U$ de tamaño $N$. Utilizando la muestra aleatoria $s$ se busca obtener estimaciones (aproximaciones) de distintos parámetros de interés de la población $U$. Un parámetro de interés puede ser el total de la variable de interés $y$, el cual viene dado por:
 
+\begin{equation}\label{m1}
+\begin{array}{cc}
+t=\sum_{i=1}^{N}y_{i}=\sum_{i\in U}^{}y_{i}
+\end{array}
+\end{equation}
 
-## Estimación de las varianzas
+La mayoría de los indicadores calculados en este trabajo se obtienen a partir del cociente (ratio) entre totales de dos variables $y$ y $z$, quedando definido de la siguiente manera:
 
+\begin{equation}\label{m2}
+\begin{array}{cc}
+R=\frac{\sum_{i\in U} y_i}{\sum_{i\in U} z_i}
+\end{array}
+\end{equation}
+
+Como se mencionó anteriormente las unidades, tanto hogares como personas, tienen una probabilidad de inclusión que viene determinada por el diseño muestral utilizado, la cual se denota como:
+
+\begin{equation}\label{m3}
+\begin{array}{cc}
+\pi_i=\text{Prob} (i \in s)
+\end{array}
+\end{equation}
+
+Posteriormente, la probabilidad de inclusión $\pi_i$ de una unidad $i$ en la muestra $s$ es utilizada como insumo principal para calcular los ponderadores. El ponderador $w$ de una unidad (hogar o persona) incluida en la muestra se define como el inverso de la probabilidad de selección $\pi_i$, es decir:
+
+\begin{equation}\label{m4}
+\begin{array}{cc}
+w_i=\frac{1}{\pi_i}
+\end{array}
+\end{equation}
+
+El ponderador $w_i$ indica cuántas unidades de la población $U$ que no fueron seleccionadas representa la unidad $i$ que fue encuestada, es decir que pertenece a la muestra $s$.
+
+Para poder computar las estimaciones de los parámetros de interés, se define el estimador Horvitz-Thompson.
+
+\begin{equation}\label{m5}
+\begin{array}{cc}
+\hat{t}_{\pi }=\sum_{s}^{}\frac{y_{i}}{\pi _{i}}
+\end{array}
+\end{equation}
+
+El mismo también puede ser planteado de la siguiente forma:
+
+\begin{equation}\label{m6}
+\begin{array}{cc}
+\hat{t}_{\pi }=\sum_{s}^{}w_i \times y_i
+\end{array}
+\end{equation}
+
+Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$. Por otra parte, el estimador de ratio o cociente $R$ entre dos variables queda definido:
+
+\begin{equation}\label{m7}
+\begin{array}{cc}
+\hat R=\frac{\sum\nolimits_{i\in s} w_i \times y_i}{\sum\nolimits_{i\in s} w_i\times z_i}
+\end{array}
+\end{equation}
+
+El estimador $\hat R$ es un estimador no lineal ya que es un cociente entre dos estimadores, por lo tanto es aproximadamente insesgado. En toda encuesta suelen existir problemas de no respuesta y/o cobertura, es decir, el marco de muestreo donde físicamente es seleccionada la muestra no tiene un enlace perfecto con la población. Esto implica que en la práctica no se utilizen de forma directa los ponderadores para realizar las expansiones, sino que estos son ajustados por no respuesta y posteriormente calibrados a información conocida de la población. Estos nuevos ponderadores ajustados son los que finalmente son utilizados para la producción de las estimaciones de los distintos indicadores (parámetros) y son los que se encuentran incluidos en las bases de datos públicas de la ECH. 
+
+Generalmente, los ajustes por no respuesta tienden a aumentar el error estándar (SE) de las estimaciones, ya que buscan únicamente reducir el posible sesgo ocasionado por las unidades que no respondieron a la encuesta, mientras que por otro lado, la calibración busca reducir los SE por medio de variables auxiliares o de control que se encuentran correlacionadas con las variables de interés de la encuesta.
+
+
+## Estimación de los errores estándar (SE)
+
+El SE es una medida de la precisión de la estimación y la misma puede ser utilizada para realizar inferencia de la población de interés por medio de la construcción de intervalos de confianza. El SE cuantifica la variación entre las estimaciones obtenidas entre las distintas muestras. Son calculados con el objetivo de añadir a las estimaciones puntuales una medida de calidad de las mismas. Por lo tanto, el problema se encuentra en poder obtener una estimación del SE que refleje, en lo posible, todas las fuentes de variabilidad del estimador o al menos las más importantes. Las fuentes de variabilidad vienen dadas por el diseño muestral implementado, así como también los distintos ajustes que son llevados a cabo para obtener los ponderadores finales $w_i$.
+
+En la práctica muchos usuarios que utilizan la bases de datos de encuestas públicas para realizar sus propias inferencias no siempre tienen en cuenta todas las fuentes de variabilidad que afectan al error estándar. Lo anterior, puede derivar en la realización de inferencias inválidas de los parámetros de la población. Uno de los motivos por los cuales surge este problema es el no contar con los insumos necesarios en la bases de datos públicas de las encuestas sobre el diseño de muestreo. En el caso de la ECH, para los años anteriores a 2019 no se contaba con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos.
+
+Para un diseño complejo como el de la ECH, no existen métodos exactos para calcular los SE, lo que implica que se deba recurrir a distintas estrategias o métodos que aproximan de mejor forma la variabilidad de las estimaciones. Dentro de la amplia gama de métodos que existen se optó por el método del último conglomerado para computar los SE, que es el más usado en la práctica y se encuentra implementado en el paquete *survey* del *R*. Este método puede manejar tanto parámetros lineales como no lineales.
 
 ## Intervalos de confianza
 
