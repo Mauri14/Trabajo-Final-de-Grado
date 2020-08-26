@@ -117,8 +117,127 @@ En la práctica muchos usuarios que utilizan la bases de datos de encuestas púb
 
 Para un diseño complejo como el de la ECH, no existen métodos exactos para calcular los SE, lo que implica que se deba recurrir a distintas estrategias o métodos que aproximan de mejor forma la variabilidad de las estimaciones. Dentro de la amplia gama de métodos que existen se optó por el método del último conglomerado para computar los SE, que es el más usado en la práctica y se encuentra implementado en el paquete *survey* del *R*. Este método puede manejar tanto parámetros lineales como no lineales.
 
+### Método del último conglomerado
+
+El método del último conglomerado es utilizado ampliamente en la práctica para la estimación de los SE en diseños por conglomerados en una o varias etapas de selección, en donde, los conglomerados (UPM) son seleccionados con probabilidades proporcional al tamaño. A continuación se desarrolla el método del último conglomerado aplicado a un muestreo aleatorio, estratificado, por conglomerados y en dos etapas de selección, como lo es el de la ECH. Pero previamente, se introduce la notación y conceptos necesarios para desarrollar dicho método.
+
+La población de interés $U$ es particionada en grupos o estratos $U_1, U_2,...,U_h,...,U_H$ excluyentes. En cada uno de los estratos, se selecciona una muestra aleatoria $s_h$ de forma independiente en dos etapas de selección. Sea $M_h$ la cantidad de UPM en el estrato $h$ y $N_h$ la cantidad de unidades en dicho estrato. En una primera etapa, dentro de un estrato $h$ se selecciona $m_h$ UPM entre las $M_h$ bajo un muestreo aleatorio sin reposición con probabilidad proporcional al tamaño en base a una medida de tamaño (MOS). La probabilidad de selección de la UPM $j$ perteneciente al estrato $h$ viene dada por:
+
+\begin{equation}\label{m8}
+\begin{array}{cc}
+\pi_{jh}=m_h\times \frac{\text{MOS}_j}{\sum\limits_{j=1}^{M_h}\text{MOS}_j}
+\end{array}
+\end{equation}
+
+Luego, dentro de cada UPM $j$ seleccionada en la primera etapa dentro del estrato de diseño $h$, se seleccionan $n_{jh}$ unidades, generalmente, con igual probabilidad de selección bajo un muestreo aleatorio simple o sistemático con arranque aleatorio. La probabilidad de selección de la unidad $i$ dentro de la UPM $j$ viene dada por:
+
+\begin{equation}\label{m9}
+\begin{array}{cc}
+\pi_{i|jh}=\frac{n_{jh}}{\text{MOS}_{j}}
+\end{array}
+\end{equation}
+
+La probabilidad de selección final de la unidad en la muestra queda definida de la siguiente forma:
+
+\begin{equation}\label{m10}
+\begin{array}{cc}
+\pi_{ijh}=\pi_{jh}\times \pi_{i|jh}
+\end{array}
+\end{equation}
+
+Por lo que el peso muestral de la unidad $i$ queda definido como el inverso de la probabilidad de selección, es decir:
+
+\begin{equation}\label{m11}
+\begin{array}{cc}
+w_{i}=\pi_{ijh}^{-1}
+\end{array}
+\end{equation}
+
+En la ECH, las UPM corresponden a conglomerados de zonas censales, mientras la medida de tamaño MOS para la definición de las probabilidades de inclusión, es el número de viviendas $N_j$ de la UPM $j$ según datos del último censo de población disponible (2011 en este caso). Finalmente, el número de viviendas en cada UPM seleccionada en la primera etapa es fijo, es decir $n_j=\alpha$. Bajo los dos criterios anteriores, las probabilidades de selección y por tanto los pesos muestrales son iguales dentro de un mismo estrato:
+
+\begin{equation}\label{m12}
+\begin{array}{cc}
+\pi_{ijh}=\pi_{jh}\times \pi_{i|jh}=m_h\times \frac{N_j}{\sum\limits_{j=1}^{M_h}N_j}=\frac{m_h\times \alpha}{N_h}=\frac{n}{N}
+\end{array}
+\end{equation}
+
+Una vez definidos los ponderadores $w_i$, se pueden computar las estimaciones de los distintos indicadores. Sin embargo, el problema es que bajo este tipo de diseños no existen estimaciones insesgadas de los errores estándar, ya que el insumo principal para las estimaciones de los SE utilizando el estimador Horvitz-Thompson, son las probabilidades de inclusión de segundo orden, es decir, la probabilidad de que dos unidades cualquiera $i$ y $k$ pertenezcan a la muestra.
+
+El método del último conglomerado asume que la mayor variabilidad en la estimación proviene de la primera etapa de muestreo, es decir, en la selección de las UPMs. Por lo tanto, la estimación del SE cuadrado (varianza) utilizando el método del último conglomerado para la estimación del total de una variable cualquiera $y$ para un muestreo aleatorio, estratificado, por conglomerados y en varia etapas de selección viene dada por:
+
+\begin{equation}\label{m13}
+\begin{array}{cc}
+\widehat {\text{SE}}^2(\hat t)=\hat V (\hat t)= \sum\limits_{h=1}^H\frac{1}{m_h(m_h-1)}\times \sum\limits_{j \in s_h}(\hat t_{jh}\times m_h-\hat t_h)^2
+\end{array}
+\end{equation}
+
+donde:
+
+$m_h$ es la cantidad de UPM pertenecientes al estrato $h$ seleccionadas en la muestra.
+
+$\hat t_{jh}=\sum\nolimits_{s_{jh}} w_i\times y_i$ es la estimación del total de la variable $y$ en la UPM $j$ perteneciente al estrato $h$.
+
+$\hat t_h=\sum\nolimits_{h=1}^H\hat t_{jh}$ es la estimación del total de la variable $y$ en el estrato $h$.
+
+Por otra parte, si el objetivo es estimar el total de la variable $y$ pero para un dominio o área de estimación cualquiera $d$, el SE se obtiene reemplazando en la ecuación anterior la variable $y$ por la variable $y_d$ la cual, toma el valor $y$ para los casos de la muestra incluidos en el dominio $d$ y cero en otro caso. Esta técnica se utiliza para añadir una variabilidad extra a las estimaciones, producto de que el tamaño de muestra en el dominio (por ejemplo, personas comprendidas en un determinado tramo de edad y dentro de un determinado departamento) es aleatorio. Aquí es importante destacar que los dominios pueden clasificarse como planeados o no planeados. Los dominios planeados son aquellas subpoblaciones para las cuales se quiere brindar estimaciones con precisiones específicas y los mismos son definidos como estratos de diseño lo cual permite definir tamaños de muestra específicos. Mientras que los dominios no planeados, son aquellos que no fueron tenidos en cuenta a la hora de diseñar la muestra, debido a que generalmente no se tiene información en el marco de muestreo. Estos dominios son los más comunes en la práctica y un claro ejemplo de los mismos son aquellos definidos por las personas que se encuentran comprendidas dentro de un tramo de edad específico.
+
+
+### Linearización de Taylor
+
+La linearización de Taylor es un método ampliamente utilizado para aproximar SE de parámetros no lineales (como ser un ratio). La idea es aproximar un estimador no lineal por medio de una función lineal. Una vez realizado lo anterior y teniendo en cuenta el diseño muestral utilizado se obtiene una aproximación del SE del estimador. Para el caso del estimador de una tasa o ratio $R=t_y/t_z$, es aproximado utilizando el desarrollo de taylor de primer orden y dicha aproximación queda definida como:
+
+\begin{equation}\label{m14}
+\begin{array}{cc}
+\hat  R \approx R +\frac{1}{t_z}\times \sum\nolimits_{i\in s} w_i\times (y_i-Rz_i)
+\end{array}
+\end{equation}
+
+Luego, el estimador de la varianza (o error estándar al cuadrado) se obtiene reemplazando la variable $y$ por una variable $r_i=y_i-\hat Rz_i$ y añadiendo el término $1/\hat t_z^{2}$.
+
+\begin{equation}\label{m15}
+\begin{array}{cc}
+\widehat {\text{SE}}^2(\hat R)=\hat V (\hat R)= \frac{1}{\hat t_z^2}\times\sum\limits_{h=1}^H\frac{1}{m_h(m_h-1)}\times \sum\limits_{j \in s_h}(\hat t_{r,jh}\times m_h-\hat t_{r,h})^2
+\end{array}
+\end{equation}
+
+donde:
+
+$\hat t_z=\sum\nolimits_{i\in s}w_i\times z_i$ es la estimación del total de la variable $z$.
+
+$\hat t_{r,jh}=\sum\nolimits_{s_{jh}} w_i\times r_i$ es la estimación del total de la variable $r$ en la UPM $j$ perteneciente al estrato $h$.
+
+$\hat t_{r,h}=\sum\nolimits_{h=1}^H\hat t_{r,jh}$ es la estimación del total de la variable $r$ en el estrato $h$.
+
+Al igual que para el caso de un total, el SE de la estimación de un ratio $R$ para un dominio $d$ se obtiene reemplazando en la ecuación las variables $y$ y $z$ por sus correspondientes variables extendidas en el dominio, $y_d$ y $z_d$.
+
+
 ## Intervalos de confianza
 
+A partir de la estimación de los errores estándar, se obtienen los intervalos de confianza. Estos son una medida de calidad de las estimaciones y son computados con el fin de poder extraer conclusiones sobre la población.
+
+Los intervalos de confianza se suelen calcular de la siguiente manera:
+
+\begin{equation}\label{m16}
+\begin{array}{cc}
+\hat \theta \pm \text{constante}\times \widehat{\text{SE}}(\hat \theta)
+\end{array}
+\end{equation}
+
+Donde el estimador $\hat \theta$ se asume tiene una distribución aproximadamente normal. Por lo que el intervalo de confianza para un parámetro cualquiera $\theta$ con un nivel de confianza $100(1-\alpha))\%$ queda definido como:
+
+\begin{equation}\label{m17}
+\begin{array}{cc}
+\hat \theta \pm z_{1-\alpha/2}\times \widehat{\text{SE}}(\hat \theta)
+\end{array}
+\end{equation}
+
+Particularmente se trabajará con una confianza del $95\%$, por lo que al sustituir el valor de la constante:
+
+\begin{equation}\label{m17}
+\begin{array}{cc}
+\hat \theta \pm 1.96\times \widehat{\text{SE}}(\hat \theta)
+\end{array}
+\end{equation}
 
 # Computación estadística
 
