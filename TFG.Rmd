@@ -244,27 +244,34 @@ Particularmente se trabajará con una confianza del $95\%$, por lo que al sustit
 
 ## Estimación de los indicadores
 
-Para la estimación de los indicadores se crearon 9 funciones, según las distintas desagregaciones que estos tienen y los diferentes cálculos que conllevan. Todas las funciones necesitan de algunos insumos para estimar los indicadores correspondientes tanto para cada departamento como para todo el país. 
+Para la estimación de los indicadores se crearon 9 funciones que varían dependiendo de los individuos involucrados (personas y hogares), la forma en la que se calcula cada indicador y las desagregaciones necesarias. Todas estas funciones estiman el indicador tanto a nivel de cada departamento como de todo el país y tienen como salida una tabla con los resultados.
 
-Las primeras 7 funciones son para los indicadores que se obtienen a partir de la base de personas de la ECH, mientras las últimas 2 trabajan con la base de hogares.
+Las primeras 7 funciones se utilizan para los indicadores que se obtienen a partir de la base de personas de la ECH, mientras las últimas 2 trabajan con la base de hogares.
 
-La primera función se utiliza para los indicadores que necesitan del cálculo de la media para una variable dicotómica, desagregando además por sexo. Esta función necesita como insumo el diseño, el filtro a aplicar de ser necesario y la variable dicotómica.
+La primera función se utiliza para los indicadores que necesitan del cálculo de la proporción de individuos que cumplen determinada condición (por ejemplo quienes tienen estudios terciarios), desagregando además por sexo. 
 
-La segunda función es utilizada para los indicadores en los cuales es necesario calcular la media de una variable con más de 2 categorías, y también se desagrega por sexo. Los insumos necesarios son: el diseño, el filtro, la variable y las distintas categorías de esta.
+La segunda función es utilizada para los indicadores en los cuales es necesario calcular la proporción de distintas categorías de una variable, y también se desagrega por sexo. 
 
-Las funciones 3 y 4 se utilizaron únicamente para el cálculo de un indicador cada una. La función 3 para el indicador *Tasa de analfabetismo de la población de 15 años y más por tramos de edad*, mientras la 4 para el indicador *Personas afiliadas a emergencias móviles por tramos de edad*. Para ambos se calcula la media de una variable dicotómica desagregando por tramos de edad, pero estos son distintos entre sí.
+Las funciones 3, 4 y 5 son similares, calculan proporciones al igual que en la función 1, pero desagregando en tramos de edad en lugar de por sexo. La diferencia entre estas tres funciones es que desagregan en distintos tramos etarios.
 
-La función 5 es similar a las funciones 3 y 4, con la diferencia de que esta es utilizada para el cálculo de varios indicadores que son desagregados en los mismos tramos etarios.
-
-Para la estimación del indicador *Promedio de años de educación de las personas de 25 años y más por sexo*, se utiliza la función 6. La variable en este caso es cuantitativa, se promedia y se desagrega por sexo.
+La función 6 se utiliza unicamente para la estimación del indicador *Promedio de años de educación de las personas de 25 años y más por sexo*. La variable en este caso es cuantitativa, se promedia y se desagrega por sexo.
 
 La función 7 se utiliza para los indicadores que hacen referencia a tasas brutas, es decir, necesitan del cálculo de un ratio.
 
-Los indicadores *Población total por condición de actividad por sexo* y *Personas por tipo de atención en salud*, fueron calculados sin el uso de ninguna función.
+Los indicadores *Población total por condición de actividad por sexo* y *Personas por tipo de atención en salud*, fueron calculados de manera particular, sin el uso de ninguna función.
 
-Las funciones 8 y 9, como se mencionó anteriormente, son las utilizadas para la estimación de los indicadores que se obtienen a partir de la base de hogares de la ECH. La función 8 se utiliza para los indicadores que requieren el cálculo de la media de una variable dicotómica, mientras que en la 9, la variable en cuestión presenta más de 2 categorías, por lo tanto como insumo además del diseño y la variable, necesita las categorías de esta.
+Las funciones 8 y 9, como se mencionó anteriormente, son las utilizadas para la estimación de los indicadores que se obtienen a partir de la base de hogares de la ECH. La función 8 se utiliza para los indicadores que requieren el cálculo de la proporción de hogares que cumplen con determinada condición, mientras que en la 9, la variable en cuestión presenta más de 2 categorías.
 
-El indicador *Hogares por tipo de relación con la vivienda* fue estimado sin el uso de ninguna función. 
+El indicador *Hogares por tipo de relación con la vivienda* fue estimado de manera particular, sin el uso de ninguna función.
+
+Todas las funciones necesitan de algunos insumos para estimar los indicadores correspondientes, estos son: 
+
+  1) El diseño muestral.
+  2) El filtro a aplicar (de ser necesario). Este determina la población objetivo para la cual el indicador será calculado.
+  3) Variable(s) de interés: variable(s) necesaria(s) para el cálculo del indicador.
+  4) Vector con categorías de la variable de interés (en caso de ser necesario)
+
+Se crean además funciones para el cálculo de los intervalos de confianza de las estimaciones, 9 de ellas dan como salida una tabla con los extremos inferiores de los intervalos, mientras las otras 9 hacen lo mismo con los límites superiores.
 
 ### Listado de indicadores
 
@@ -276,7 +283,11 @@ Tasa neta de asistencia de 3 a 5 años en educación preescolar por sexo | Educa
 
 ### Descripción de los diseños
 
-Para los diseños se utiliza la librería *srvyr*. En el correspondiente con la opción .... se utiliza como ids (clusters) la variable *numero*, que hace referencia al hogar al que el individuo pertenece. Mientras para el otro diseño se utiliza la variable *UPM_ID* como ids y además se le agregan los estratos. Se procede de esta manera tanto para la base de personas como para la de hogares.
+El insumo *diseño muestral* que utilizan las funciones creadas para el cálculo de los indicadores depende de la información disponible con la que cuente el usuario. En las bases públicas del INE no se cuenta con información del estrato ni de la UPM a la que pertenece el individuo, por lo que en la App aparecen dos opciones. La opción *pública* se utiliza cuando no se cuenta con esta información, mientras que en caso de contar con esta se utiliza la opción *power*.
+
+En caso de no contar con la información de estratos y UPM, los cálculos de los intervalos de confianza son incorrectos, ya que esta información es esencial para poder realizar una aproximación correcta de los SE y así poder construir los intervalos de confianza.
+
+Cabe aclarar que INE hizo pública esta información para el año 2019.
 
 
 ## Shiny App
@@ -299,7 +310,7 @@ La ui cuenta con tres partes, el encabezado (*dashboardHeader*), la barra latera
 
 Dentro del encabezado solo aparece el título y un link que lleva directamente a la página del INE donde están disponibles las bases de datos de la ECH.
 
-La barra lateral es utilizada para cargar las bases y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función *fileInput* y se deben cargar por separadas las bases de personas y de hogares de la ECH. También se incluye un widget mediante la función *selectInput* para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPMs.
+La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función *fileInput* y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPMs (en caso de contar con el). También se incluye un widget mediante la función *selectInput* para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPMs.
 
 En el body se especifica el contenido de cada una de las secciones. La ventana introductoria cuenta con... . 
 
