@@ -19,12 +19,13 @@ Otra de las ventajas de esta aplicación es la disponibilidad en la web y el no 
 
 # Introducción
 
-Se trabajará con 53 indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Los indicadores abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Estos se calculan tanto a nivel de toda la población (total país), así como para distintas aperturas (dominios o áreas de estimación), las cuales son definidas a nivel geográfico (departamentos). 
+Las encuestas por muestreo no solo son utilizadas para obtener estimaciones a nivel de toda la población, sino que también pueden ser útiles para realizar estimaciones en subconjuntos de la población. Estos subconjuntos son denominados dominios, y los mismos pueden estar definidos por áreas geográficas, grupos demográficos u otro tipo de subpoblaciones.
+
+Se trabajará con 53 indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Los indicadores abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Estos se calculan tanto a nivel de toda la población (total país), así como para distintas aperturas (dominios o áreas de estimación), las cuales son definidas a nivel geográfico (departamentos). Algunos de estos indicadores son un insumo clave para la economía de los países y por ende para la toma de decisiones de las políticas públicas.
 
 La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
 
-El diseño muestral de la ECH es aleatorio, estratificado, por conglomerados y en dos etapas de selección. Como primer paso
-para la selección de la muestra la población es particionada en estratos. El primer nivel es geográfico y corresponde a los diecinueve departamentos del país y a la zona metropolitana. En un segundo nivel, cada una de las localidades dentro del departamento es clasificada en cuatro categorías: i) localidades con más de 20.000 habitantes, ii) localidades entre 5.000 y menos de 20.000 habitantes, iii) localidades entre 200 y 5.000 habitantes y iv) áreas rurales y localidades con menos de 200 habitantes. Para Maldonado y Rocha se agrega un nivel más correspondiente a las zonas balnearias. En el departamento de Montevideo y zona metropolitana se conforman cinco y tres estratos socioeconómicos respectivamente.
+El diseño muestral de la ECH es aleatorio, estratificado, por conglomerados y en dos etapas de selección. Como primer paso para la selección de la muestra la población es particionada en estratos. El primer nivel es geográfico y corresponde a los diecinueve departamentos del país y a la zona metropolitana. En un segundo nivel, cada una de las localidades dentro del departamento es clasificada en cuatro categorías: i) localidades con más de 20.000 habitantes, ii) localidades entre 5.000 y menos de 20.000 habitantes, iii) localidades entre 200 y 5.000 habitantes y iv) áreas rurales y localidades con menos de 200 habitantes. Para Maldonado y Rocha se agrega un nivel más correspondiente a las zonas balnearias. En el departamento de Montevideo y zona metropolitana se conforman cinco y tres estratos socioeconómicos respectivamente.
 
 Dentro de cada estrato y de forma independiente se selecciona, en una primera etapa, conglomerados de zonas censales (Unidades Primarias de muestreo - UPM) bajo un muestreo aleatorio, sistemático y proporcional al tamaño (PPS), utilizando como medida de tamaño (MOS) la cantidad de viviendas particulares según datos provenientes del último censo de población y vivienda del año 2011. Luego, en segunda etapa se seleccionan cinco viviendas titulares y dos viviendas suplentes en cada una de las UPM seleccionadas en la primera etapa, con igual probabilidad de selección bajo un muestreo aleatorio simple.
 
@@ -48,7 +49,7 @@ En su mayoría los indicadores presentados son totales y ratios (tasas, promedio
 
 ## Estimaciones puntuales
 
-En toda encuesta por muestreo, el objetivo es seleccionar una muestra aleatoria $s$ de tamaño $n$ de una población $U$ de tamaño $N$. Utilizando la muestra aleatoria $s$ se busca obtener estimaciones (aproximaciones) de distintos parámetros de interés de la población $U$. Un parámetro de interés puede ser el total de la variable de interés $y$, el cual viene dado por:
+En toda encuesta por muestreo, el objetivo es seleccionar una muestra aleatoria $s$ de tamaño $n$ de una población $U$ de tamaño $N$. Utilizando la muestra aleatoria $s$ se busca obtener estimaciones de distintos parámetros de interés de la población $U$. Un parámetro de interés puede ser el total de la variable de interés $y$, el cual viene dado por:
 
 \begin{equation}\label{m1}
 \begin{array}{cc}
@@ -115,13 +116,15 @@ Generalmente, los ajustes por no respuesta tienden a aumentar el error estándar
 
 Como la muestra es aleatoria, los estimadores son variables aleatorias y están, por lo tanto, sujetos a fluctuación. Esta fluctuación puede ser medida a partir del error estándar de la estimación. El SE es una medida de la precisión de la estimación y la misma puede ser utilizada para realizar inferencia de la población de interés por medio de la construcción de intervalos de confianza. El SE cuantifica la variación entre las estimaciones obtenidas entre las distintas muestras. Son calculados con el objetivo de añadir a las estimaciones puntuales una medida de calidad de las mismas. Por lo tanto, el problema se encuentra en poder obtener una estimación del SE que refleje, en lo posible, todas las fuentes de variabilidad del estimador o al menos las más importantes. Las fuentes de variabilidad vienen dadas por el diseño muestral implementado, así como también los distintos ajustes que son llevados a cabo para obtener los ponderadores finales $w_i$.
 
-En la práctica muchos usuarios que utilizan la bases de datos de encuestas públicas para realizar sus propias inferencias no siempre tienen en cuenta todas las fuentes de variabilidad que afectan al error estándar. Lo anterior, puede derivar en la realización de inferencias inválidas de los parámetros de la población. Uno de los motivos por los cuales surge este problema es el no contar con los insumos necesarios en la bases de datos públicas de las encuestas sobre el diseño de muestreo. En el caso de la ECH, para los años anteriores a 2019 no se contaba con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos.
+En la práctica muchos usuarios que utilizan la bases de datos de encuestas públicas para realizar sus propias inferencias no siempre tienen en cuenta todas las fuentes de variabilidad que afectan al error estándar. Esto, puede derivar en la realización de inferencias inválidas sobre los parámetros de la población. Uno de los motivos por los cuales surge este problema es el no contar con los insumos necesarios en la bases de datos públicas de las encuestas sobre el diseño de muestreo. En el caso de la ECH, para los años anteriores a 2019 no se cuenta con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos.
 
 Para un diseño complejo como el de la ECH, no existen métodos exactos para calcular los SE, lo que implica que se deba recurrir a distintas estrategias o métodos que aproximan de mejor forma la variabilidad de las estimaciones. Dentro de la amplia gama de métodos que existen se optó por el método del último conglomerado para computar los SE, que es el más usado en la práctica y se encuentra implementado en el paquete *survey* del *R*. Este método puede manejar tanto parámetros lineales como no lineales.
 
 ### Método del último conglomerado
 
-El método del último conglomerado es utilizado ampliamente en la práctica para la estimación de los SE en diseños por conglomerados en una o varias etapas de selección, en donde, los conglomerados (UPM) son seleccionados con probabilidades proporcional al tamaño. A continuación se desarrolla el método del último conglomerado aplicado a un muestreo aleatorio, estratificado, por conglomerados y en dos etapas de selección, como lo es el de la ECH. Pero previamente, se introduce la notación y conceptos necesarios para desarrollar dicho método.
+El método del último conglomerado es utilizado ampliamente en la práctica para la estimación de los SE en diseños por conglomerados en una o varias etapas de selección, en donde, los conglomerados (UPM) son seleccionados con probabilidades proporcional al tamaño. 
+
+A continuación se desarrolla el método del último conglomerado aplicado a un muestreo aleatorio, estratificado, por conglomerados y en dos etapas de selección, como lo es el de la ECH. Pero previamente, se introduce la notación y conceptos necesarios para desarrollar dicho método.
 
 La población de interés $U$ es particionada en grupos o estratos $U_1, U_2,...,U_h,...,U_H$ excluyentes. En cada uno de los estratos, se selecciona una muestra aleatoria $s_h$ de forma independiente en dos etapas de selección. Sea $M_h$ la cantidad de UPM en el estrato $h$ y $N_h$ la cantidad de unidades en dicho estrato. En una primera etapa, dentro de un estrato $h$ se selecciona $m_h$ UPM entre las $M_h$ bajo un muestreo aleatorio sin reposición con probabilidad proporcional al tamaño en base a una medida de tamaño (MOS). La probabilidad de selección de la UPM $j$ perteneciente al estrato $h$ viene dada por:
 
@@ -181,7 +184,7 @@ $\hat t_{jh}=\sum\nolimits_{s_{jh}} w_i\times y_i$ es la estimación del total d
 
 $\hat t_h=\sum\nolimits_{h=1}^H\hat t_{jh}$ es la estimación del total de la variable $y$ en el estrato $h$.
 
-Por otra parte, si el objetivo es estimar el total de la variable $y$ pero para un dominio o área de estimación cualquiera $d$, el SE se obtiene reemplazando en la ecuación anterior la variable $y$ por la variable $y_d$ la cual, toma el valor $y$ para los casos de la muestra incluidos en el dominio $d$ y cero en otro caso. Esta técnica se utiliza para añadir una variabilidad extra a las estimaciones, producto de que el tamaño de muestra en el dominio (por ejemplo, personas comprendidas en un determinado tramo de edad y dentro de un determinado departamento) es aleatorio. Aquí es importante destacar que los dominios pueden clasificarse como planeados o no planeados. Los dominios planeados son aquellas subpoblaciones para las cuales se quiere brindar estimaciones con precisiones específicas y los mismos son definidos como estratos de diseño lo cual permite definir tamaños de muestra específicos. Mientras que los dominios no planeados, son aquellos que no fueron tenidos en cuenta a la hora de diseñar la muestra, debido a que generalmente no se tiene información en el marco de muestreo. Estos dominios son los más comunes en la práctica y un claro ejemplo de los mismos son aquellos definidos por las personas que se encuentran comprendidas dentro de un tramo de edad específico.
+Por otra parte, si el objetivo es estimar el total de la variable $y$ pero para un dominio o área de estimación cualquiera $d$, el SE se obtiene reemplazando en la ecuación anterior la variable $y$ por la variable $y_d$ la cual, toma el valor $y$ para los casos de la muestra incluidos en el dominio $d$ y cero en otro caso. Esta técnica se utiliza para añadir una variabilidad extra a las estimaciones, producto de que el tamaño de muestra en el dominio (por ejemplo, personas comprendidas en un determinado tramo de edad y dentro de un determinado departamento) es aleatorio. Aquí es importante destacar que los dominios pueden clasificarse como planeados o no planeados. Los dominios planeados son aquellas subpoblaciones para las cuales se quiere brindar estimaciones con precisiones específicas y los mismos son definidos como estratos de diseño, lo cual permite definir tamaños de muestra específicos. Mientras que los dominios no planeados, son aquellos que no fueron tenidos en cuenta a la hora de diseñar la muestra, debido a que generalmente no se tiene información en el marco de muestreo. Estos dominios son los más comunes en la práctica y un claro ejemplo de los mismos son aquellos definidos por las personas que se encuentran comprendidas dentro de un tramo de edad específico.
 
 
 ### Linearización de Taylor
@@ -247,6 +250,10 @@ Un intervalo de confianza con nivel de confianza del $95\%$ significa que, en pr
 
 
 ## Estimación de los indicadores
+
+Para replicar el diseño muestral de la ECH y poder llevar a cabo el computo de los indicadores, se utiliza el software libre *R*, más precisamente el paquete *srvyr*. Este paquete utiliza las funciones del paquete *survey* antes mencionado, permitiendo el uso de un estilo de sintaxis inspirado en el paquete *dplyr*.
+
+Este paquete cuenta con funciones tales como *survey_mean* para calcular medias (o proporciones), *survey_ratio* para ratios o *survey_total* para totales. Estas funciones utilizan los ponderadores y dan como resultado tanto las estimaciones puntuales que correspondan como las estimaciones de los errores estándar.
 
 Para la estimación de los indicadores se crearon 9 funciones que varían dependiendo de los individuos involucrados (personas y hogares), la forma en la que se calcula cada indicador y las desagregaciones necesarias. Todas estas funciones estiman el indicador tanto a nivel de cada departamento como de todo el país y tienen como salida una tabla con los resultados.
 
@@ -327,3 +334,7 @@ En esta parte de la App se realizan todos los cálculos necesarios. En primer lu
 Plotly hace los gráficos interactivos, cuenta con varias opciones para poder visualizarlos de manera más precisa y permite descargarlos como imagen.
 
 
+# Ejemplo de aplicación
+
+
+# Discusión
