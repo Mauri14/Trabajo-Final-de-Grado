@@ -313,6 +313,8 @@ Una Shiny app contiene al menos dos archivos: un script para la interfaz del usu
 
 ### Esta App
 
+Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2018, pero también funciona perfectamente para los años (..) 2017, 2019 y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la app como en los anexos de este informe, estará disponible un listado con las variables utilizadas.
+
 En esta aplicación en particular, previo a la creación del ui y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
 ### Ui
