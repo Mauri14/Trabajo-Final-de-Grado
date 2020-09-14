@@ -253,7 +253,7 @@ Un intervalo de confianza con nivel de confianza del $95\%$ significa que, en pr
 
 Para replicar el diseño muestral de la ECH y poder llevar a cabo el computo de los indicadores, se utiliza el software libre *R*, más precisamente el paquete *srvyr*. Este paquete utiliza las funciones del paquete *survey* antes mencionado, permitiendo el uso de un estilo de sintaxis inspirado en el paquete *dplyr*.
 
-Este paquete cuenta con funciones tales como *survey_mean* para calcular medias (o proporciones), *survey_ratio* para ratios o *survey_total* para totales. Estas funciones utilizan los ponderadores y dan como resultado tanto las estimaciones puntuales que correspondan como las estimaciones de los errores estándar.
+Este paquete *srvyr* cuenta con funciones tales como *survey_mean* para calcular medias (o proporciones), *survey_ratio* para ratios o *survey_total* para totales. Estas funciones utilizan los ponderadores y dan como resultado tanto las estimaciones puntuales que correspondan como las estimaciones de los errores estándar, utilizando las ecuaciones y metodologías descritas en este documento para realizar los cálculos.
 
 Para la estimación de los indicadores se crearon 9 funciones que varían dependiendo de los individuos involucrados (personas y hogares), la forma en la que se calcula cada indicador y las desagregaciones necesarias. Todas estas funciones estiman el indicador tanto a nivel de cada departamento como de todo el país y tienen como salida una tabla con los resultados.
 
@@ -286,6 +286,7 @@ Se crean además funciones para el cálculo de los intervalos de confianza de la
 
 ### Listado de indicadores
 
+Los indicadores presentados en este trabajo son calculados todos los años por el Observatorio Territorio Uruguay (OTU) perteneciente a la Oficina de Planeamiento y Presupuesto (OPP), y se encuentran disponibles en su página oficial. Dentro de estos indicadores se encuentran algunos tales como tasas de actividad y de desempleo, tasas de asistencia en distintos niveles educativos, índices de pobreza, entre otros. A continuación se presenta un listado de los indicadores computados, haciendo referencia a que categoría pertenecen e indicando parte de la información necesaria para el cálculo de estos.
 
 Indicador     | Categoría     | Función     | Variable     | Desagregación  | Base    
 ---------------- | --------------| --------| ----------------  | -------------  | ----------
@@ -309,11 +310,11 @@ Estas aplicaciones cuentan con programación reactiva. Esto significa que al cam
 
 Se cuenta además con widgets pre-construidos que facilitan la construcción de aplicaciones bonitas e interactivas. Un widget es un elemento web que los usuarios pueden interactuar con él enviando mensajes a la aplicación Shiny.
 
-Una Shiny app contiene al menos dos archivos: un script para la interfaz del usuario (ui) donde se controla el diseño de la aplicación; y un script para realizar los cálculos necesarios (server). En el server se debe especificar como convertir los valores de entrada (inputs) en resultados (outputs).
+Una Shiny app contiene al menos dos componentes: un script para la interfaz del usuario (ui) donde se controla el diseño de la aplicación; y un script para realizar los cálculos necesarios (server). En el server se debe especificar como convertir los valores de entrada (inputs) en resultados (outputs).
 
 ### Esta App
 
-Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2018, pero también funciona perfectamente para los años (..) 2017, 2019 y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la app como en los anexos de este informe, estará disponible un listado con las variables utilizadas.
+Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2019, pero también funciona perfectamente para los años (..)2015 a 2018 y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la app como en los anexos de este informe, estará disponible un listado con las variables utilizadas.
 
 En esta aplicación en particular, previo a la creación del ui y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
