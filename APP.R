@@ -2447,7 +2447,7 @@ barra_lateral <- dashboardSidebar(
                        accept = c(".sav", ".RData")),
              fileInput("datosGeo", "Estratos y UPM .sav", multiple = TRUE,
                        accept = c(".sav", ".RData")),
-             selectInput("dis", "Diseño", choices = c("publica", "power"))),
+             selectInput("dis", "Información disponible", choices = c("pública", "estratos+UPM"))),
     
     menuItem("Indicadores", icon = icon("chart-line"),
              menuSubItem("Educación", tabName = "educ", icon = icon("mortar-board")),
@@ -2491,7 +2491,7 @@ contenido <- dashboardBody(
                                                                                                                                                  "Tasa bruta de asistencia de 6 a 11 años a educación primaria"="747",
                                                                                                                                                  "Tasa bruta de asistencia de 3 a 5 años a educación preescolar"="746",
                                                                                                                                                  "Tasa bruta de asistencia de 12 a 17 años a educación media"="1808"))),
-                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionEdu")),
+                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionEdu")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_edu",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_edu",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
@@ -2523,7 +2523,7 @@ contenido <- dashboardBody(
                          box(title= "Indicador", width = 7, solidHeader = TRUE, status = "primary",selectInput("Nombre2", "Indicador", choices= c("Personas afiliadas a emergencias móviles por sexo"="501",
                                                                                                                                                   "Personas afiliadas a emergencias móviles por tramos de edad"="529",
                                                                                                                                                   "Personas por tipo de atención en salud"="517"))),
-                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionSalud")),
+                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionSalud")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_salud",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_salud",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
@@ -2565,7 +2565,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Tasa de empleo por tramos de edad"="534",
                                                                                                                                                   "Tasa de actividad por tramos de edad"="607",
                                                                                                                                                   "Población por condición de actividad por sexo"="610"))),
-                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionLab")),
+                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionLab")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_lab",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_lab",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
@@ -2602,7 +2602,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Hogares con hacinamiento"="577",
                                                                                                                                                   "Hogares con al menos un auto o camioneta"="1929",
                                                                                                                                                   "Hogares en situación de pobreza"="553"))),
-                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionIng")),
+                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionIng")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_ing",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_ing",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
@@ -2638,7 +2638,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Hogares con conexión a internet"="591",
                                                                                                                                                   "Hogares con computadora o laptop"="594",
                                                                                                                                                   "Hogares con al menos una computadora del Plan Ceibal"="584"))),
-                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionTec")),
+                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionTec")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_tec",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_tec",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800))),
@@ -2670,7 +2670,7 @@ contenido <- dashboardBody(
                          box(title= "Indicador", width = 7, solidHeader = TRUE, status = "primary",selectInput("Nombre6", "Indicador", choices= c("Población por lugar de residencia hace 5 años"="678",
                                                                                                                                                   "Población por lugar de nacimiento"="654",
                                                                                                                                                   "Población por lugar de residencia anterior"="655"))),
-                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , uiOutput("SeleccionDemo")),
+                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE ,status = "primary", uiOutput("SeleccionDemo")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_demo",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_demo",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800)
@@ -2708,7 +2708,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Hogares por presencia de lugar para cocinar"="765",
                                                                                                                                                   "Hogares por presencia y uso de baño"="766",
                                                                                                                                                   "Hogares por tipo de relación con la vivienda"="774"))),
-                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE ,uiOutput("SeleccionHog")),
+                         box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE ,status = "primary",uiOutput("SeleccionHog")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_hog",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_hog",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800)
@@ -2827,9 +2827,9 @@ server <- function(input, output){
       mutate(e3a5=ifelse(e27>=3 & e27<=5,1,0))%>%
       mutate(e12a17=ifelse(e27>=12 & e27<=17,1,0))
     
-    if(input$dis =="power") echP<- left_join(echP, geo(), by="numero")
+    if(input$dis =="estratos+UPM") echP<- left_join(echP, geo(), by="numero")
     
-    if (input$dis == "publica") pr<-echP%>% as_survey_design(ids=numero, weight=pesoano)
+    if (input$dis == "pública") pr<-echP%>% as_survey_design(ids=numero, weight=pesoano)
     else pr<-echP%>% as_survey_design(ids=upm_fic, weight=pesoano, strata=estrato)    
     
     return(pr)
@@ -2842,9 +2842,9 @@ server <- function(input, output){
       mutate(Oc_con_permiso= ifelse(d8_1==6|d8_1==7|d8_1==8,1,0))%>%
       mutate(hacinamiento= ifelse((d25/d9)>2,1,0))
     
-    if(input$dis =="power") echH<- left_join(echH, geo(), by="numero")
+    if(input$dis =="estratos+UPM") echH<- left_join(echH, geo(), by="numero")
     
-    if (input$dis == "publica") ph<-echH%>% as_survey_design(ids=numero, weight=pesoano)
+    if (input$dis == "pública") ph<-echH%>% as_survey_design(ids=numero, weight=pesoano)
     else ph<-echH%>% as_survey_design(ids=upm_fic, weight=pesoano, strata=estrato)    
     
     return(ph)

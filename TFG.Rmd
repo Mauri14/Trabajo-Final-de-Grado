@@ -2,7 +2,15 @@
 title: "Estimación en dominios de indicadores socioeconómicos a partir de la Encuesta Continua de Hogares"
 author: "Mauricio Pittamiglio"
 date: "3/6/2020"
-output: pdf_document
+header-includes: 
+- \usepackage{float} 
+- \floatplacement{figure}{H}
+output:
+  pdf_document:
+    number_sections: yes
+lang: es
+fontsize: 12pt
+documentclass: report
 ---
 
 ```{r setup, include=FALSE}
@@ -238,13 +246,13 @@ Donde el estimador $\hat \theta$ se asume tiene una distribución aproximadament
 
 Particularmente se trabajará con una confianza del $95\%$, por lo que al sustituir el valor de la constante:
 
-\begin{equation}\label{m17}
+\begin{equation}\label{m18}
 \begin{array}{cc}
 \hat \theta \pm 1.96\times \widehat{\text{SE}}(\hat \theta)
 \end{array}
 \end{equation}
 
-Un intervalo de confianza con nivel de confianza del $95\%$ significa que, en promedio, de cada 100 muestras obtenidas bajo el mismo diseño, el intervalo contiene al verdadero valor del parámetro en 95 de ellas.
+Un intervalo con nivel de confianza del $95\%$ significa que, en promedio, de cada 100 muestras obtenidas bajo el mismo diseño, el intervalo contiene al verdadero valor del parámetro en 95 de ellas.
 
 # Computación estadística
 
@@ -326,9 +334,17 @@ Dentro del encabezado solo aparece el título y un link que lleva directamente a
 
 La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función *fileInput* y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPMs (en caso de contar con el). También se incluye un widget mediante la función *selectInput* para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPMs.
 
+![Barra lateral de la app](Barra_lateral.PNG) 
+
 En el body se especifica el contenido de cada una de las secciones. La ventana introductoria cuenta con... . 
 
-La sección de los indicadores cuenta con 3 pestañas. En la primera de ellas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (*downloadButton*) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior.
+La sección de los indicadores cuenta con 3 pestañas.
+
+![Sección indicadores](cat.PNG)
+
+![Pestañas](pest.PNG)
+
+En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (*downloadButton*) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior.
 
 ### Server
 
@@ -338,6 +354,28 @@ Plotly hace los gráficos interactivos, cuenta con varias opciones para poder vi
 
 
 # Ejemplo de aplicación
+
+En esta sección se presenta el procedimiento aplicado y los resultados obtenidos para el caso de un indicador en particular, la tasa de desempleo por sexo. Utilizando la ECH del 2019 y la información sobre los estratos y unidades primarias de muestreo (UPM).
+
+En primer lugar se cargan las bases de datos necesarias, disponibles en la página web del INE.
+
+![Bases de datos](bases.PNG)
+
+Una vez cargadas las bases se selecciona dentro de la sección de indicadores, la categoría *Mercado laboral* donde se encuentra este indicador. Una vez dentro de esta sección, se selecciona el indicador que se desea obtener.
+
+![Selección del indicador](indicador.png)
+
+En la misma pestaña se observan como resultados los dos tipos de gráficos antes mencionados, los cuales se presentan a continuación.
+
+![Gráfico de barras de la tasa de desempleo a nivel departamental y de todo el país desagregando por sexo](barras.PNG)
+
+![Tasa de desempleo a nivel departamental para la categoría Hombres](Mapa.png)
+
+Como se puede observar en la imagen, al colocar el cursor sobre uno de los departamentos, el gráfico nos brinda el valor de la estimación para dicho departamento. Esto también es posible en el diagrama de barras anterior y es una de las ventajas del uso de gráficos interactivos creados con la librería *plotly*.
+
+Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este caso las opciones son *Hombre*, *Mujer* o *Total*. 
+
+![](cat_mapa.PNG)
 
 
 # Discusión
