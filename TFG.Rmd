@@ -10,7 +10,8 @@ output:
     number_sections: yes
 lang: es
 fontsize: 12pt
-documentclass: report
+documentclass: book
+geometry: margin=3cm
 ---
 
 ```{r setup, include=FALSE}
