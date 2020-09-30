@@ -489,7 +489,7 @@ Dentro del encabezado solo aparece el título y un link que lleva directamente a
 
 La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función \textit{fileInput} y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPMs (en caso de contar con el). También se incluye un widget mediante la función \textit{selectInput} para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPMs.
 
-\begin{figure}[hbpt]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{Barra_lateral.PNG}
 \caption{Barra lateral. \label{lateral}}
@@ -501,14 +501,14 @@ En el body se especifica el contenido de cada una de las secciones. La ventana i
 La sección de los indicadores cuenta con 3 pestañas.
 
 
-\begin{figure}[hbpt]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{cat.PNG}
 \caption{Categorías de indicadores. \label{cat}}
 \end{center}
 \end{figure}
 
-\begin{figure}[hbpt]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{pest.PNG}
 \caption{Pestañas. \label{pest}}
@@ -531,7 +531,7 @@ En esta sección se presenta el procedimiento aplicado y los resultados obtenido
 
 En primer lugar se cargan las bases de datos necesarias, disponibles en la página web del INE.
 
-\begin{figure}[hbpt]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{bases.PNG}
 \caption{Bases de datos. \label{pest}}
@@ -540,7 +540,7 @@ En primer lugar se cargan las bases de datos necesarias, disponibles en la pági
 
 Una vez cargadas las bases se selecciona dentro de la sección de indicadores, la categoría \textit{Mercado laboral} donde se encuentra este indicador. Una vez dentro de esta sección, se selecciona el indicador que se desea obtener.
 
-\begin{figure}[hbpt]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=1\textwidth]{indicador.png}
 \caption{Selección del indicador. \label{ind}}
@@ -549,14 +549,14 @@ Una vez cargadas las bases se selecciona dentro de la sección de indicadores, l
 
 En la misma pestaña se observan como resultados los dos tipos de gráficos antes mencionados, los cuales se presentan a continuación.
 
-\begin{figure}[hbpt]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=1\textwidth]{barras.PNG}
 \caption{Gráfico de barras de la tasa de desempleo a nivel departamental y de todo el país desagregando por sexo. \label{barras}}
 \end{center}
 \end{figure}
 
-\begin{figure}[hbpt]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=1\textwidth]{Mapa.png}
 \caption{Tasa de desempleo a nivel departamental para la categoría Hombres. \label{mapa}}
@@ -567,11 +567,32 @@ Como se puede observar en la imagen, al colocar el cursor sobre uno de los depar
 
 Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este caso las opciones son \textit{Hombre}, \textit{Mujer} o \textit{Total}. 
 
-\begin{figure}[hbpt]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=1\textwidth]{cat_mapa.PNG}
-\caption{Categorías para visualizar en el mapa. \label{mapa}}
+\caption{Categorías para visualizar en el mapa. \label{catmapa}}
 \end{center}
+\end{figure}
+
+En la segunda pestaña de esta sección se puede observar una tabla como la presentada en la figura \ref{tabl}, que contiene las estimaciones puntuales del indicador seleccionado, a nivel departamental y nacional.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=1.2\textwidth]{tabla.PNG}
+\caption{Tabla con las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tabl}}
+\end{center}
+\end{figure}
+
+Por último, en la pestaña \textit{IC}, se observan tablas con los límites de los intervalos de confianza al $95\%$ de las estimaciones anteriores.
+
+\begin{figure}[ht]
+\includegraphics[width=1.2\textwidth]{inf.PNG}
+\caption{Tabla con los límites inferiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablinf}}
+\end{figure}
+
+\begin{figure}[ht]
+\includegraphics[width=1.2\textwidth]{sup.PNG}
+\caption{Tabla con los límites superiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablsup}}
 \end{figure}
 
 \chapter{Discusión \label{cap:discu}}
