@@ -529,7 +529,7 @@ En esta parte de la App se realizan todos los cálculos necesarios. En primer lu
 
 En esta sección se presenta el procedimiento aplicado y los resultados obtenidos para el caso de un indicador en particular, la tasa de desempleo por sexo. Utilizando la ECH del 2019 y la información sobre los estratos y unidades primarias de muestreo (UPM).
 
-En primer lugar se cargan las bases de datos necesarias, disponibles en la página web del INE.
+En primer lugar se cargan las bases de datos necesarias, disponibles en la página web del INE. Primero se debe cargar la base de personas, luego la de hogares y en tercer lugar, el archivo con la información sobre estratos y UPM.
 
 \begin{figure}[ht]
 \begin{center}
