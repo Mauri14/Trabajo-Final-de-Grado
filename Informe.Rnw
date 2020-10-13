@@ -129,6 +129,9 @@ Se trabajará con distintos indicadores socioeconómicos que se obtienen a parti
 
 
 \chapter{Métodos estadísticos \label{cap:Met}}
+
+\section{Introducción \label{sec:in}}
+
 Todos los indicadores presentados en este trabajo son estimaciones, por lo tanto se encuentran sujetas a errores de muestreo por el hecho de ser obtenidas a partir de una parte de la población (muestra) y no a partir de un censo. Estos errores de muestreo dependen de varios factores como ser: la variabilidad de la variable de interés, el tipo de indicador (parámetro), el dominio de estimación, la estrategia de selección de la muestra (diseño muestral) y los ajustes realizados para la construcción de los ponderadores.
 
 El error de muestreo de la estimación de un parámetro es generalmente cuantificado por medio del error estándar de la estimación, que mide la variación de las estimaciones entre las distintas muestras y es el insumo principal para la construcción de intervalos de confianza.
@@ -136,6 +139,12 @@ El error de muestreo de la estimación de un parámetro es generalmente cuantifi
 Existen también los errores no muestrales, estos no se deben a la utilización de una muestra, sino a otras causas, como errores en la recolección o en el procesamiento de los datos, entre otros. Estos no serán abordados en este trabajo en particular.
 
 En su mayoría los indicadores presentados son totales y ratios (tasas, promedios y proporciones).
+
+\subsection{Dominios \label{subsec:dom}}
+
+En la práctica, las encuestas nacionales como la ECH, no son solamente utilizadas para hacer estimaciones a nivel de toda la población sino que también se realizan para diferentes subpoblaciones. Estas subpoblaciones para las cuales se computan de manera específica, tanto estimaciones puntuales como intervalos de confianza, son denominadas dominios. (SARNDAL)
+
+Los dominios pueden clasificarse como planeados o no planeados. Los dominios planeados son aquellas subpoblaciones para las cuales se quiere brindar estimaciones con precisiones específicas y los mismos son definidos como estratos de diseño, lo cual permite definir tamaños de muestra específicos. Mientras que los dominios no planeados, son aquellos que no fueron tenidos en cuenta a la hora de diseñar la muestra, debido a que generalmente no se tiene información en el marco de muestreo. Estos dominios son los más comunes en la práctica y un claro ejemplo de los mismos son aquellos definidos por las personas que se encuentran comprendidas dentro de un tramo de edad específico.
 
 \section{Estimaciones puntuales \label{sec:estpunt}}
 
@@ -189,7 +198,7 @@ El mismo también puede ser planteado de la siguiente forma:
 \end{array}
 \end{equation}
 
-Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$. Por otra parte, el estimador de ratio o cociente $R$ entre dos variables queda definido:
+Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$. (CITAR SARNDAL POR LA DEMOSTRACIÓN). Por otra parte, el estimador de ratio o cociente $R$ entre dos variables queda definido:
 
 \begin{equation}\label{m7}
 \begin{array}{cc}
@@ -201,11 +210,12 @@ El estimador $\hat R$ es un estimador no lineal ya que es un cociente entre dos 
 
 Generalmente, los ajustes por no respuesta tienden a aumentar el error estándar (SE) de las estimaciones, ya que buscan únicamente reducir el posible sesgo ocasionado por las unidades que no respondieron a la encuesta, mientras que por otro lado, la calibración busca reducir los SE por medio de variables auxiliares o de control que se encuentran correlacionadas con las variables de interés de la encuesta. 
 
+
 \section{Estimación de los errores estándar (SE) \label{sec:estse}}
 
 Como la muestra es aleatoria, los estimadores son variables aleatorias y están, por lo tanto, sujetos a fluctuación. Esta fluctuación puede ser medida a partir del error estándar de la estimación. El SE es una medida de la precisión de la estimación y la misma puede ser utilizada para realizar inferencia de la población de interés por medio de la construcción de intervalos de confianza. El SE cuantifica la variación entre las estimaciones obtenidas entre las distintas muestras. Son calculados con el objetivo de añadir a las estimaciones puntuales una medida de calidad de las mismas. Por lo tanto, el problema se encuentra en poder obtener una estimación del SE que refleje, en lo posible, todas las fuentes de variabilidad del estimador o al menos las más importantes. Las fuentes de variabilidad vienen dadas por el diseño muestral implementado, así como también los distintos ajustes que son llevados a cabo para obtener los ponderadores finales $w_i$.
 
-En la práctica muchos usuarios que utilizan la bases de datos de encuestas públicas para realizar sus propias inferencias no siempre tienen en cuenta todas las fuentes de variabilidad que afectan al error estándar. Esto, puede derivar en la realización de inferencias inválidas sobre los parámetros de la población. Uno de los motivos por los cuales surge este problema es el no contar con los insumos necesarios en la bases de datos públicas de las encuestas sobre el diseño de muestreo. En el caso de la ECH, para los años anteriores a 2018 no se cuenta con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos.
+En la práctica muchos usuarios que utilizan la bases de datos de encuestas públicas para realizar sus propias inferencias no siempre tienen en cuenta todas las fuentes de variabilidad que afectan al error estándar. Esto, puede derivar en la realización de inferencias inválidas sobre los parámetros de la población. Uno de los motivos por los cuales surge este problema es el no contar con los insumos necesarios en la bases de datos públicas de las encuestas sobre el diseño de muestreo. En el caso de la ECH, para los años anteriores a 2018 no se cuenta con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos a los que pertenece cada individuo.
 
 Para un diseño complejo como el de la ECH, no existen métodos exactos para calcular los SE, lo que implica que se deba recurrir a distintas estrategias o métodos que aproximan de mejor forma la variabilidad de las estimaciones. Dentro de la amplia gama de métodos que existen se optó por el método del último conglomerado para computar los SE, que es el más usado en la práctica y se encuentra implementado en el paquete \textit{survey} del \textit{R}. Este método puede manejar tanto parámetros lineales como no lineales. (INFORME TAMBIEN)
 
@@ -270,7 +280,8 @@ $\hat t_{jh}=\sum\nolimits_{s_{jh}} w_i\times y_i$ es la estimación del total d
 
 $\hat t_h=\sum\nolimits_{h=1}^H\hat t_{jh}$ es la estimación del total de la variable $y$ en el estrato $h$.
 
-Por otra parte, si el objetivo es estimar el total de la variable $y$ pero para un dominio o área de estimación cualquiera $d$, el SE se obtiene reemplazando en la ecuación anterior la variable $y$ por la variable $y_d$ la cual, toma el valor $y$ para los casos de la muestra incluidos en el dominio $d$ y cero en otro caso. Esta técnica se utiliza para añadir una variabilidad extra a las estimaciones, producto de que el tamaño de muestra en el dominio (por ejemplo, personas comprendidas en un determinado tramo de edad y dentro de un determinado departamento) es aleatorio. Aquí es importante destacar que los dominios pueden clasificarse como planeados o no planeados. Los dominios planeados son aquellas subpoblaciones para las cuales se quiere brindar estimaciones con precisiones específicas y los mismos son definidos como estratos de diseño, lo cual permite definir tamaños de muestra específicos. Mientras que los dominios no planeados, son aquellos que no fueron tenidos en cuenta a la hora de diseñar la muestra, debido a que generalmente no se tiene información en el marco de muestreo. Estos dominios son los más comunes en la práctica y un claro ejemplo de los mismos son aquellos definidos por las personas que se encuentran comprendidas dentro de un tramo de edad específico.
+Por otra parte, si el objetivo es estimar el total de la variable $y$ pero para un dominio o área de estimación cualquiera $d$, el SE se obtiene reemplazando en la ecuación anterior la variable $y$ por la variable $y_d$ la cual, toma el valor $y$ para los casos de la muestra incluidos en el dominio $d$ y cero en otro caso. Esta técnica se utiliza para añadir una variabilidad extra a las estimaciones, producto de que el tamaño de muestra en el dominio (por ejemplo, personas comprendidas en un determinado tramo de edad y dentro de un determinado departamento) es aleatorio. 
+
 
 \subsection{Linearización de Taylor \label{subsec:taylor}}
 
@@ -332,6 +343,7 @@ Un intervalo con nivel de confianza del $95\%$ significa que, en promedio, de ca
 
 \chapter{Indicadores \label{cap:ind}}
 
+\section{ECH \label{sec:ech}}
 
 La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
 
@@ -347,11 +359,10 @@ Los datos de la muestra son ponderados, de forma de obtener estimaciones tanto a
 
 Los ponderadores originales son ajustados en varias etapas una vez concluida la recolección de la información. El primer ajuste se realiza en base a la no respuesta obtenida en campo, es decir, teniendo en cuenta las encuestas efectivamente realizadas. Un segundo ajuste se efectúa utilizando técnicas de calibración en base a las proyecciones de la población residente en viviendas particulares. Esto implica que la ECH expanda a la población proyectada para el año de referencia para cada uno de los departamentos del país, y para la estructura de la población a nivel del total del país por sexo y cinco tramos de edades (0 a 14 años, 15 a 29 años, 30 a 49 años, 50 a 64 años y 65 años o más). (CITAR INFOME DEL INE)
 
+
+\section{Listado de indicadores \label{sec:lista}}
+
 Los indicadores presentados en este trabajo son calculados todos los años por el Observatorio Territorio Uruguay (OTU) perteneciente a la Oficina de Planeamiento y Presupuesto (OPP), y se encuentran disponibles en su página oficial. Dentro de estos indicadores se encuentran algunos tales como tasas de actividad y de desempleo, tasas de asistencia en distintos niveles educativos, índices de pobreza, entre otros. A continuación se presenta un listado de los indicadores computados, haciendo referencia a que categoría pertenecen e indicando parte de la información necesaria para el cálculo de estos.
-
-\subsection{Listado de indicadores \label{subsec:lista}}
-
-
 
 \begin{table}[ht]
 \centering
