@@ -362,71 +362,34 @@ Los ponderadores originales son ajustados en varias etapas una vez concluida la 
 
 \section{Listado de indicadores \label{sec:lista}}
 
-Los indicadores presentados en este trabajo son calculados todos los años por el Observatorio Territorio Uruguay (OTU) perteneciente a la Oficina de Planeamiento y Presupuesto (OPP), y se encuentran disponibles en su página oficial. Dentro de estos indicadores se encuentran algunos tales como tasas de actividad y de desempleo, tasas de asistencia en distintos niveles educativos, índices de pobreza, entre otros. A continuación se presenta un listado de los indicadores computados, haciendo referencia a que categoría pertenecen e indicando parte de la información necesaria para el cálculo de estos.
+Los indicadores presentados en este trabajo son calculados todos los años por el Observatorio Territorio Uruguay (OTU) perteneciente a la Oficina de Planeamiento y Presupuesto (OPP), y se encuentran disponibles en su página oficial. Estos indicadores se dividen en 7 categorías:
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{rllllll}
-  \hline
- & Indicador & Categoría & Función & Variable & Desagregación & Base \\ 
-  \hline
-1 & Tasa de analfabetismo en población de 15 años o más & Educación & 1 & e48 & Dpto - Sexo  & Personas \\ 
-  2 & Adolescentes de 12 a 17 años que asisten a establecimientos educativos & Educación & 1 & adol\_estudios & Dpto - Sexo  & Personas \\ 
-  3 & Personas mayores de 15 años que completaron media básica general o técnica & Educación & 1 & e51\_4 & Dpto - Sexo  & Personas \\ 
-  4 & Personas de 18 años o más que completaron segundo ciclo de educación media & Educación & 1 & secundaria\_utu2 & Dpto - Sexo  & Personas \\ 
-  5 & Población entre 25 y 65 años con estudios terciarios & Educación & 1 & estudios\_terciarios & Dpto - Sexo  & Personas \\ 
-  6 & Tasa neta de asistencia de 0 a 2 años en educación inicial & Educación & 1 & e238 & Dpto - Sexo  & Personas \\ 
-  7 & Tasa neta de asistencia de 3 a 5 años en educación preescolar & Educación & 1 & e193 & Dpto - Sexo  & Personas \\ 
-  8 & Tasa neta de asistencia de 6 a 11 años en educación primaria & Educación & 1 & e197 & Dpto - Sexo  & Personas \\ 
-  9 & Tasa neta de asistencia de 12 a 17 años en educación media & Educación & 1 & edmedia & Dpto - Sexo  & Personas \\ 
-  10 & Personas mayores a 25 años por máximo nivel educativo alcanzado & Educación & 2 & niveledu & Dpto - Sexo  & Personas \\ 
-  11 & Ocupados por máximo nivel educativo alcanzado & Educación & 2 & niveledu & Dpto - Sexo & Personas \\ 
-  12 & Tasa de analfabetismo en mayores de 15 años & Educación & 3 & e48 & Dpto - Tramos de edad  & Personas \\ 
-  13 & Promedio de años de educación de las personas de 25 años o más & Educación & 6 & a\_estudio & Dpto - Sexo  & Personas \\ 
-  14 & Tasa bruta de asistencia de 3 a 5 años en educación preescolar & Educación & 7 & e193 - e3a5 & Dpto & Personas \\ 
-  15 & Tasa bruta de asistencia de 6 a 11 años en educación primaria & Educación & 7 & e197 - e6a11 & Dpto  & Personas \\ 
-  16 & Tasa bruta de asistencia de 12 a 17 años en educación media & Educación & 7 & edmedia - e12a17 & Dpto  & Personas \\ 
-  17 & Jóvenes de 14 a 24 años que no estudian ni trabajan & Educación / Mercado Laboral & 1 & nini & Dpto - Sexo  & Personas \\ 
-  18 & Personas afiliadas a emergencias móviles & Salud & 1 & e46 & Dpto - Sexo  & Personas \\ 
-  19 & Personas afiliadas a emergencias móviles & Salud & 4 & e46 & Dpto - Tramos de edad  & Personas \\ 
-  20 & Personas por tipo de atención en salud & Salud & - & e45\_1 - e45\_2 - e45\_3 - e45\_4 - e45\_5 - e45\_6 - e45\_7 - no\_tiene & Dpto  & Personas \\ 
-  21 & Tasa de desempleo & Mercado Laboral & 1 & activo & Dpto - Sexo  & Personas \\ 
-  22 & Subempleo & Mercado Laboral & 1 & subempleo & Dpto - Sexo  & Personas \\ 
-  23 & Tasa de empleo & Mercado Laboral & 1 & pobpcoac & Dpto - Sexo  & Personas \\ 
-  24 & Tasa de actividad & Mercado Laboral & 1 & activo & Dpto - Sexo  & Personas \\ 
-  25 & Ocupados en establecimientos fuera de su departamento  & Mercado Laboral & 1 & f80 & Dpto - Sexo  & Personas \\ 
-  26 & Desocupados por última ocupación & Mercado Laboral & 2 & f121 & Dpto - Sexo  & Personas \\ 
-  27 & Ocupados por categoría de ocupación & Mercado Laboral & 2 & f73 & Dpto - Sexo  & Personas \\ 
-  28 & Tasa de actividad & Mercado Laboral & 5 & activo & Dpto - Tramos de edad  & Personas \\ 
-  29 & Población total por condición de actividad & Mercado Laboral & - & pobpcoac - desocupados - inactivos & Dpto - Sexo  & Personas \\ 
-  30 & Informalidad & Mercado Laboral / Ingresos y bienestar & 1 & pobpcoac & Dpto - Sexo  & Personas \\ 
-  31 & Tasa de desempleo & Mercado Laboral / Ingresos y bienestar & 5 & desocupados & Dpto - Tramos de edad  & Personas \\ 
-  32 & Tasa de empleo & Mercado Laboral / Ingresos y bienestar & 5 & pobpcoac & Dpto - Tramos de edad  & Personas \\ 
-  33 & Personas en hogares en situación de pobreza & Ingresos y bienestar & 1 & pobre06 & Dpto - Sexo  & Personas \\ 
-  34 & Jóvenes entre 14 y 29 años en situación de pobreza & Ingresos y bienestar & 1 & pobre06 & Dpto - Sexo  & Personas \\ 
-  35 & Hogares con al menos 1 auto o camioneta & Ingresos y bienestar & 8 & d21\_18 & Dpto  & Hogares \\ 
-  36 & Hogares en situación de pobreza & Ingresos y bienestar / Viviendas y hogares & 8 & pobre06 & Dpto  & Hogares \\ 
-  37 & Hogares con hacinamiento & Ingresos y bienestar / Viviendas y hogares & 8 & hacinamiento & Dpto  & Hogares \\ 
-  38 & Personas con celular & Tecnología y comunicación & 1 & e60 & Dpto - Sexo  & Personas \\ 
-  39 & Utilización de computadora el último mes & Tecnología y comunicación & 1 & e61 & Dpto - Sexo  & Personas \\ 
-  40 & Personas que utilizan internet  & Tecnología y comunicación & 1 & e62 & Dpto - Sexo  & Personas \\ 
-  41 & Frecuencia de utilización de internet & Tecnología y comunicación & 2 & e65 & Dpto - Sexo & Personas \\ 
-  42 & Hogares con al menos una computadora del Plan Ceibal & Tecnología y comunicación & 8 & d21\_15\_1 & Dpto  & Hogares \\ 
-  43 & Hogares con conexión a internet & Tecnología y comunicación & 8 & d21\_16 & Dpto  & Hogares \\ 
-  44 & Hogares con computadora o laptop & Tecnología y comunicación & 8 & d21\_15 & Dpto  & Hogares \\ 
-  45 & Población por lugar de nacimiento & Demografía & 2 & e37 & Dpto - Sexo  & Personas \\ 
-  46 & Personas por lugar de residencia anterior & Demografía & 2 & e39 & Dpto - Sexo  & Personas \\ 
-  47 & Población por lugar de residencia hace 5 años & Demografía & 2 & e236\_mod & Dpto - Sexo & Personas \\ 
-  48 & Hogares por tipo de evacuación del sistema sanitario & Viviendas y hogares & 9 & d16 & Dpto  & Hogares \\ 
-  49 & Hogares por presencia de lugar para cocinar & Viviendas y hogares & 9 & d19 & Dpto  & Hogares \\ 
-  50 & Hogares por presencia y uso de baño & Viviendas y hogares & 9 & d15 & Dpto  & Hogares \\ 
-  51 & Hogares por fuente de energía para iluminar & Viviendas y hogares & 9 & d18 & Dpto  & Hogares \\ 
-  52 & Hogares por origen de agua para beber y cocinar & Viviendas y hogares & 9 & d11 & Dpto  & Hogares \\ 
-  53 & Hogares por tipo de relación con la vivienda & Viviendas y hogares & - & propietarios - d8\_1 - Oc\_con\_permiso - d8\_1 & Dpto & Hogares \\ 
-   \hline
-\end{tabular}
-\end{table}
+\begin{itemize}
+\item Educación
+\item Salud
+\item Mercado laboral
+\item Ingresos y bienestar
+\item Tecnología y comunicación
+\item Demografía
+\item Viviendas y hogares
 
+\end{itemize}
+
+Dentro de la categoría \textit{Educación} se encuentran 17 indicadores, referidos a tasas de asistencia a distintos niveles educativos, tasas de analfabetismo, promedio de años de educación, entre otros.
+
+En la categoría \textit{Salud} hay 3 indicadores que evalúan la afiliación a emergencias móviles y el tipo de atención en salud.
+
+Hay 13 indicadores disponibles dentro de \textit{Mercado laboral}, además de los principales indicadores de este rubro (tasas de empleo, desempleo, actividad), se encuentran otros referidos a la informalidad, categoría de ocupación, entre otros.
+
+La categoría \textit{Ingresos y bienestar} cuenta con 8 indicadores, índices de pobreza (en personas y hogares) y algunos indicadores presentes también en la categoría \textit{Mercado laboral} (empleo, desempleo e informalidad).
+
+En \textit{Tecnología y comunicación} se encuentran 7 indicadores referidos a tenencia de distintos dispositivos como celulares o computadoras y a la utilización de estos dispositivos y de internet.
+
+\textit{Demografía} contiene 3 indicadores referidos a residencias previas o lugar de nacimiento de las personas.
+
+Finalmente la categoría \textit{Viviendas y hogares} cuenta con 8 indicadores, todos ellos referidos a distintas características de los hogares.
+
+Recordando que hay indicadores que se encuentran en varias categorías, en total se trabaja con 53 indicadores socio-económicos, desagregando todos por departamento y a su vez hay algunos que se desagregan también por sexo o tramos etáreos.
 
 \chapter{Computación estadística \label{cap:comp}}
 
@@ -439,7 +402,7 @@ Este paquete \textit{srvyr} cuenta con funciones tales como $survey_mean$ para c
 
 (EJEMPLO DE APLICACIÓN DEL SRVYR)
 
-Para la estimación de los indicadores se crearon 9 funciones que varían dependiendo de los individuos involucrados (personas y hogares), la forma en la que se calcula cada indicador y las desagregaciones necesarias. Todas estas funciones estiman el indicador tanto a nivel de cada departamento como de todo el país y tienen como salida una tabla con los resultados.
+Para la estimación de los indicadores se crearon 9 funciones que varían dependiendo de los individuos involucrados (personas y hogares), la forma en la que se calcula cada indicador y las desagregaciones necesarias. Todas estas funciones estiman el indicador tanto a nivel de cada departamento como de todo el país y tienen como salida una tabla (data frame) con los resultados.
 
 Las primeras 7 funciones se utilizan para los indicadores que se obtienen a partir de la base de personas de la ECH, mientras las últimas 2 trabajan con la base de hogares.
 
