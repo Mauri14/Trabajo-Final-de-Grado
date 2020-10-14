@@ -144,6 +144,21 @@ En su mayoría los indicadores presentados son totales y ratios (tasas, promedio
 
 En la práctica, las encuestas nacionales como la ECH, no son solamente utilizadas para hacer estimaciones a nivel de toda la población sino que también se realizan para diferentes subpoblaciones. Estas subpoblaciones para las cuales se computan de manera específica, tanto estimaciones puntuales como intervalos de confianza, son denominadas dominios. (SARNDAL)
 
+En (CITAR ANDRES GUTIERREZ) se introduce la siguiente definición de dominios.
+
+\newtheorem{defi}{Definición}[chapter]
+
+\begin{defi}
+Un dominio $U_d$ es una sub-población específica o subgrupo poblacional que cumple las siguientes condiciones: 
+\begin{enumerate}
+\item $U_d \subset U$, tal que $U=\bigcup_{d=1}^{D}U_d$
+\item Si $k \in  U_l$, entonces $k \notin  U_d$ para $d \neq l$
+\item El número de elementos en el dominio $U_d$ es $N_d$ y es llamado tamaño absoluto del dominio.
+\item La proporción de elementos en el dominio $U_d$ con respecto al tamaño poblacional es $P_d =\frac{N_d}{N}$ y se conoce como tamaño relativo del dominio.
+
+\end{enumerate}
+\end{defi}
+
 Los dominios pueden clasificarse como planeados o no planeados. Los dominios planeados son aquellas subpoblaciones para las cuales se quiere brindar estimaciones con precisiones específicas y los mismos son definidos como estratos de diseño, lo cual permite definir tamaños de muestra específicos. Mientras que los dominios no planeados, son aquellos que no fueron tenidos en cuenta a la hora de diseñar la muestra, debido a que generalmente no se tiene información en el marco de muestreo. Estos dominios son los más comunes en la práctica y un claro ejemplo de los mismos son aquellos definidos por las personas que se encuentran comprendidas dentro de un tramo de edad específico.
 
 \section{Estimaciones puntuales \label{sec:estpunt}}
@@ -391,6 +406,8 @@ Finalmente la categoría \textit{Viviendas y hogares} cuenta con 8 indicadores, 
 
 Recordando que hay indicadores que se encuentran en varias categorías, en total se trabaja con 53 indicadores socio-económicos, desagregando todos por departamento y a su vez hay algunos que se desagregan también por sexo o tramos etáreos.
 
+En anexo se presenta un listado completo de los indicadores trabajados.
+
 \chapter{Computación estadística \label{cap:comp}}
 
 
@@ -400,7 +417,16 @@ Para replicar el diseño muestral de la ECH y poder llevar a cabo el computo de 
 
 Este paquete \textit{srvyr} cuenta con funciones tales como $survey_mean$ para calcular medias o proporciones, $survey_ratio$ para ratios o $survey_total$ para totales. Estas funciones utilizan los ponderadores y dan como resultado tanto las estimaciones puntuales que correspondan como las estimaciones de los errores estándar, utilizando las ecuaciones y metodologías descritas en este documento para realizar los cálculos.
 
-(EJEMPLO DE APLICACIÓN DEL SRVYR)
+A continuación se presenta un breve ejemplo de como se utilizan las funciones de esta librería.
+
+<<eval=FALSE>>=
+ind<-diseno%>%
+      filter(eval(parse(text=filtro)))%>%
+      group_by(dpto)%>%
+      summarise(estimacion.tot= survey_mean(eval(parse(text=variable))))
+@
+
+Estas líneas de código son la base de las funciones creadas para el cálculo de los indicadores, donde en este caso se le indica el objeto de diseño, se le aplica el filtro necesario, se agrupa por departamento y se estima la media de la variable indicada para cada departamento, dando como resultado un objeto (data frame) con las estimaciones puntuales y errores estándar para el indicador deseado.
 
 Para la estimación de los indicadores se crearon 9 funciones que varían dependiendo de los individuos involucrados (personas y hogares), la forma en la que se calcula cada indicador y las desagregaciones necesarias. Todas estas funciones estiman el indicador tanto a nivel de cada departamento como de todo el país y tienen como salida una tabla (data frame) con los resultados.
 
@@ -434,6 +460,13 @@ Todas las funciones necesitan de algunos insumos para estimar los indicadores co
 
 Se crean además funciones para el cálculo de los intervalos de confianza de las estimaciones, funcionando de la misma manera que las funciones mencionadas anteriormente pero obteniendo una salida diferente, 9 de ellas dan como salida una tabla con los extremos inferiores de los intervalos, mientras las otras 9 hacen lo mismo con los límites superiores.
 
+A continuación se presenta un ejemplo del código para la aplicación de una de las funciones. El indicador es \textit{Utilización de computadora el último mes por sexo}.
+
+<<eval=FALSE>>=
+funcion1(pr,"e27>5","e61==1")
+@
+
+Este indicador es estimado en base a personas y con desagregación por departamento y por sexo. Se utiliza la \textit{funcion1}, el diseño utilizado es \textit{pr}, el filtro es $e27>5$ (edad mayor a 5 años) y la variable utilizada es $e61==1$ la cual es una variable presente en la ECH que hace referencia a la utilización de computadora en el último mes.
 
 \subsection{Descripción de los diseños \label{subsec:dis}}
 
