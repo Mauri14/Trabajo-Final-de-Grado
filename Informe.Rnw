@@ -465,14 +465,13 @@ Esta aplicación procesa los datos de la ECH, particularmente se realizó en bas
 En esta aplicación en particular, previo a la creación del ui y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
 \subsection{UI \label{subsec:ui}}
-
 La ui cuenta con tres partes, el encabezado (\textit{dashboardHeader}), la barra lateral (\textit{dashboardSidebar}) y el contenido (\textit{dashboardBody}).
 
 Dentro del encabezado solo aparece el título y un link que lleva directamente a la página del INE donde están disponibles las bases de datos de la ECH.
 
 La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función \textit{fileInput} y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPM (en caso de contar con el). También se incluye un widget mediante la función \textit{selectInput} para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPM.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/Barra_lateral.PNG}
 \caption{Barra lateral. \label{lateral}}
@@ -483,22 +482,19 @@ En el body se especifica el contenido de cada una de las secciones. La ventana i
 
 La sección de los indicadores cuenta con 3 pestañas.
 
-
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/cat.PNG}
 \caption{Categorías de indicadores. \label{cat}}
 \end{center}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/pest.PNG}
 \caption{Pestañas. \label{pest}}
 \end{center}
 \end{figure}
-
-
 
 En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior.
 
@@ -510,9 +506,21 @@ En esta parte de la App se realizan todos los cálculos necesarios. En primer lu
 
 \chapter{Ejemplo de aplicación \label{cap:aplic}}
 
-En esta sección se presenta el procedimiento aplicado y los resultados obtenidos para el caso de dos indicadores en particular, la \texttt{tasa de desempleo por sexo} y la \texttt{utilización de computadora el último mes por sexo}. Utilizando la ECH del 2019 y la información sobre los estratos y unidades primarias de muestreo (UPM).
+En esta sección se presenta el procedimiento aplicado y los resultados obtenidos para el caso de dos indicadores en particular, la \texttt{tasa de desempleo por sexo} y \texttt{Hogares por presencia de lugar para cocinar}. Utilizando la ECH del 2019 y la información sobre los estratos y unidades primarias de muestreo (UPM).
 
-En primer lugar se cargan las bases de datos necesarias, disponibles en la página web del INE. Primero se debe cargar la base de personas, luego la de hogares y en tercer lugar, el archivo con la información sobre estratos y UPM.
+La tasa de desempleo es uno de los indicadores más importantes que brinda la ECH. El INE calcula este indicador todos los años a nivel departamental e incluso desagregando también por sexo.
+
+Este indicador hace referencia al porcentaje de personas desocupadas por sexo, donde, desocupada es toda persona que durante el período de referencia de la encuesta, no está trabajando por no tener empleo, que lo busca activamente, y están disponibles para empezar a trabajar. Se calcula como $\frac{Numero\; de\; personas\; desocupadas}{Poblacion \;Economicamente \;Activa}\times 100$.
+
+Pasando al cálculo a partir de las funciones, el código es el siguiente:
+
+<<eval=FALSE>>=
+funcion1(pr, "e27>13 & activo==1", "desocupados==1")
+@
+
+Al ser un indicador calculado en base a personas, necesitando del cálculo de una proporción y desagregando por sexo se utiliza la \textit{funcion1}. El diseño utilizado es \textit{pr}, el fitro $e27>13$ y $activo==1$ indica que se calcula para los mayores de 13 años y la variable $activo==1$, es una variable creada a partir de otras variables de la ECH, que toma valor 1 cuando el individuo pertenece a la población económicamente activa. Finalmente la variable utilizada es $desocupados==1$ la cual también es una variable creada a partir de otras variables de la ECH y toma valor 1 cuando el individuo está desocupado y 0 si no lo está.
+
+Para la obtención de los resultados de este indicador en la app en primer lugar se cargan las bases de datos necesarias, disponibles en la página web del INE. Primero se debe cargar la base de personas, luego la de hogares y en tercer lugar, el archivo con la información sobre estratos y UPM.
 
 \begin{figure}[ht]
 \begin{center}
@@ -576,6 +584,42 @@ Por último, en la pestaña \textit{IC}, se observan tablas con los límites de 
 \begin{figure}[ht]
 \includegraphics[width=1.2\textwidth]{img/sup.PNG}
 \caption{Tabla con los límites superiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablsup}}
+\end{figure}
+
+Por otra parte, el indicador \texttt{Hogares por presencia de lugar para cocinar} hace referencia al porcentaje de hogares que cuentan con lugar apropiado para cocinar privado, con lugar apropiado compartido con otros hogares o que no cuentan con lugar apropiado y se calcula como $\frac{Numero\; de\; hogares\; segun \;presencia\;de\;lugar\;para\;cocinar}{Total \;hogares}\times 100$.
+
+<<eval=FALSE>>=
+funcion9(ph, "d19", c("dpto", "Lugar privado", "Compartido", "No tiene"),
+         c(1,2,3))
+@
+
+Este indicador se calcula sobre la base de hogares, se utiliza la \emph{funcion9}, el diseño \emph{ph}, filtro no tiene ya que se calcula sobre todos los hogares, la variable utilizada es \emph{d19} la cual es una variable presente en la ECH que hace referencia al lugar para cocinar y toma valor 1 cuando tiene lugar privado, 2 cuando es compartido con otros hogares y 3 cuando no tiene. Esta información es la que se le brinda a la función en los otros dos insumos.
+
+En la app este indicador se encuentra en la sección \textit{Viviendas y hogares}, por lo que de igual manera que para el indicador anterior, se ingresa a la sección, se selecciona el indicador deseado y se observan los resultados.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=1\textwidth]{img/indicador_hog.PNG}
+\caption{Selección del indicador Hogares por presencia de lugar para cocinar. \label{ind2}}
+\end{center}
+\end{figure}
+
+La diferencia en este indicador es que se presenta un gráfico de barras apiladas en lugar de agrupadas como era el caso de la tasa de desempleo.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=1\textwidth]{img/Barras_hog.PNG}
+\caption{Gráfico de barras de la proporción de hogares por presencia de lugar para cocinar por departamento. \label{barras2}}
+\end{center}
+\end{figure}
+
+El gráfico de mapa es similar al presentado para la tasa de desempleo, donde también se puede seleccionar la categoría a visualizar. La visualización de las tablas de estimaciones puntuales e intervalos de confianza también son similares al caso anterior.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=1.2\textwidth]{img/tabla_hog.PNG}
+\caption{Tabla con las estimaciones puntuales de la proporción de hogares por presencia de lugar para cocinar a nivel departamental y de todo el país en el año 2019. \label{tabl2}}
+\end{center}
 \end{figure}
 
 \chapter{Discusión \label{cap:discu}}
