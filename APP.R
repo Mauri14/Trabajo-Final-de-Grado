@@ -9,6 +9,7 @@ library(survey)
 library(DT)
 library(rgdal)
 library(maptools)
+library(readxl)
 gpclibPermit()
 options(shiny.maxRequestSize = 300 * 1024^2)
 
@@ -23,6 +24,7 @@ mapa_uru<-datosDF%>%
 mapa_uru$popup<- recode(mapa_uru$popup,"ARTIGAS"="Artigas","CANELONES"="Canelones","CERRO LARGO"="Cerro Largo","COLONIA"="Colonia","DURAZNO"="Durazno","FLORES"="Flores","FLORIDA"="Florida","LAVALLEJA"="Lavalleja","MALDONADO"="Maldonado",
                         "MONTEVIDEO"="Montevideo","PAYSANDÚ"="Paysandú","RÍO NEGRO"="Río Negro","RIVERA"="Rivera","ROCHA"="Rocha","SALTO"="Salto","SAN JOSÉ"="San José","SORIANO"="Soriano","TACUAREMBÓ"="Tacuarembó","TREINTA Y TRES"="Treinta y Tres")
 
+variables <- read_excel("variables.xlsx")
 
 #####Funciones######
 
@@ -2469,7 +2471,24 @@ contenido <- dashboardBody(
   
   
   tabItems(
-    tabItem(tabName = "inicio", h1("INTRO")),
+    tabItem(tabName = "inicio", h1("INTRO"),
+            fluidRow(
+              tabBox(
+                width = 12,
+                tabPanel(
+                  status= "primary",
+                  title = "Resumen",
+                  p("Esta aplicación.......",style="text-align:justify;color:black;background-color:lavender;padding:15px;border-radius:10px")
+                ),
+                tabPanel(
+                  status= "success",
+                  title = "Listado de variables",
+                  DTOutput("Variab")
+                  
+                )
+              )
+              
+            )),
     tabItem(tabName = "educ", 
             tabsetPanel(
               tabPanel("Visualización", 
@@ -4139,6 +4158,20 @@ server <- function(input, output){
     else if(input$Nombre7 == "553") i553Sup()
     else if(input$Nombre7 == "774") i774Sup()
   })
+  
+  output$Variab<- renderDT({
+   
+    
+    datatable(variables, 
+              options = list(info = F,
+                             paging = F,
+                             searching = T,
+                             stripeClasses = F, 
+                             lengthChange = F,
+                             scrollX = T),
+              rownames = F)
+    }) 
+  
   output$datos1 <- renderDT({
     
     inFile <- input$datos
