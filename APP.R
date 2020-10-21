@@ -2229,6 +2229,7 @@ funcion8inf<- function(diseno, variable) {
   inf<-as.data.frame(cbind(dpto=ind$dpto, Total=ind$Total - (1.96*desv$Total_se)))   
   inf<-inf%>%mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
                                  "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres","20"="Total País" ))
+  inf[,2:ncol(inf)][inf[,2:ncol(inf)]<0] <- 0
   
   return(inf)
   
@@ -2264,6 +2265,7 @@ funcion8sup<- function(diseno, variable) {
   sup<-sup%>%mutate(dpto= recode(as.factor(dpto), "1"="Montevideo","2"="Artigas","3"="Canelones","4"="Cerro Largo","5"="Colonia","6"="Durazno","7"="Flores","8"="Florida","9"="Lavalleja",
                                  "10"="Maldonado","11"="Paysandú","12"="Río Negro","13"="Rivera","14"="Rocha","15"="Salto","16"="San José","17"="Soriano","18"="Tacuarembó","19"="Treinta y Tres", "20"="Total País" ))
   
+  sup[,2:ncol(sup)][sup[,2:ncol(sup)]>1] <- 1
   return(sup)
   
   
@@ -2522,13 +2524,14 @@ contenido <- dashboardBody(
                            tabPanel(
                              status= "primary",
                              title = "Inferior",
-                             DTOutput("InfEdu")
+                             DTOutput("InfEdu"),
+                             p(class = 'text-center', downloadButton('dinf1', 'Descargar'))
                            ),
                            tabPanel(
                              status= "success",
                              title = "Superior",
-                             DTOutput("SupEdu")
-                             
+                             DTOutput("SupEdu"),
+                             p(class = 'text-center', downloadButton('dsup1', 'Descargar'))
                            )
                          )
                          
@@ -2554,12 +2557,14 @@ contenido <- dashboardBody(
                            tabPanel(
                              status= "primary",
                              title = "Inferior",
-                             DTOutput("InfSalud")
+                             DTOutput("InfSalud"),
+                             p(class = 'text-center', downloadButton('dinf2', 'Descargar'))
                            ),
                            tabPanel(
                              status= "success",
                              title = "Superior",
-                             DTOutput("SupSalud")
+                             DTOutput("SupSalud"),
+                             p(class = 'text-center', downloadButton('dsup2', 'Descargar'))
                              
                            )
                          )
@@ -2596,12 +2601,14 @@ contenido <- dashboardBody(
                            tabPanel(
                              status= "primary",
                              title = "Inferior",
-                             DTOutput("InfLab")
+                             DTOutput("InfLab"),
+                             p(class = 'text-center', downloadButton('dinf3', 'Descargar'))
                            ),
                            tabPanel(
                              status= "success",
                              title = "Superior",
-                             DTOutput("SupLab")
+                             DTOutput("SupLab"),
+                             p(class = 'text-center', downloadButton('dsup3', 'Descargar'))
                              
                            )
                          )
@@ -2633,12 +2640,14 @@ contenido <- dashboardBody(
                            tabPanel(
                              status= "primary",
                              title = "Inferior",
-                             DTOutput("InfIng")
+                             DTOutput("InfIng"),
+                             p(class = 'text-center', downloadButton('dinf4', 'Descargar'))
                            ),
                            tabPanel(
                              status= "success",
                              title = "Superior",
-                             DTOutput("SupIng")
+                             DTOutput("SupIng"),
+                             p(class = 'text-center', downloadButton('dsup4', 'Descargar'))
                              
                            )
                          )
@@ -2669,12 +2678,14 @@ contenido <- dashboardBody(
                            tabPanel(
                              status= "primary",
                              title = "Inferior",
-                             DTOutput("InfTec")
+                             DTOutput("InfTec"),
+                             p(class = 'text-center', downloadButton('dinf5', 'Descargar'))
                            ),
                            tabPanel(
                              status= "success",
                              title = "Superior",
-                             DTOutput("SupTec")
+                             DTOutput("SupTec"),
+                             p(class = 'text-center', downloadButton('dsup5', 'Descargar'))
                              
                            )
                          )
@@ -2702,12 +2713,14 @@ contenido <- dashboardBody(
                            tabPanel(
                              status= "primary",
                              title = "Inferior",
-                             DTOutput("InfDemo")
+                             DTOutput("InfDemo"),
+                             p(class = 'text-center', downloadButton('dinf6', 'Descargar'))
                            ),
                            tabPanel(
                              status= "success",
                              title = "Superior",
-                             DTOutput("SupDemo")
+                             DTOutput("SupDemo"),
+                             p(class = 'text-center', downloadButton('dsup6', 'Descargar'))
                              
                            )
                          )
@@ -2740,12 +2753,14 @@ contenido <- dashboardBody(
                            tabPanel(
                              status= "primary",
                              title = "Inferior",
-                             DTOutput("InfHog")
+                             DTOutput("InfHog"),
+                             p(class = 'text-center', downloadButton('dinf7', 'Descargar'))
                            ),
                            tabPanel(
                              status= "success",
                              title = "Superior",
-                             DTOutput("SupHog")
+                             DTOutput("SupHog"),
+                             p(class = 'text-center', downloadButton('dsup7', 'Descargar'))
                              
                            )
                          )
@@ -5128,6 +5143,49 @@ server <- function(input, output){
     write.table(indicador_hog(), file  ,sep=";",row.names = F)
   })
   
+  output$dinf1 = downloadHandler('inferior.csv', content = function(file) {
+    write.table(indicador_eduInf(), file  ,sep=";",row.names = F)
+  })
+  output$dinf2 = downloadHandler('inferior.csv', content = function(file) {
+    write.table(indicador_saludInf(), file  ,sep=";",row.names = F)
+  })
+  output$dinf3 = downloadHandler('inferior.csv', content = function(file) {
+    write.table(indicador_labInf(), file  ,sep=";",row.names = F)
+  })
+  output$dinf4 = downloadHandler('inferior.csv', content = function(file) {
+    write.table(indicador_ingInf(), file  ,sep=";",row.names = F)
+  })
+  output$dinf5 = downloadHandler('inferior.csv', content = function(file) {
+    write.table(indicador_tecInf(), file  ,sep=";",row.names = F)
+  })
+  output$dinf6 = downloadHandler('inferior.csv', content = function(file) {
+    write.table(indicador_demoInf(), file  ,sep=";",row.names = F)
+  })
+  output$dinf7 = downloadHandler('inferior.csv', content = function(file) {
+    write.table(indicador_hogInf(), file  ,sep=";",row.names = F)
+  })
+
+  output$dsup1 = downloadHandler('superior.csv', content = function(file) {
+    write.table(indicador_eduSup(), file  ,sep=";",row.names = F)
+  })
+  output$dsup2 = downloadHandler('superior.csv', content = function(file) {
+    write.table(indicador_saludSup(), file  ,sep=";",row.names = F)
+  })
+  output$dsup3 = downloadHandler('superior.csv', content = function(file) {
+    write.table(indicador_labSup(), file  ,sep=";",row.names = F)
+  })
+  output$dsup4 = downloadHandler('superior.csv', content = function(file) {
+    write.table(indicador_ingSup(), file  ,sep=";",row.names = F)
+  })
+  output$dsup5 = downloadHandler('superior.csv', content = function(file) {
+    write.table(indicador_tecSup(), file  ,sep=";",row.names = F)
+  })
+  output$dsup6 = downloadHandler('superior.csv', content = function(file) {
+    write.table(indicador_demoSup(), file  ,sep=";",row.names = F)
+  })
+  output$dsup7 = downloadHandler('superior.csv', content = function(file) {
+    write.table(indicador_hogSup(), file  ,sep=";",row.names = F)
+  })
   
 }
 
