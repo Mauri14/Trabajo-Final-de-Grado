@@ -462,7 +462,7 @@ Una Shiny app contiene al menos dos componentes: un script para la interfaz del 
 
 Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2019, pero también funciona perfectamente para los años (..)2015 a 2018 y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la app como en los anexos (REFERENCIAR ANEXO) de este informe, estará disponible un listado con las variables utilizadas.
 
-En esta aplicación en particular, previo a la creación del ui y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
+En esta aplicación en particular, previo a la creación del ui y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas, el listado de variables utilizadas de la ECH y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
 \subsection{UI \label{subsec:ui}}
 La ui cuenta con tres partes, el encabezado (\textit{dashboardHeader}), la barra lateral (\textit{dashboardSidebar}) y el contenido (\textit{dashboardBody}).
@@ -471,7 +471,7 @@ Dentro del encabezado solo aparece el título y un link que lleva directamente a
 
 La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función \textit{fileInput} y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPM (en caso de contar con el). También se incluye un widget mediante la función \textit{selectInput} para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPM.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/Barra_lateral.PNG}
 \caption{Barra lateral. \label{lateral}}
@@ -482,21 +482,21 @@ En el body se especifica el contenido de cada una de las secciones. La ventana i
 
 La sección de los indicadores cuenta con 3 pestañas.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/cat.PNG}
 \caption{Categorías de indicadores. \label{cat}}
 \end{center}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/pest.PNG}
 \caption{Pestañas. \label{pest}}
 \end{center}
 \end{figure}
 
-En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior.
+En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior, ambas tablas también cuentan con un botón de descarga.
 
 \subsection{Server \label{subsec:server}}
 
@@ -510,7 +510,7 @@ En esta sección se presenta el procedimiento aplicado y los resultados obtenido
 
 La tasa de desempleo es uno de los indicadores más importantes que brinda la ECH. El INE calcula este indicador todos los años a nivel departamental e incluso desagregando también por sexo.
 
-Este indicador hace referencia al porcentaje de personas desocupadas por sexo, donde, desocupada es toda persona que durante el período de referencia de la encuesta, no está trabajando por no tener empleo, que lo busca activamente, y están disponibles para empezar a trabajar. Se calcula como $\frac{Numero\; de\; personas\; desocupadas}{Poblacion \;Economicamente \;Activa}\times 100$.
+Este indicador hace referencia a la proporción de personas desocupadas por sexo, donde, desocupada es toda persona que durante el período de referencia de la encuesta, no está trabajando por no tener empleo, que lo busca activamente, y están disponibles para empezar a trabajar. Se calcula como $\frac{Numero\; de\; personas\; desocupadas}{Poblacion \;Economicamente \;Activa}$.
 
 Pasando al cálculo a partir de las funciones, el código es el siguiente:
 
@@ -586,7 +586,7 @@ Por último, en la pestaña \textit{IC}, se observan tablas con los límites de 
 \caption{Tabla con los límites superiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablsup}}
 \end{figure}
 
-Por otra parte, el indicador \texttt{Hogares por presencia de lugar para cocinar} hace referencia al porcentaje de hogares que cuentan con lugar apropiado para cocinar privado, con lugar apropiado compartido con otros hogares o que no cuentan con lugar apropiado y se calcula como $\frac{Numero\; de\; hogares\; segun \;presencia\;de\;lugar\;para\;cocinar}{Total \;hogares}\times 100$.
+Por otra parte, el indicador \texttt{Hogares por presencia de lugar para cocinar} hace referencia a la proporción de hogares que cuentan con lugar apropiado para cocinar privado, con lugar apropiado compartido con otros hogares o que no cuentan con lugar apropiado y se calcula como $\frac{Numero\; de\; hogares\; segun \;presencia\;de\;lugar\;para\;cocinar}{Total \;hogares}$.
 
 <<eval=FALSE>>=
 funcion9(ph, "d19", c("dpto", "Lugar privado", "Compartido", "No tiene"),
@@ -623,5 +623,21 @@ El gráfico de mapa es similar al presentado para la tasa de desempleo, donde ta
 \end{figure}
 
 \chapter{Discusión \label{cap:discu}}
+
+La Encuesta Continua de Hogares permite obtener estimaciones sobre una gran cantidad de indicadores que abordan distintas dimensiones. Cada año el INE calcula una determinada cantidad de indicadores, en su mayoría a nivel de todo el país y separando entre Montevideo e interior, añadiendo además algunas medidas de calidad de las estimaciones, como lo son los intervalos de confianza o coeficientes de variación.
+
+Cualquier usuario puede obtener sus propias estimaciones puntuales sobre distintos indicadores a partir de la ECH, ya que para ello es necesario contar únicamente con los pesos muestrales, los cuales, se encuentran incluidos en las bases de datos públicas. Sin embargo resulta más complejo el poder obtener ciertas medidas de calidad de las estimaciones.
+
+Como se mencionó en este trabajo, las medidas de calidad se obtienen a partir del cálculo de los errores estándar, y para el cálculo de esta se necesitan tener en cuenta todas las fuentes de variación que afectan las estimaciones. Se debe tener conocimiento sobre el proceso de selección de la muestra y contar con la disponibilidad de esta información en las bases públicas, en este caso la información sobre estratos y unidades primarias de muestreo.
+
+Otra de las principales dificultades es la utilización de programas estadísticos para poder trabajar con estos datos. Es esta una de las principales ventajas que tiene la App de Shiny presentada en este trabajo, ya que no se necesita del conocimiento en ningún programa estadístico para su utilización. Esta App permite obtener en el momento, estimaciones puntuales sobre una batería de indicadores y sus respectivos intervalos de confianza, con solo cargar las bases de datos de la ECH del año que se desee. 
+
+Otra de las ventajas que presenta esta aplicación, es el cálculo de una gran cantidad de indicadores en diferentes dominios, ya sean aperturas departamentales, variables como el sexo o diferentes tramos etarios.
+
+
+\section{Limitaciones y trabajos a futuro \label{sec:lim}}
+
+cosas a agregar en la shiny: graficos de IC, posibilidad de que no sea tan dependiente de las variables, desagregaciones SAE, otras medidas de calidad (CV, tamaños de muestra efectivos), mas indicadores, dejar mas libertad al usuario de calcular sus propios indicadores
+
 
 \end{document}
