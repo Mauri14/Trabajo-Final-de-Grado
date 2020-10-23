@@ -119,14 +119,19 @@ Informe de Pasantía
 
 El objetivo de este trabajo es generar una herramienta computacional que facilite el procesamiento de la Encuesta Continua de Hogares (ECH) mediante el cálculo de diversos indicadores y sus respectivos intervalos de confianza, aportando además una visualización interactiva de los resultados.
 
+Las encuestas por muestreo no solo son utilizadas para obtener estimaciones a nivel de toda la población, sino que también pueden ser útiles para realizar estimaciones en subconjuntos de la población. Estos subconjuntos son denominados dominios, y los mismos pueden estar definidos por áreas geográficas, grupos demográficos u otro tipo de subpoblaciones.
+
+Se trabajará con distintos indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Año a año el Instituto Nacional de Estadística (INE) hace públicas las bases de datos de la encuesta junto con un informe donde se presentan los resultados de distintos indicadores, en su mayoría a nivel nacional y desagregando en Montevideo e interior. En este trabajo se busca extender la cantidad de indicadores incluyendo desagregaciones departamentales en todos ellos.
+
+Los indicadores presentados en este trabajo abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Estos se calculan tanto a nivel de toda la población (total país), así como para distintas aperturas (dominios o áreas de estimación), las cuales son definidas a nivel geográfico (departamentos). Algunos de estos indicadores son un insumo clave para la economía de los países y por ende para la toma de decisiones de las políticas públicas.
+
 Como experiencia personal trabajé con la ECH, principalmente con el cálculo de indicadores a partir de esta encuesta, y contar con una herramienta como la realizada en este trabajo simplifica mucho la tarea. 
 
 Otra de las ventajas de esta aplicación es la disponibilidad en la web y el no necesitar de conocimientos en R o en algún otro programa estadístico para poder obtener las estimaciones puntuales e intervalos de confianza para los indicadores, pudiendo visualizar interactivamente los resultados a partir de tablas o distintos gráficos.
 
-Las encuestas por muestreo no solo son utilizadas para obtener estimaciones a nivel de toda la población, sino que también pueden ser útiles para realizar estimaciones en subconjuntos de la población. Estos subconjuntos son denominados dominios, y los mismos pueden estar definidos por áreas geográficas, grupos demográficos u otro tipo de subpoblaciones.
+Este trabajo se estructura de la siguiente manera.
 
-Se trabajará con distintos indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Los indicadores abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Estos se calculan tanto a nivel de toda la población (total país), así como para distintas aperturas (dominios o áreas de estimación), las cuales son definidas a nivel geográfico (departamentos). Algunos de estos indicadores son un insumo clave para la economía de los países y por ende para la toma de decisiones de las políticas públicas.
-
+En el capítulo 2 se presentan los métodos estadísticos utilizados en este trabajo, tanto los conceptos como las fórmulas que se aplican tanto en las estimaciones puntuales como para los errores estándar e intervalos de confianza. En el capítulo 3 se define el diseño de la ECH y se presentan los indicadores trabajados. El capítulo 4 refiere a la computación estadística, explicando la forma de cálculo de los indicadores, las características y el funcionamiento de la aplicación. En el capítulo 5 se presenta un ejemplo de aplicación de la app en dos indicadores. Finalmente en el capítulo 6 se realiza la discusión final, presentando los posibles trabajos a futuro.
 
 \chapter{Métodos estadísticos \label{cap:Met}}
 
@@ -624,11 +629,11 @@ El gráfico de mapa es similar al presentado para la tasa de desempleo, donde ta
 
 \chapter{Discusión \label{cap:discu}}
 
-La Encuesta Continua de Hogares permite obtener estimaciones sobre una gran cantidad de indicadores que abordan distintas dimensiones. Cada año el INE calcula una determinada cantidad de indicadores, en su mayoría a nivel de todo el país y separando entre Montevideo e interior, añadiendo además algunas medidas de calidad de las estimaciones, como lo son los intervalos de confianza o coeficientes de variación.
+La Encuesta Continua de Hogares permite obtener estimaciones sobre una gran cantidad de indicadores que abordan distintas dimensiones. Cada año el INE calcula una determinada cantidad de indicadores, en su mayoría a nivel de todo el país y desagregando en Montevideo e interior, añadiendo además algunas medidas de calidad de las estimaciones, como lo son los intervalos de confianza o coeficientes de variación.
 
 Cualquier usuario puede obtener sus propias estimaciones puntuales sobre distintos indicadores a partir de la ECH, ya que para ello es necesario contar únicamente con los pesos muestrales, los cuales, se encuentran incluidos en las bases de datos públicas. Sin embargo resulta más complejo el poder obtener ciertas medidas de calidad de las estimaciones.
 
-Como se mencionó en este trabajo, las medidas de calidad se obtienen a partir del cálculo de los errores estándar, y para el cálculo de esta se necesitan tener en cuenta todas las fuentes de variación que afectan las estimaciones. Se debe tener conocimiento sobre el proceso de selección de la muestra y contar con la disponibilidad de esta información en las bases públicas, en este caso la información sobre estratos y unidades primarias de muestreo.
+Como se mencionó en este trabajo, las medidas de calidad se obtienen a partir del cálculo de los errores estándar, y para el cálculo de estos se necesitan tener en cuenta todas las fuentes de variación que afectan las estimaciones. Se debe tener conocimiento sobre el proceso de selección de la muestra y contar con la disponibilidad de esta información en las bases públicas, en este caso la información sobre estratos y unidades primarias de muestreo.
 
 Otra de las principales dificultades es la utilización de programas estadísticos para poder trabajar con estos datos. Es esta una de las principales ventajas que tiene la App de Shiny presentada en este trabajo, ya que no se necesita del conocimiento en ningún programa estadístico para su utilización. Esta App permite obtener en el momento, estimaciones puntuales sobre una batería de indicadores y sus respectivos intervalos de confianza, con solo cargar las bases de datos de la ECH del año que se desee. 
 
@@ -637,7 +642,30 @@ Otra de las ventajas que presenta esta aplicación, es el cálculo de una gran c
 
 \section{Limitaciones y trabajos a futuro \label{sec:lim}}
 
-cosas a agregar en la shiny: graficos de IC, posibilidad de que no sea tan dependiente de las variables, desagregaciones SAE, otras medidas de calidad (CV, tamaños de muestra efectivos), mas indicadores, dejar mas libertad al usuario de calcular sus propios indicadores
+Una de las principales limitaciones que puede tener esta aplicación, es la dependencia sobre las variables de la ECH, es decir, el hecho de que si las variables utilizadas cambian de nombre o dejan de aparecer en encuestas de años próximos, la app debe ser modificada para su correcto funcionamiento.
+
+Otras mejoras que puede tener la app son por ejemplo: gráficos para los intervalos de confianza; otras medidas de calidad de las estimaciones, como lo son coeficientes de variación o tamaños de muestra efectivos; obtener estimaciones en dominios más pequeños como por ejemplo separar a las capitales departamentales del resto del departamento; agregar más indicadores o dejar más libertad al usuario para que pueda calcular sus propios indicadores.
+
+Independientemente de las posibles mejoras que pueda tener la app, siempre va a quedar a efectos del usuario el correcto uso de la misma y la correcta interpretación de los resultados.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAFíA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{spr-chicago}
+\bibliography{bibliografia}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% ANEXO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{appendix}
+
+\chapter{Anexos} 
+
+\section{Listado de indicadores \label{ane:ind}}
+
+\section{Listado de variables \label{ane:var}}
+
+
+\end{appendix}
 
 
 \end{document}
