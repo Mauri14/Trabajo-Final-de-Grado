@@ -460,7 +460,7 @@ Dentro del encabezado solo aparece el título y un link que lleva directamente a
 
 La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función \textit{fileInput} y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPM (en caso de contar con el). También se incluye un widget mediante la función \textit{selectInput} para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPM.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/Barra_lateral.PNG}
 \caption{Barra lateral. \label{lateral}}
@@ -471,14 +471,14 @@ En el body se especifica el contenido de cada una de las secciones. La ventana i
 
 La sección de los indicadores cuenta con 3 pestañas.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/cat.PNG}
 \caption{Categorías de indicadores. \label{cat}}
 \end{center}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/pest.PNG}
 \caption{Pestañas. \label{pest}}
@@ -511,7 +511,7 @@ Al ser un indicador calculado en base a personas, necesitando del cálculo de un
 
 Para la obtención de los resultados de este indicador en la app en primer lugar se cargan las bases de datos necesarias, disponibles en la página web del INE. Primero se debe cargar la base de personas, luego la de hogares y en tercer lugar, el archivo con la información sobre estratos y UPM.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/bases.PNG}
 \caption{Bases de datos. \label{pest}}
@@ -520,7 +520,7 @@ Para la obtención de los resultados de este indicador en la app en primer lugar
 
 Una vez cargadas las bases se selecciona dentro de la sección de indicadores, la categoría \textit{Mercado laboral} donde se encuentra este indicador. Una vez dentro de esta sección, se selecciona el indicador que se desea obtener.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/indicador.png}
 \caption{Selección del indicador. \label{ind}}
@@ -529,14 +529,14 @@ Una vez cargadas las bases se selecciona dentro de la sección de indicadores, l
 
 En la misma pestaña se observan como resultados los dos tipos de gráficos antes mencionados, los cuales se presentan a continuación.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/barras.PNG}
 \caption{Gráfico de barras de la tasa de desempleo a nivel departamental y de todo el país desagregando por sexo. \label{barras}}
 \end{center}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/Mapa.png}
 \caption{Tasa de desempleo a nivel departamental para la categoría Hombres. \label{mapa}}
@@ -547,7 +547,7 @@ Como se puede observar en la imagen, al colocar el cursor sobre uno de los depar
 
 Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este caso las opciones son \textit{Hombre}, \textit{Mujer} o \textit{Total}. 
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/cat_mapa.PNG}
 \caption{Categorías para visualizar en el mapa. \label{catmapa}}
@@ -556,7 +556,7 @@ Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este c
 
 En la segunda pestaña de esta sección se puede observar una tabla como la presentada en la figura \ref{tabl}, que contiene las estimaciones puntuales del indicador seleccionado, a nivel departamental y nacional.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.2\textwidth]{img/tabla.PNG}
 \caption{Tabla con las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tabl}}
@@ -565,12 +565,12 @@ En la segunda pestaña de esta sección se puede observar una tabla como la pres
 
 Por último, en la pestaña \textit{IC}, se observan tablas con los límites de los intervalos de confianza al $95\%$ de las estimaciones anteriores.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \includegraphics[width=1.2\textwidth]{img/inf.PNG}
 \caption{Tabla con los límites inferiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablinf}}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \includegraphics[width=1.2\textwidth]{img/sup.PNG}
 \caption{Tabla con los límites superiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablsup}}
 \end{figure}
@@ -586,7 +586,7 @@ Este indicador se calcula sobre la base de hogares, se utiliza la \emph{funcion9
 
 En la app este indicador se encuentra en la sección \textit{Viviendas y hogares}, por lo que de igual manera que para el indicador anterior, se ingresa a la sección, se selecciona el indicador deseado y se observan los resultados.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/indicador_hog.PNG}
 \caption{Selección del indicador Hogares por presencia de lugar para cocinar. \label{ind2}}
@@ -595,7 +595,7 @@ En la app este indicador se encuentra en la sección \textit{Viviendas y hogares
 
 La diferencia en este indicador es que se presenta un gráfico de barras apiladas en lugar de agrupadas como era el caso de la tasa de desempleo.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/Barras_hog.PNG}
 \caption{Gráfico de barras de la proporción de hogares por presencia de lugar para cocinar por departamento. \label{barras2}}
@@ -604,7 +604,7 @@ La diferencia en este indicador es que se presenta un gráfico de barras apilada
 
 El gráfico de mapa es similar al presentado para la tasa de desempleo, donde también se puede seleccionar la categoría a visualizar. La visualización de las tablas de estimaciones puntuales e intervalos de confianza también son similares al caso anterior.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.2\textwidth]{img/tabla_hog.PNG}
 \caption{Tabla con las estimaciones puntuales de la proporción de hogares por presencia de lugar para cocinar a nivel departamental y de todo el país en el año 2019. \label{tabl2}}
@@ -646,12 +646,30 @@ Independientemente de las posibles mejoras que pueda tener la app, siempre va a 
 
 \section{Listado de indicadores \label{ane:ind}}
 
+Se presenta el listado completo de los indicadores trabajados en la app.
+
+<<echo=FALSE, results=tex>>=
+library(readxl)
+library(xtable)
+indicadores <- read_excel("indicadores.xlsx", 
+   range = "A1:F54")
+indic <- xtable(indicadores, caption = "Listado de indicadores")
+align(indic) <- "lp{2in}|p{1in}|p{0.5in}|p{1.1in}|p{1in}|p{0.5in}"
+print(indic, caption.placement = "top",hline.after=c(-1, 0), tabular.environment = "longtable",include.rownames = FALSE, floating=FALSE)
+@
+
+
 \section{Listado de variables \label{ane:var}}
 
-<<echo=FALSE>>=
+Se presenta la tabla con las variables de la ECH que son utilizadas en la app.
+
+<<echo=FALSE, results=tex>>=
 library(readxl)
+library(xtable)
 variables <- read_excel("variables.xlsx")
-variables
+var <- xtable(variables, caption = "Listado de variables utilizadas en la app")
+align(var) <- "lp{1in}p{3.7in}p{1.3in}"
+print(var, caption.placement = "top",hline.after=c(-1, 0), tabular.environment = "longtable",include.rownames = FALSE, floating=FALSE)
 @
 
 
