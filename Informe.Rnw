@@ -170,27 +170,15 @@ Los dominios pueden clasificarse como planeados o no planeados. Los dominios pla
 
 En toda encuesta por muestreo, el objetivo es seleccionar una muestra aleatoria $s$ de tamaño $n$ de una población $U$ de tamaño $N$. Utilizando la muestra aleatoria $s$ se busca obtener estimaciones de distintos parámetros de interés de la población $U$. Un parámetro de interés puede ser el total de la variable de interés $y$, el cual viene dado por:
 
-\begin{equation}\label{m1}
-\begin{array}{cc}
-t=\sum_{i=1}^{N}y_{i}=\sum_{i\in U}^{}y_{i}
-\end{array}
-\end{equation}
+\[ t=\sum_{i=1}^{N}y_{i}=\sum_{i\in U}^{}y_{i} \]
 
 La mayoría de los indicadores calculados en este trabajo se obtienen a partir del cociente (ratio) entre totales de dos variables $y$ y $z$, quedando definido de la siguiente manera:
 
-\begin{equation}\label{m2}
-\begin{array}{cc}
-R=\frac{\sum_{i\in U} y_i}{\sum_{i\in U} z_i}
-\end{array}
-\end{equation}
+\[ R=\frac{\sum_{i\in U} y_i}{\sum_{i\in U} z_i} \]
 
 Como se mencionó anteriormente las unidades, tanto hogares como personas, tienen una probabilidad de inclusión que viene determinada por el diseño muestral utilizado, la cual se denota como:
 
-\begin{equation}\label{m3}
-\begin{array}{cc}
-\pi_i=\text{Prob} (i \in s)
-\end{array}
-\end{equation}
+\[ \pi_i=\text{Prob} (i \in s) \]
 
 Posteriormente, la probabilidad de inclusión $\pi_i$ de una unidad $i$ en la muestra $s$ es utilizada como insumo principal para calcular los ponderadores. El ponderador $w$ de una unidad (hogar o persona) incluida en la muestra se define como el inverso de la probabilidad de selección $\pi_i$, es decir:
 
@@ -204,11 +192,7 @@ El ponderador $w_i$ indica cuántas unidades de la población $U$ que no fueron 
 
 Para poder computar las estimaciones de los parámetros de interés, se define el estimador Horvitz-Thompson.
 
-\begin{equation}\label{m5}
-\begin{array}{cc}
-\hat{t}_{\pi }=\sum_{s}^{}\frac{y_{i}}{\pi _{i}}
-\end{array}
-\end{equation}
+\[ \hat{t}_{\pi }=\sum_{s}^{}\frac{y_{i}}{\pi _{i}} \]
 
 El mismo también puede ser planteado de la siguiente forma:
 
@@ -273,7 +257,7 @@ El método del último conglomerado asume que la mayor variabilidad en la estima
 \begin{equation}
 \begin{array}{cc}
 \widehat {\text{SE}}^2(\hat t)=\hat V (\hat t)= \sum\limits_{h=1}^H\frac{1}{m_h(m_h-1)}\times \sum\limits_{j \in s_h}(\hat t_{jh}\times m_h-\hat t_h)^2
-\label{m13}
+\label{ec:m13}
 \end{array}
 \end{equation}
 
@@ -285,7 +269,7 @@ $\hat t_{jh}=\sum\nolimits_{s_{jh}} w_i\times y_i$ es la estimación del total d
 
 $\hat t_h=\sum\nolimits_{h=1}^H\hat t_{jh}$ es la estimación del total de la variable $y$ en el estrato $h$.
 
-Por otra parte, si el objetivo es estimar el total de la variable $y$ pero para un dominio o área de estimación cualquiera $d$, el SE se obtiene reemplazando en la ecuación anterior \ref{m13} la variable $y$ por la variable $y_d$ la cual, toma el valor $y$ para los casos de la muestra incluidos en el dominio $d$ y cero en otro caso. Esta técnica se utiliza para añadir una variabilidad extra a las estimaciones, producto de que el tamaño de muestra en el dominio (por ejemplo, personas comprendidas en un determinado tramo de edad y dentro de un determinado departamento) es aleatorio. 
+Por otra parte, si el objetivo es estimar el total de la variable $y$ pero para un dominio o área de estimación cualquiera $d$, el SE se obtiene reemplazando en la ecuación anterior \ref{ec:m13} la variable $y$ por la variable $y_d$ la cual, toma el valor $y$ para los casos de la muestra incluidos en el dominio $d$ y cero en otro caso. Esta técnica se utiliza para añadir una variabilidad extra a las estimaciones, producto de que el tamaño de muestra en el dominio (por ejemplo, personas comprendidas en un determinado tramo de edad y dentro de un determinado departamento) es aleatorio. 
 
 
 \subsection{Linearización de Taylor \label{subsec:taylor}}
@@ -663,6 +647,14 @@ Independientemente de las posibles mejoras que pueda tener la app, siempre va a 
 \section{Listado de indicadores \label{ane:ind}}
 
 \section{Listado de variables \label{ane:var}}
+
+<<echo=FALSE>>=
+library(readxl)
+variables <- read_excel("variables.xlsx")
+variables
+@
+
+
 
 
 \end{appendix}
