@@ -374,7 +374,7 @@ En anexo (REFERENCIA) se presenta un listado completo de los indicadores trabaja
 
 \section{Estimación de los indicadores \label{sec:estindic}}
 
-Para replicar el diseño muestral de la ECH y poder llevar a cabo el computo de los indicadores, se utiliza el software libre \textit{R}, más precisamente el paquete \textit{srvyr}. Este paquete utiliza las funciones del paquete \textit{survey} antes mencionado, permitiendo el uso de un estilo de sintaxis inspirado en el paquete \textit{dplyr}. (CITAR LOS PAQUETES)
+Para replicar el diseño muestral de la ECH y poder llevar a cabo el computo de los indicadores, se utiliza el software libre \textit{R}, más precisamente el paquete \textit{srvyr} \citep{srvyr}. Este paquete utiliza las funciones del paquete \textit{survey} \citep{survey} antes mencionado, permitiendo el uso de un estilo de sintaxis inspirado en el paquete \textit{dplyr}. (CITAR LOS PAQUETES)
 
 Este paquete \textit{srvyr} cuenta con funciones tales como $survey\_mean$ para calcular medias o proporciones, $survey\_ratio$ para ratios o $survey\_total$ para totales. Estas funciones utilizan el valor que toma el indicador en cada uno de los individuos (hogares o personas según corresponda) de la muestra y los ponderadores, dando como resultado tanto las estimaciones puntuales que correspondan como las estimaciones de los errores estándar, utilizando las ecuaciones y metodologías descritas en este documento para realizar los cálculos.
 
@@ -431,7 +431,7 @@ Este indicador es estimado en base a personas y con desagregación por departame
 
 \subsection{Descripción de los diseños \label{subsec:dis}}
 
-El insumo \textit{diseño muestral} que utilizan las funciones creadas para el cálculo de los indicadores depende de la información disponible con la que cuente el usuario. En las bases públicas del INE no se cuenta con información del estrato ni de la UPM a la que pertenece el individuo, por lo que en la App aparecen dos opciones. La opción \textit{pública} se utiliza cuando no se cuenta con esta información, mientras que en caso de contar con esta se utiliza la opción \textit{estratos+UPM}.
+El insumo \textit{diseño muestral} que utilizan las funciones creadas para el cálculo de los indicadores depende de la información disponible con la que cuente el usuario. En las bases públicas del INE no se cuenta con información del estrato ni de la UPM a la que pertenece el individuo, por lo que en la app aparecen dos opciones. La opción \textit{pública} se utiliza cuando no se cuenta con esta información, mientras que en caso de contar con esta se utiliza la opción \textit{estratos+UPM}.
 
 En caso de no contar con la información de estratos y UPM, los cálculos de los intervalos de confianza son incorrectos, ya que esta información es esencial para poder realizar una aproximación correcta de los SE y así poder construir los intervalos de confianza.
 
@@ -449,7 +449,7 @@ Una Shiny app contiene al menos dos componentes: un script para la interfaz del 
 
 \subsection{Esta app \label{subsec:app}}
 
-Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2019, pero también funciona perfectamente para los años (..)2015 a 2018 y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la app como en los anexos (REFERENCIAR ANEXO) de este informe, estará disponible un listado con las variables utilizadas.
+Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2019, pero también funciona perfectamente para los años (..)2015 a 2018 y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la aplicación como en los anexos \ref{ane:var} (REFERENCIAR ANEXO) de este informe, estará disponible un listado con las variables utilizadas.
 
 En esta aplicación en particular, previo a la creación del ui y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas, el listado de variables utilizadas de la ECH y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
