@@ -2480,7 +2480,14 @@ contenido <- dashboardBody(
                 tabPanel(
                   status= "primary",
                   title = "Resumen",
-                  p("Esta aplicación.......",style="text-align:justify;color:black;background-color:lavender;padding:15px;border-radius:10px")
+                  p("Esta aplicación fue realizada en el marco de un trabajo final de grado de la Licenciatura en Estadística de la Facultad de Ciencias Económicas y de Administración de la UDELAR.
+                    En esta se trabaja con la estimación en dominios de indicadores socio-económicos que se obtienen a partir de la Encuesta Continua de Hogares(ECH). El grupo de indicadores con los que se trabaja son calculados año a año por el Observatorio Territorio Uruguay (OTU) de la Oficina de Planeamiento y Presupuesto (OPP) y se encuentran disponibles en su página web.",style="text-align:justify;color:black;background-color:lavender;padding:15px;border-radius:10px"),
+                  p("Para el correcto funcionamiento de la app se deben seguir los siguientes pasos:
+                    En primer lugar se deben cargar las bases de datos de la ECH con las opciones presentes en la barra lateral. En el primer espacio se debe cargar la base de personas, en el segundo la base de hogares y por último se debe cargar el archivo que contiene la información sobre estratos y unidades primarias de muestreo, en caso de contar con la disponibilidad del mismo. Si se cuenta con esta información, se debe seleccionar la opción estratos+UPM, de lo contrario se debe seleccionar la opción pública. Es importante remarcar que todas las bases de datos deben ser cargadas en formato .SAV.
+                    En la esquina superior de la app se encuentra el link de acceso a la página web del Instituto Nacional de Estadística (INE), donde se encuentran disponibles las bases de datos de la encuesta.
+                    Una vez cargados los datos, se debe seleccionar la sección y dentro de esta el indicador que se desea visualizar, contando con distintos tipos de gráficos y con una tabla con los resultados de las estimaciones puntuales. En el caso del gráfico de mapa, en la mayoría de los indicadores, se debe seleccionar la categoría a visualizar.
+                    
+                    Además de las estimaciones puntuales para los indicadores, se encuentran los resultados de los intervalos de confianza al 95% para las estimaciones. Cabe aclarar que, de no estar utilizando la información sobre los estratos y las unidades primarias de muestreo, no se debe tener en cuenta los resultados de los intervalos de confianza ya que son incorrectos. Esto se debe a que la información sobre el diseño muestral es fundamental para el cálculo de los errores estándar de las estimaciones y con ello de los intervalos de confianza. ",style="text-align:justify;color:black;background-color:lavender;padding:15px;border-radius:10px")
                 ),
                 tabPanel(
                   status= "success",
