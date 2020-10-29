@@ -655,10 +655,12 @@ Se presenta el listado completo de los indicadores trabajados en la app.
 <<echo=FALSE, results=tex>>=
 library(readxl)
 library(xtable)
+library(tidyverse)
 indicadores <- read_excel("indicadores.xlsx", 
    range = "A1:F54")
+indicadores<- indicadores %>% select(c(1,2,3,5,6))
 indic <- xtable(indicadores, caption = "Listado de indicadores")
-align(indic) <- "lp{2in}|p{1in}|p{0.5in}|p{1.1in}|p{1in}|p{0.5in}"
+align(indic) <- "lp{2in}|p{1in}|p{0.5in}|p{1in}|p{0.5in}"
 print(indic, caption.placement = "top",hline.after=c(-1, 0), tabular.environment = "longtable",include.rownames = FALSE, floating=FALSE)
 @
 
