@@ -467,7 +467,7 @@ La barra lateral es utilizada para cargar las bases de datos y para seleccionar 
 \end{center}
 \end{figure}
 
-En el body se especifica el contenido de cada una de las secciones. La ventana introductoria cuenta con dos pestañas, en la primera de estas se encuentra un manual de uso de la aplicación, donde se explica su utilidad y los pasos a seguir para el correcto funcionamiento de esta. Mientras en la segunda pestaña se encuentra un listado con las variables de las bases de datos de la ECH que son utilizadas en la app.
+En el body se especifica el contenido de cada una de las secciones. La ventana de inicio cuenta con dos pestañas, en la primera de estas se encuentra un manual de uso de la aplicación, donde se explica su utilidad y los pasos a seguir para el correcto funcionamiento de esta. Mientras en la segunda pestaña se encuentra un listado con las variables de las bases de datos de la ECH que son utilizadas en la app.
 
 La sección de los indicadores cuenta con 3 pestañas.
 
