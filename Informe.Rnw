@@ -4,22 +4,22 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{url}
-\usepackage{mathrsfs}
+%\usepackage{mathrsfs}
 \usepackage{longtable}
 \usepackage{tocbibind}
 \usepackage{titlesec}
 \usepackage{makeidx}
 \usepackage{boxedminipage}
 \usepackage[utf8]{inputenc}
-\usepackage[all,2cell,dvips]{xy}
+%\usepackage[all,2cell,dvips]{xy}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage[spanish,es-tabla]{babel}
-\usepackage{parskip}
-\usepackage{multirow}
-\usepackage{multicol}
+%\usepackage{parskip}
+%\usepackage{multirow}
+%\usepackage{multicol}
 \usepackage{verbatim}
-\usepackage{fancyvrb}
+%\usepackage{fancyvrb}
 \usepackage[authoryear]{natbib}
 
 \fancyhf{} 
@@ -39,7 +39,8 @@
 \linespread{1.6}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+% cambiar a knitr: global options-sweave-en el primer campo poner knitr
+% \SweaveOpts{concordance=TRUE} % luego del cambio comentar (o borrar) esta linea)
 
 <<echo=FALSE>>=
 options(scipen = 999)  
@@ -147,7 +148,7 @@ En su mayoría los indicadores presentados son ratios (tasas, promedios y propor
 
 \subsection{Dominios \label{subsec:dom}}
 
-En la práctica, las encuestas nacionales como la ECH, no son solamente utilizadas para hacer estimaciones a nivel de toda la población sino que también se realizan para diferentes subpoblaciones. Estas subpoblaciones para las cuales se computan de manera específica, tanto estimaciones puntuales como intervalos de confianza, son denominadas dominios. (SARNDAL)
+En la práctica, las encuestas nacionales como la ECH, no son solamente utilizadas para hacer estimaciones a nivel de toda la población sino que también se realizan para diferentes subpoblaciones. Estas subpoblaciones para las cuales se computan de manera específica, tanto estimaciones puntuales como intervalos de confianza, son denominadas dominios \citep{sarndal2003model}.
 
 En (CITAR ANDRES GUTIERREZ) se introduce la siguiente definición de dominios.
 
@@ -638,8 +639,8 @@ Independientemente de las posibles mejoras que pueda tener la app, siempre va a 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAFíA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\bibliographystyle{spr-chicago}
-\bibliography{bibliografia}
+\bibliographystyle{apa}
+\bibliography{TFGbiblo.bib}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% ANEXO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -652,7 +653,7 @@ Independientemente de las posibles mejoras que pueda tener la app, siempre va a 
 
 Se presenta el listado completo de los indicadores trabajados en la app.
 
-<<echo=FALSE, results=tex>>=
+<<echo=FALSE, results='asis'>>=
 library(readxl)
 library(xtable)
 library(tidyverse)
@@ -669,7 +670,7 @@ print(indic, caption.placement = "top",hline.after=c(-1, 0), tabular.environment
 
 Se presenta la tabla con las variables de la ECH que son utilizadas en la app.
 
-<<echo=FALSE, results=tex>>=
+<<echo=FALSE,results='asis'>>=
 library(readxl)
 library(xtable)
 variables <- read_excel("variables.xlsx")
@@ -677,10 +678,6 @@ var <- xtable(variables, caption = "Listado de variables utilizadas en la app")
 align(var) <- "lp{1in}p{3.7in}p{1.3in}"
 print(var, caption.placement = "top",hline.after=c(-1, 0), tabular.environment = "longtable",include.rownames = FALSE, floating=FALSE)
 @
-
-
-
-
 \end{appendix}
 
 
