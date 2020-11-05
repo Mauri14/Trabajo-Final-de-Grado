@@ -334,7 +334,7 @@ El tamaño de muestra efectivo anual de la ECH, es decir, la cantidad de hogares
 
 Los datos de la muestra son ponderados, de forma de obtener estimaciones tanto a nivel nacional, departamental y de otros dominios de estudio, entre ellos, sexo y tramos de edades. Existen varias etapas para la determinación de los ponderadores finales de la ECH. El componente principal es el inverso de la probabilidad de selección del hogar y sus integrantes en la muestra de la ECH, denominado ponderador original. El ponderador original de un hogar perteneciente a un estrato cualquiera se define como el inverso de la tasa de muestreo en el estrato.
 
-Los ponderadores originales son ajustados en varias etapas una vez concluida la recolección de la información. El primer ajuste se realiza en base a la no respuesta obtenida en campo, es decir, teniendo en cuenta las encuestas efectivamente realizadas. Un segundo ajuste se efectúa utilizando técnicas de calibración en base a las proyecciones de la población residente en viviendas particulares. Esto implica que la ECH expanda a la población proyectada para el año de referencia para cada uno de los departamentos del país, y para la estructura de la población a nivel del total del país por sexo y cinco tramos de edades (0 a 14 años, 15 a 29 años, 30 a 49 años, 50 a 64 años y 65 años o más). (CITAR INFOME DEL INE)
+Los ponderadores originales son ajustados en varias etapas una vez concluida la recolección de la información. El primer ajuste se realiza en base a la no respuesta obtenida en campo, es decir, teniendo en cuenta las encuestas efectivamente realizadas. Un segundo ajuste se efectúa utilizando técnicas de calibración en base a las proyecciones de la población residente en viviendas particulares. Esto implica que la ECH expanda a la población proyectada para el año de referencia para cada uno de los departamentos del país, y para la estructura de la población a nivel del total del país por sexo y cinco tramos de edades (0 a 14 años, 15 a 29 años, 30 a 49 años, 50 a 64 años y 65 años o más). \citep{ine} (CITAR INFOME DEL INE)
 
 
 \section{Listado de indicadores \label{sec:lista}}
@@ -640,7 +640,7 @@ Independientemente de las posibles mejoras que pueda tener la app, siempre va a 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAFíA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliographystyle{apa}
-\bibliography{TFGbiblo.bib}
+\bibliography{TFGbiblo}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% ANEXO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
