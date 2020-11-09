@@ -2427,7 +2427,7 @@ encabezado <- dashboardHeader(title = "Trabajo final",
                                 a(
                                   strong("Buscar ECH"),
                                   height = 40,
-                                  href = "https://http://www.ine.gub.uy/encuesta-continua-de-hogares1",
+                                  href = "https://www.ine.gub.uy/encuesta-continua-de-hogares1",
                                   title = "",
                                   target = "_blank"
                                 ),
@@ -4645,11 +4645,13 @@ server <- function(input, output){
       geom_bar(position = "fill", stat = "identity")+
       scale_fill_brewer(palette = "Set2")+
       facet_wrap(~Sexo)+
+      scale_x_discrete(limits = c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                  "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))+
       scale_y_continuous(labels = scales::percent)+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
-      theme (axis.title.y = element_text(face="bold", vjust = -4, hjust = -5))+
-      theme (axis.title.x = element_text(face="bold", vjust = -4, hjust = -5))
+      theme (axis.title.y = element_text(face="bold",  hjust = -2.5))+
+      theme (axis.title.x = element_text(face="bold",  hjust = -2.5))
     else if (input$Nombre == "1020")
       indicador_edu()%>%
       gather(key= Tramo_etario, value= Valor, -depto)%>% 
@@ -4716,6 +4718,8 @@ server <- function(input, output){
       gather(key= Categoría, value= Valor, -dpto)%>%
       ggplot(aes(x=dpto, y= Valor, fill= Categoría))+
       geom_bar(position = "fill", stat = "identity")+
+      scale_x_discrete(limits = c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                  "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))+
       scale_y_continuous(labels = scales::percent)+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
@@ -4749,6 +4753,8 @@ server <- function(input, output){
       ggplot(aes(x=`00_dpto`, y= Valor, fill= Categoría))+
       geom_bar(position = "fill", stat = "identity")+
       facet_wrap(~Sexo)+
+      scale_x_discrete(limits = c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                  "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))+
       scale_y_continuous(labels = scales::percent)+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
@@ -4848,6 +4854,8 @@ server <- function(input, output){
       geom_bar(position = "fill", stat = "identity")+
       scale_fill_brewer(palette = "Set2")+
       facet_wrap(~Sexo)+
+      scale_x_discrete(limits = c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                  "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))+
       scale_y_continuous(labels = scales::percent)+
       coord_flip()+
       labs(x= "Departamento", y= "Porcentaje")+
@@ -4878,6 +4886,8 @@ server <- function(input, output){
       ggplot(aes(x=`00_dpto`, y= Valor, fill= Categoría))+
       geom_bar(position = "fill", stat = "identity")+
       facet_wrap(~Sexo)+
+      scale_x_discrete(limits = c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                  "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
       coord_flip()+
@@ -4909,6 +4919,8 @@ server <- function(input, output){
       gather(key= Categoría, value= Valor, -dpto)%>% 
       ggplot(aes(x=dpto, y= Valor, fill= Categoría))+
       geom_bar(position = "fill", stat = "identity")+
+      scale_x_discrete(limits = c("Montevideo","Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja",
+                                  "Maldonado","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres", "Total País" ))+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
       coord_flip()+
