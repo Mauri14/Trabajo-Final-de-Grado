@@ -150,7 +150,7 @@ En su mayoría los indicadores presentados son ratios (tasas, promedios y propor
 
 En la práctica, las encuestas nacionales como la ECH, no son solamente utilizadas para hacer estimaciones a nivel de toda la población sino que también se realizan para diferentes subpoblaciones. Estas subpoblaciones para las cuales se computan de manera específica, tanto estimaciones puntuales como intervalos de confianza, son denominadas dominios \citep{sarndal2003model}.
 
-En \citep{gutierrez} (CITAR ANDRES GUTIERREZ) se introduce la siguiente definición de dominios.
+En \citep{rojas2016estrategias} se introduce la siguiente definición de dominios.
 
 \newtheorem{defi}{Definición}[chapter]
 
@@ -191,7 +191,7 @@ w_i=\frac{1}{\pi_i}
 
 El ponderador $w_i$ indica cuántas unidades de la población $U$ que no fueron seleccionadas representa la unidad $i$ que fue encuestada, es decir que pertenece a la muestra $s$.
 
-Para poder computar las estimaciones de los parámetros de interés, se define el estimador Horvitz-Thompson.
+Para poder computar las estimaciones de los parámetros de interés, se define el estimador de Horvitz-Thompson.
 
 \[ \hat{t}_{\pi }=\sum_{s}^{}\frac{y_{i}}{\pi _{i}} \]
 
@@ -222,7 +222,7 @@ Como la muestra es aleatoria, los estimadores son variables aleatorias y están,
 
 En la práctica muchos usuarios que utilizan la bases de datos de encuestas públicas para realizar sus propias inferencias no siempre tienen en cuenta todas las fuentes de variabilidad que afectan al error estándar. Esto, puede derivar en la realización de inferencias inválidas sobre los parámetros de la población. Uno de los motivos por los cuales surge este problema es el no contar con los insumos necesarios en la bases de datos públicas de las encuestas sobre el diseño de muestreo. En el caso de la ECH, para los años anteriores a 2018 no se cuenta con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos a los que pertenece cada individuo.
 
-Para un diseño complejo como el de la ECH, no existen métodos exactos para calcular los SE, lo que implica que se deba recurrir a distintas estrategias o métodos que aproximan de mejor forma la variabilidad de las estimaciones. Dentro de la amplia gama de métodos que existen se optó por el método del último conglomerado en conjunto con la linearización de Taylor para computar los SE, que es el más usado en la práctica y se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método puede manejar tanto parámetros lineales como no lineales. (INFORME TAMBIEN) (PAPER DE LUMLEY EXPLICA COMO FUNCIONA EL SURVEY)
+Para un diseño complejo como el de la ECH, no existen métodos exactos para calcular los SE, lo que implica que se deba recurrir a distintas estrategias o métodos que aproximan de mejor forma la variabilidad de las estimaciones. Dentro de la amplia gama de métodos que existen se optó por el método del último conglomerado en conjunto con la linearización de Taylor para computar los SE, que es el más usado en la práctica y se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método puede manejar tanto parámetros lineales como no lineales. (PAPER DE LUMLEY EXPLICA COMO FUNCIONA EL SURVEY) \citep{surveyLumley}.
 
 \subsection{Método del último conglomerado \label{subsec:ultcong}}
 
@@ -368,7 +368,7 @@ Finalmente la categoría \textit{Viviendas y hogares} cuenta con 8 indicadores, 
 
 Recordando que hay indicadores que se encuentran en varias categorías, en total se trabaja con 53 indicadores socio-económicos, desagregando todos por departamento y a su vez hay algunos que se desagregan también por sexo o tramos etarios.
 
-En anexo (REFERENCIA) se presenta un listado completo de los indicadores trabajados.
+En anexo \ref{ane:ind} se presenta un listado completo de los indicadores trabajados.
 
 \chapter{Computación estadística \label{cap:comp}}
 
@@ -440,7 +440,7 @@ Cabe aclarar que INE hizo pública esta información para los años 2018 y 2019.
 
 \section{Shiny App \label{sec:shiny}}
 
-Shiny es una librería que permite crear fácilmente aplicaciones web interactivas a partir de R. La interactividad de estas aplicaciones permite la manipulación de los datos sin la necesidad de manipular el código, es decir, en caso de estar disponible en alguna página web, puede ser fácilmente utilizada por personas que no tengan conocimientos de R.
+Shiny \citep{shiny} es una librería que permite crear fácilmente aplicaciones web interactivas a partir de R. La interactividad de estas aplicaciones permite la manipulación de los datos sin la necesidad de manipular el código, es decir, en caso de estar disponible en alguna página web, puede ser fácilmente utilizada por personas que no tengan conocimientos de R.
 
 Estas aplicaciones cuentan con programación reactiva. Esto significa que al cambiar los valores de entrada (inputs) se volveran a ejecutar las partes del código de R correspondientes, lo que a su vez hará que se actualicen las salidas (outputs) modificadas, es decir, la modificación de un valor reactivo llevará automaticamente a todas las expresiones reactivas que dependen directa o indirectamente de este valor a ejecutarse nuevamente. 
 
@@ -450,7 +450,7 @@ Una Shiny app contiene al menos dos componentes: un script para la interfaz del 
 
 \subsection{Esta app \label{subsec:app}}
 
-Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2019, pero también funciona perfectamente para los años (..)2015 a 2018 y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la aplicación como en los anexos \ref{ane:var} (REFERENCIAR ANEXO) de este informe, estará disponible un listado con las variables utilizadas.
+Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2019, pero también funciona perfectamente para los años (..)2015 a 2018 y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la aplicación como en los anexos \ref{ane:var} de este informe, estará disponible un listado con las variables utilizadas.
 
 En esta aplicación en particular, previo a la creación del ui y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas, el listado de variables utilizadas de la ECH y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
@@ -461,7 +461,7 @@ Dentro del encabezado solo aparece el título y un link que lleva directamente a
 
 La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función \textit{fileInput} y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPM (en caso de contar con el). También se incluye un widget mediante la función \textit{selectInput} para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPM.
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/Barra_lateral.PNG}
 \caption{Barra lateral. \label{lateral}}
@@ -470,16 +470,16 @@ La barra lateral es utilizada para cargar las bases de datos y para seleccionar 
 
 En el body se especifica el contenido de cada una de las secciones. La ventana de inicio cuenta con dos pestañas, en la primera de estas se encuentra un manual de uso de la aplicación, donde se explica su utilidad y los pasos a seguir para el correcto funcionamiento de esta. Mientras en la segunda pestaña se encuentra un listado con las variables de las bases de datos de la ECH que son utilizadas en la app.
 
-La sección de los indicadores cuenta con 3 pestañas.
+La sección de los indicadores cuenta con 3 pestañas (\ref{pest}).
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/cat.PNG}
 \caption{Categorías de indicadores. \label{cat}}
 \end{center}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.30\textwidth]{img/pest.PNG}
 \caption{Pestañas. \label{pest}}
@@ -492,7 +492,7 @@ En la primera de estas pestañas se selecciona el indicador que se quiere calcul
 
 En esta parte de la App se realizan todos los cálculos necesarios. En primer lugar se crean todos los elementos reactivos (se guardan las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función \textit{reactive}. Luego se crean todos los componentes de salida con funciones render, las tablas con \textit{renderDT} y los gráficos con \textit{renderPlotly}. Tanto las tablas como los gráficos se crean en outputs diferentes para cada una de las categorías de indicadores.
 
-\textit{Plotly} \citep{plotly} hace los gráficos interactivos, cuenta con varias opciones para poder visualizarlos de manera más precisa y permite descargarlos como imagen. (CITAR PAQUETE)
+\textit{Plotly} \citep{plotly} hace los gráficos interactivos, cuenta con varias opciones para poder visualizarlos de manera más precisa y permite descargarlos como imagen.
 
 \chapter{Ejemplo de aplicación \label{cap:aplic}}
 
@@ -521,36 +521,36 @@ Para la obtención de los resultados de este indicador en la app en primer lugar
 \end{center}
 \end{figure}
 
-Una vez cargadas las bases se selecciona dentro de la sección de indicadores, la categoría \textit{Mercado laboral} donde se encuentra este indicador. Una vez dentro de esta sección, se selecciona el indicador que se desea obtener.
+Una vez cargadas las bases se selecciona dentro de la sección de indicadores, la categoría \textit{Mercado laboral} donde se encuentra este indicador. Una vez dentro de esta sección, se selecciona el indicador que se desea obtener, tal como se muestra en la figura \ref{ind}.
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/indicador.png}
-\caption{Selección del indicador. \label{ind}}
+\caption{Selección del indicador Tasa de desempleo por sexo. \label{ind}}
 \end{center}
 \end{figure}
 
-En la misma pestaña se observan como resultados los dos tipos de gráficos antes mencionados, los cuales se presentan a continuación.
+En la misma pestaña se observan como resultados los dos tipos de gráficos antes mencionados, los cuales se presentan en las figuras \ref{barras} y \ref{mapa}.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/barras.PNG}
 \caption{Gráfico de barras de la tasa de desempleo a nivel departamental y de todo el país desagregando por sexo. \label{barras}}
 \end{center}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/Mapa.png}
 \caption{Tasa de desempleo a nivel departamental para la categoría Hombres. \label{mapa}}
 \end{center}
 \end{figure}
 
-Como se puede observar en la imagen, al colocar el cursor sobre uno de los departamentos, el gráfico nos brinda el valor de la estimación para dicho departamento. Esto también es posible en el diagrama de barras anterior y es una de las ventajas del uso de gráficos interactivos creados con la librería \textit{plotly}.
+Como se puede observar en la figura \ref{mapa}, al colocar el cursor sobre uno de los departamentos, el gráfico nos brinda el valor de la estimación para dicho departamento. Esto también es posible en el diagrama de barras presentado y es una de las ventajas del uso de gráficos interactivos creados con la librería \textit{plotly}.
 
 Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este caso las opciones son \textit{Hombre}, \textit{Mujer} o \textit{Total}. 
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/cat_mapa.PNG}
 \caption{Categorías para visualizar en el mapa. \label{catmapa}}
@@ -559,7 +559,7 @@ Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este c
 
 En la segunda pestaña de esta sección se puede observar una tabla como la presentada en la figura \ref{tabl}, que contiene las estimaciones puntuales del indicador seleccionado, a nivel departamental y nacional.
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \begin{center}
 \includegraphics[width=1.2\textwidth]{img/tabla.PNG}
 \caption{Tabla con las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tabl}}
@@ -568,12 +568,12 @@ En la segunda pestaña de esta sección se puede observar una tabla como la pres
 
 Por último, en la pestaña \textit{IC}, se observan tablas con los límites de los intervalos de confianza al $95\%$ de las estimaciones anteriores.
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \includegraphics[width=1.2\textwidth]{img/inf.PNG}
 \caption{Tabla con los límites inferiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablinf}}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \includegraphics[width=1.2\textwidth]{img/sup.PNG}
 \caption{Tabla con los límites superiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablsup}}
 \end{figure}
@@ -583,33 +583,33 @@ Por último, en la pestaña \textit{IC}, se observan tablas con los límites de 
 Por otra parte, el indicador \texttt{Hogares por presencia de lugar para cocinar} hace referencia a la proporción de hogares que cuentan con lugar apropiado para cocinar privado, con lugar apropiado compartido con otros hogares o que no cuentan con lugar apropiado y se calcula como $\frac{Numero\; de\; hogares\; segun \;presencia\;de\;lugar\;para\;cocinar}{Total \;hogares}$.
 
 <<eval=FALSE>>=
-funcion9(ph, "d19", c("dpto", "Lugar privado", "Compartido", "No tiene"),
-         c(1,2,3))
+funcion9(ph, "d19", c("dpto", "Lugar privado", "Compartido",
+         "No tiene"), c(1,2,3))
 @
 
 Este indicador se calcula sobre la base de hogares, se utiliza la \emph{funcion9}, el diseño \emph{ph}, filtro no tiene ya que se calcula sobre todos los hogares, la variable utilizada es \emph{d19} la cual es una variable presente en la ECH que hace referencia al lugar para cocinar y toma valor 1 cuando tiene lugar privado, 2 cuando es compartido con otros hogares y 3 cuando no tiene. Esta información es la que se le brinda a la función en los otros dos insumos.
 
 En la app este indicador se encuentra en la sección \textit{Viviendas y hogares}, por lo que de igual manera que para el indicador anterior, se ingresa a la sección, se selecciona el indicador deseado y se observan los resultados.
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/indicador_hog.PNG}
 \caption{Selección del indicador Hogares por presencia de lugar para cocinar. \label{ind2}}
 \end{center}
 \end{figure}
 
-La diferencia en este indicador es que se presenta un gráfico de barras apiladas en lugar de agrupadas como era el caso de la tasa de desempleo.
+La diferencia en este indicador es que se presenta un gráfico de barras apiladas (\ref{barras2}) en lugar de agrupadas como era el caso de la tasa de desempleo.
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/Barras_hog.PNG}
 \caption{Gráfico de barras de la proporción de hogares por presencia de lugar para cocinar por departamento. \label{barras2}}
 \end{center}
 \end{figure}
 
-El gráfico de mapa es similar al presentado para la tasa de desempleo, donde también se puede seleccionar la categoría a visualizar. La visualización de las tablas de estimaciones puntuales e intervalos de confianza también son similares al caso anterior.
+El gráfico de mapa es similar al presentado para la tasa de desempleo, donde también se puede seleccionar la categoría a visualizar. La visualización de las tablas de estimaciones puntuales e intervalos de confianza también son similares al caso del indicador anterior.
 
-\begin{figure}[H]
+\begin{figure}[htb]
 \begin{center}
 \includegraphics[width=1.2\textwidth]{img/tabla_hog.PNG}
 \caption{Tabla con las estimaciones puntuales de la proporción de hogares por presencia de lugar para cocinar a nivel departamental y de todo el país en el año 2019. \label{tabl2}}
@@ -640,7 +640,7 @@ Independientemente de las posibles mejoras que pueda tener la app, siempre va a 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAFíA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliographystyle{apa}
-\bibliography{TFGbiblo}
+\bibliography{TFGbiblo.bib}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% ANEXO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
