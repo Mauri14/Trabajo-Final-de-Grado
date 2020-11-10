@@ -640,7 +640,7 @@ Independientemente de las posibles mejoras que pueda tener la app, siempre va a 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAFíA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliographystyle{apa}
-\bibliography{TFGbiblo.bib}
+\bibliography{TFGbiblo}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% ANEXO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
