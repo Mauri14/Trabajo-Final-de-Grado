@@ -6,4 +6,10 @@
 
 *.Rproj
 TFG.pdf
-
+*.aux
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
