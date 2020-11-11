@@ -1,4 +1,54 @@
-\documentclass[12pt,twoside,spanish,a4paper]{book}
+\documentclass[12pt,twoside,spanish,a4paper]{book}\usepackage[]{graphicx}\usepackage[]{color}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \usepackage{geometry}\geometry{top=3cm,bottom=3cm,left=3cm,right=3cm}
 \usepackage{fancyhdr}
 \usepackage{amssymb}
@@ -37,17 +87,12 @@
 \setcounter{secnumdepth}{3}
 
 \linespread{1.6}
-
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
-<<echo=FALSE>>=
-options(scipen = 999)  
-@
 
-<<echo=FALSE, message=FALSE, warning=FALSE>>=
-#install.packages("knitr")
-library(knitr)
-@
+
+
 
 \pagenumbering{roman}
 
@@ -379,19 +424,23 @@ Este paquete \textit{srvyr} cuenta con funciones tales como $survey\_mean$ para 
 
 A continuación se presenta un breve ejemplo de como se utilizan las funciones de esta librería, para el caso concreto del indicador \textit{Utilización de computadora el último mes por sexo}.
 
-<<eval=FALSE>>=
-pr<-echP%>% as_survey_design(ids=upm_fic, weight=pesoano
-                             , strata=estrato)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{pr}\hlkwb{<-}\hlstd{echP}\hlopt{%>%} \hlkwd{as_survey_design}\hlstd{(}\hlkwc{ids}\hlstd{=upm_fic,} \hlkwc{weight}\hlstd{=pesoano}
+                             \hlstd{,} \hlkwc{strata}\hlstd{=estrato)}
 
-diseno<- pr
-filtro<- "e27>5"
-variable<- "e61==1"
+\hlstd{diseno}\hlkwb{<-} \hlstd{pr}
+\hlstd{filtro}\hlkwb{<-} \hlstr{"e27>5"}
+\hlstd{variable}\hlkwb{<-} \hlstr{"e61==1"}
 
-ind<-diseno%>%
-      filter(eval(parse(text=filtro)))%>%
-      group_by(dpto, e26)%>%
-      summarise(estimacion.tot= survey_mean(eval(parse(text=variable))))
-@
+\hlstd{ind}\hlkwb{<-}\hlstd{diseno}\hlopt{%>%}
+      \hlkwd{filter}\hlstd{(}\hlkwd{eval}\hlstd{(}\hlkwd{parse}\hlstd{(}\hlkwc{text}\hlstd{=filtro)))}\hlopt{%>%}
+      \hlkwd{group_by}\hlstd{(dpto, e26)}\hlopt{%>%}
+      \hlkwd{summarise}\hlstd{(}\hlkwc{estimacion.tot}\hlstd{=} \hlkwd{survey_mean}\hlstd{(}\hlkwd{eval}\hlstd{(}\hlkwd{parse}\hlstd{(}\hlkwc{text}\hlstd{=variable))))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 En primer lugar se crea el objeto de diseño mediante la función $as\_survey\_design$, donde los insumos que se le indican son las unidades primarias de muestreo ($upm\_fic$), los ponderadores ($pesoano$) y los estratos ($estrato$). Todas estas son variables presentes en la base de datos de la ECH. Luego se crean los objetos filtro y variable, el filtro define la población objetivo que en este caso son las personas mayores de 5 años, mientras la variable utilizada es $e61==1$ la cual es una variable presente en la ECH que hace referencia a la utilización de computadora en el último mes.
 
@@ -433,9 +482,13 @@ Se crean además funciones para el cálculo de los intervalos de confianza de la
 
 El cálculo del indicador presentado anteriormente, una vez creadas las funciones, se reduce a la siguiente línea de código.
 
-<<eval=FALSE>>=
-funcion1(pr,"e27>5","e61==1")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{funcion1}\hlstd{(pr,}\hlstr{"e27>5"}\hlstd{,}\hlstr{"e61==1"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Este indicador es estimado en base a personas y con desagregación por departamento y por sexo. Se utiliza la función \textit{funcion1}, el diseño utilizado $pr$, el filtro $e27>5$ y la variable $e61==1$ son los presentados anteriormente.
 
@@ -517,9 +570,13 @@ Este indicador hace referencia a la proporción de personas desocupadas por sexo
 
 Pasando al cálculo a partir de las funciones, el código es el siguiente:
 
-<<eval=FALSE>>=
-funcion1(pr, "e27>13 & activo==1", "desocupados==1")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{funcion1}\hlstd{(pr,} \hlstr{"e27>13 & activo==1"}\hlstd{,} \hlstr{"desocupados==1"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Al ser un indicador calculado en base a personas, necesitando del cálculo de una proporción y desagregando por sexo se utiliza la \textit{funcion1}. El diseño utilizado es \textit{pr}, el fitro $e27>13$ y $activo==1$ indica que se calcula para los mayores de 13 años y la variable $activo==1$, es una variable creada a partir de otras variables de la ECH, que toma valor 1 cuando el individuo pertenece a la población económicamente activa. Finalmente la variable utilizada es $desocupados==1$ la cual también es una variable creada a partir de otras variables de la ECH y toma valor 1 cuando el individuo está desocupado y 0 si no lo está.
 
@@ -593,10 +650,14 @@ Por último, en la pestaña \textit{IC}, se observan tablas con los límites de 
 
 Por otra parte, el indicador \texttt{Hogares por presencia de lugar para cocinar} hace referencia a la proporción de hogares que cuentan con lugar apropiado para cocinar privado, con lugar apropiado compartido con otros hogares o que no cuentan con lugar apropiado y se calcula como $\frac{Numero\; de\; hogares\; segun \;presencia\;de\;lugar\;para\;cocinar}{Total \;hogares}$.
 
-<<eval=FALSE>>=
-funcion9(ph, "d19", c("dpto", "Lugar privado", "Compartido",
-         "No tiene"), c(1,2,3))
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{funcion9}\hlstd{(ph,} \hlstr{"d19"}\hlstd{,} \hlkwd{c}\hlstd{(}\hlstr{"dpto"}\hlstd{,} \hlstr{"Lugar privado"}\hlstd{,} \hlstr{"Compartido"}\hlstd{,}
+         \hlstr{"No tiene"}\hlstd{),} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Este indicador se calcula sobre la base de hogares, se utiliza la \emph{funcion9}, el diseño \emph{ph}, filtro no tiene ya que se calcula sobre todos los hogares, la variable utilizada es \emph{d19} la cual es una variable presente en la ECH que hace referencia al lugar para cocinar y toma valor 1 cuando tiene lugar privado, 2 cuando es compartido con otros hogares y 3 cuando no tiene. Esta información es la que se le brinda a la función en los otros dos insumos.
 
@@ -664,31 +725,148 @@ Independientemente de las posibles mejoras que pueda tener la app, siempre va a 
 
 Se presenta el listado completo de los indicadores trabajados en la app.
 
-<<echo=FALSE, results='asis', message=FALSE, warning=FALSE>>=
-library(readxl)
-library(xtable)
-library(tidyverse)
-indicadores <- read_excel("indicadores.xlsx", 
-   range = "A1:F54")
-indicadores<- indicadores %>% select(c(1,2,3,5,6))
-indic <- xtable(indicadores, caption = "Listado de indicadores")
-align(indic) <- "lp{2in}|p{1in}|p{0.5in}|p{1in}|p{0.5in}"
-print(indic, caption.placement = "top",hline.after=c(-1, 0), tabular.environment = "longtable",include.rownames = FALSE, floating=FALSE)
-@
+% latex table generated in R 4.0.2 by xtable 1.8-4 package
+% Wed Nov 11 12:53:42 2020
+\begin{longtable}{p{2in}|p{1in}|p{0.5in}|p{1in}|p{0.5in}}
+\caption{Listado de indicadores} \\ 
+  \hline
+Indicador & Categoría & Función & Desagregación & Base \\ 
+  \hline
+Tasa de analfabetismo en población de 15 años o más & Educación & 1 & Dpto - Sexo  & Personas \\ 
+  Adolescentes de 12 a 17 años que asisten a establecimientos educativos & Educación & 1 & Dpto - Sexo  & Personas \\ 
+  Personas mayores de 15 años que completaron media básica general o técnica & Educación & 1 & Dpto - Sexo  & Personas \\ 
+  Personas de 18 años o más que completaron segundo ciclo de educación media & Educación & 1 & Dpto - Sexo  & Personas \\ 
+  Población entre 25 y 65 años con estudios terciarios & Educación & 1 & Dpto - Sexo  & Personas \\ 
+  Tasa neta de asistencia de 0 a 2 años en educación inicial & Educación & 1 & Dpto - Sexo  & Personas \\ 
+  Tasa neta de asistencia de 3 a 5 años en educación preescolar & Educación & 1 & Dpto - Sexo  & Personas \\ 
+  Tasa neta de asistencia de 6 a 11 años en educación primaria & Educación & 1 & Dpto - Sexo  & Personas \\ 
+  Tasa neta de asistencia de 12 a 17 años en educación media & Educación & 1 & Dpto - Sexo  & Personas \\ 
+  Personas mayores a 25 años por máximo nivel educativo alcanzado & Educación & 2 & Dpto - Sexo  & Personas \\ 
+  Ocupados por máximo nivel educativo alcanzado & Educación & 2 & Dpto - Sexo & Personas \\ 
+  Tasa de analfabetismo en mayores de 15 años & Educación & 3 & Dpto - Tramos de edad  & Personas \\ 
+  Promedio de años de educación de las personas de 25 años o más & Educación & 6 & Dpto - Sexo  & Personas \\ 
+  Tasa bruta de asistencia de 3 a 5 años en educación preescolar & Educación & 7 & Dpto & Personas \\ 
+  Tasa bruta de asistencia de 6 a 11 años en educación primaria & Educación & 7 & Dpto  & Personas \\ 
+  Tasa bruta de asistencia de 12 a 17 años en educación media & Educación & 7 & Dpto  & Personas \\ 
+  Jóvenes de 14 a 24 años que no estudian ni trabajan & Educación / Mercado Laboral & 1 & Dpto - Sexo  & Personas \\ 
+  Personas afiliadas a emergencias móviles & Salud & 1 & Dpto - Sexo  & Personas \\ 
+  Personas afiliadas a emergencias móviles & Salud & 4 & Dpto - Tramos de edad  & Personas \\ 
+  Personas por tipo de atención en salud & Salud & - & Dpto  & Personas \\ 
+  Tasa de desempleo & Mercado Laboral & 1 & Dpto - Sexo  & Personas \\ 
+  Subempleo & Mercado Laboral & 1 & Dpto - Sexo  & Personas \\ 
+  Tasa de empleo & Mercado Laboral & 1 & Dpto - Sexo  & Personas \\ 
+  Tasa de actividad & Mercado Laboral & 1 & Dpto - Sexo  & Personas \\ 
+  Ocupados en establecimientos fuera de su departamento  & Mercado Laboral & 1 & Dpto - Sexo  & Personas \\ 
+  Desocupados por última ocupación & Mercado Laboral & 2 & Dpto - Sexo  & Personas \\ 
+  Ocupados por categoría de ocupación & Mercado Laboral & 2 & Dpto - Sexo  & Personas \\ 
+  Tasa de actividad & Mercado Laboral & 5 & Dpto - Tramos de edad  & Personas \\ 
+  Población total por condición de actividad & Mercado Laboral & - & Dpto - Sexo  & Personas \\ 
+  Informalidad & Mercado Laboral / Ingresos y bienestar & 1 & Dpto - Sexo  & Personas \\ 
+  Tasa de desempleo & Mercado Laboral / Ingresos y bienestar & 5 & Dpto - Tramos de edad  & Personas \\ 
+  Tasa de empleo & Mercado Laboral / Ingresos y bienestar & 5 & Dpto - Tramos de edad  & Personas \\ 
+  Personas en hogares en situación de pobreza & Ingresos y bienestar & 1 & Dpto - Sexo  & Personas \\ 
+  Jóvenes entre 14 y 29 años en situación de pobreza & Ingresos y bienestar & 1 & Dpto - Sexo  & Personas \\ 
+  Hogares con al menos 1 auto o camioneta & Ingresos y bienestar & 8 & Dpto  & Hogares \\ 
+  Hogares en situación de pobreza & Ingresos y bienestar / Viviendas y hogares & 8 & Dpto  & Hogares \\ 
+  Hogares con hacinamiento & Ingresos y bienestar / Viviendas y hogares & 8 & Dpto  & Hogares \\ 
+  Personas con celular & Tecnología y comunicación & 1 & Dpto - Sexo  & Personas \\ 
+  Utilización de computadora el último mes & Tecnología y comunicación & 1 & Dpto - Sexo  & Personas \\ 
+  Personas que utilizan internet  & Tecnología y comunicación & 1 & Dpto - Sexo  & Personas \\ 
+  Frecuencia de utilización de internet & Tecnología y comunicación & 2 & Dpto - Sexo & Personas \\ 
+  Hogares con al menos una computadora del Plan Ceibal & Tecnología y comunicación & 8 & Dpto  & Hogares \\ 
+  Hogares con conexión a internet & Tecnología y comunicación & 8 & Dpto  & Hogares \\ 
+  Hogares con computadora o laptop & Tecnología y comunicación & 8 & Dpto  & Hogares \\ 
+  Población por lugar de nacimiento & Demografía & 2 & Dpto - Sexo  & Personas \\ 
+  Personas por lugar de residencia anterior & Demografía & 2 & Dpto - Sexo  & Personas \\ 
+  Población por lugar de residencia hace 5 años & Demografía & 2 & Dpto - Sexo & Personas \\ 
+  Hogares por tipo de evacuación del sistema sanitario & Viviendas y hogares & 9 & Dpto  & Hogares \\ 
+  Hogares por presencia de lugar para cocinar & Viviendas y hogares & 9 & Dpto  & Hogares \\ 
+  Hogares por presencia y uso de baño & Viviendas y hogares & 9 & Dpto  & Hogares \\ 
+  Hogares por fuente de energía para iluminar & Viviendas y hogares & 9 & Dpto  & Hogares \\ 
+  Hogares por origen de agua para beber y cocinar & Viviendas y hogares & 9 & Dpto  & Hogares \\ 
+  Hogares por tipo de relación con la vivienda & Viviendas y hogares & - & Dpto & Hogares \\ 
+  \hline
+\end{longtable}
+
 
 
 \section{Listado de variables \label{ane:var}}
 
 Se presenta la tabla con las variables de la ECH que son utilizadas en la app.
 
-<<echo=FALSE,results='asis'>>=
-library(readxl)
-library(xtable)
-variables <- read_excel("variables.xlsx")
-var <- xtable(variables, caption = "Listado de variables utilizadas en la app")
-align(var) <- "lp{1in}p{3.7in}p{1.3in}"
-print(var, caption.placement = "top",hline.after=c(-1, 0), tabular.environment = "longtable",include.rownames = FALSE, floating=FALSE)
-@
+% latex table generated in R 4.0.2 by xtable 1.8-4 package
+% Wed Nov 11 12:53:42 2020
+\begin{longtable}{p{1in}p{3.7in}p{1.3in}}
+\caption{Listado de variables utilizadas en la app} \\ 
+  \hline
+Variables & Descripción & Base de datos \\ 
+  \hline
+dpto & Código correlativo del 1 al 19 comenzando por Montevideo y continuando alfabéticamente & Personas \\ 
+  e26 & Sexo & Personas \\ 
+  e27 & Edad & Personas \\ 
+  e215 & Asistencia a magisterio o profesorado & Personas \\ 
+  e218 & Asistencia a universidad o similar & Personas \\ 
+  e221 & Asistencia a terciario no universitario & Personas \\ 
+  e224 & Asistencia a postgrado & Personas \\ 
+  pobpcoac & Condición de actividad económica & Personas \\ 
+  e193 & Asistencia a educación preescolar & Personas \\ 
+  e197 & Asistencia a educación primaria & Personas \\ 
+  e201 & Asistencia a educación media & Personas \\ 
+  e212 & Asistencia a educación técnica & Personas \\ 
+  e51\_2 & Años aprobados en primaria común & Personas \\ 
+  e51\_4 & Años aprobados en ciclo básico & Personas \\ 
+  e51\_5 & Años aprobados en bachillerato & Personas \\ 
+  e51\_6 & Años aprobados en bachillerato tecnológico & Personas \\ 
+  e51\_7 & Años aprobados en educación técnica & Personas \\ 
+  e51\_8 & Años aprobados en magisterio o profesorado & Personas \\ 
+  e51\_9 & Años aprobados en universidad o similar & Personas \\ 
+  e51\_10 & Años aprobados en terciario no universitario & Personas \\ 
+  e51\_11 & Años aprobados en postgrado & Personas \\ 
+  e51\_7\_1 & Exigencia para realizar curso de educación técnica & Personas \\ 
+  e51\_3 & Años aprobados en primaria especial & Personas \\ 
+  e236 & Lugar de residencia 5 años atrás & Personas \\ 
+  numero & Número de identificación del hogar & Personas \\ 
+  pesoano & Ponderador del año & Personas \\ 
+  e238 & Asistencia a educación inicial & Personas \\ 
+  e48 & Sabe leer y escribir & Personas \\ 
+  e46 & Afiliación a emergencia móvil & Personas \\ 
+  f82 & Aporte a caja de jubilaciones & Personas \\ 
+  f80 & Trabajo en el departamento & Personas \\ 
+  f116 & Ha trabajado antes & Personas \\ 
+  f121 & Categoría de la ocupación (trabajos anteriores de no ocupados) & Personas \\ 
+  f73 & Categoría de la ocupación & Personas \\ 
+  pobre06 & Pobreza según metodología 2006 & Personas \\ 
+  e62 & Utilización de internet en el último mes & Personas \\ 
+  e61 & Utilización de microcomputador en el último mes & Personas \\ 
+  e60 & Tenencia de teléfono celular & Personas \\ 
+  e37 & Lugar de residencia inmediato luego del nacimiento & Personas \\ 
+  e39 & Lugar de residencia anterior & Personas \\ 
+  e45\_1 & ASSE & Personas \\ 
+  e45\_2 & IAMC & Personas \\ 
+  e45\_3 & Seguro médico privado & Personas \\ 
+  e45\_4 & Hospital Policial/Militar & Personas \\ 
+  e45\_5 & Área de salud del BPS & Personas \\ 
+  e45\_6 & Policlínica municipal & Personas \\ 
+  e45\_7 & Otro (salud) & Personas \\ 
+  e65 & Frecuencia de utilización de internet & Personas \\ 
+  subempleo & Trabajador subempleado & Personas \\ 
+  d8\_1 & Tenencia de la vivienda & Hogares \\ 
+  d25 & Total de personas del hogar & Hogares \\ 
+  d9 & Habitaciones residenciales & Hogares \\ 
+  d21\_18 & Automóvil o camioneta & Hogares \\ 
+  d21\_16 & Conexión a internet & Hogares \\ 
+  d21\_15 & Microcomputador & Hogares \\ 
+  d21\_15\_1 & Algún microcomputador del Plan Ceibal & Hogares \\ 
+  d16 & Evacuación del sistema sanitario & Hogares \\ 
+  d18 & Fuente de energía para iluminar & Hogares \\ 
+  d11 & Origen del agua & Hogares \\ 
+  d19 & Lugar para cocinar & Hogares \\ 
+  d15 & Uso de baño & Hogares \\ 
+  upm\_fic & UPM & UPM y estratos \\ 
+  estrato & Estratos & UPM y estratos \\ 
+  \hline
+\end{longtable}
+
 \end{appendix}
 
 

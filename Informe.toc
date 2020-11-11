@@ -1,0 +1,31 @@
+\babel@toc {spanish}{}
+\contentsline {chapter}{\'{I}ndice general}{\es@scroman {iii}}%
+\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {v}}%
+\contentsline {chapter}{\'{I}ndice de tablas}{1}%
+\contentsline {chapter}{\numberline {1}Introducción }{3}%
+\contentsline {chapter}{\numberline {2}Métodos estadísticos }{5}%
+\contentsline {section}{\numberline {2.1}Introducción }{5}%
+\contentsline {subsection}{\numberline {2.1.1}Dominios }{6}%
+\contentsline {section}{\numberline {2.2}Estimaciones puntuales }{7}%
+\contentsline {section}{\numberline {2.3}Estimación de los errores estándar (SE) }{9}%
+\contentsline {subsection}{\numberline {2.3.1}Método del último conglomerado }{10}%
+\contentsline {subsection}{\numberline {2.3.2}Linearización de Taylor }{12}%
+\contentsline {section}{\numberline {2.4}Intervalos de confianza }{13}%
+\contentsline {chapter}{\numberline {3}Indicadores }{15}%
+\contentsline {section}{\numberline {3.1}ECH }{15}%
+\contentsline {section}{\numberline {3.2}Listado de indicadores }{17}%
+\contentsline {chapter}{\numberline {4}Métodos computacionales }{19}%
+\contentsline {section}{\numberline {4.1}Estimación de los indicadores }{19}%
+\contentsline {subsection}{\numberline {4.1.1}Descripción de los diseños }{22}%
+\contentsline {section}{\numberline {4.2}Aplicación web utilizando Shiny }{23}%
+\contentsline {subsection}{\numberline {4.2.1}Monitor de indicadores socioeconómicos }{24}%
+\contentsline {subsection}{\numberline {4.2.2}Interfaz del usuario }{24}%
+\contentsline {subsection}{\numberline {4.2.3}Comportamiento reactivo }{26}%
+\contentsline {chapter}{\numberline {5}Ejemplo de aplicación }{29}%
+\contentsline {section}{\numberline {5.1}Tasa de desempleo }{29}%
+\contentsline {section}{\numberline {5.2}Hogares por presencia de lugar para cocinar }{31}%
+\contentsline {chapter}{\numberline {6}Discusión }{41}%
+\contentsline {section}{\numberline {6.1}Limitaciones y trabajos a futuro }{42}%
+\contentsline {chapter}{\numberline {A}Anexos}{43}%
+\contentsline {section}{\numberline {A.1}Listado de indicadores }{43}%
+\contentsline {section}{\numberline {A.2}Listado de variables }{48}%
