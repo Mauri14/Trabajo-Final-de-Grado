@@ -470,7 +470,7 @@ La UI cuenta con tres partes, el encabezado (\textit{dashboardHeader}), la barra
 
 Dentro del encabezado solo aparece el título y un link que lleva directamente a la página del INE donde están disponibles las bases de datos de la ECH.
 
-La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función \textit{fileInput} y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPM (en caso de contar con el). También se incluye un widget mediante la función \textit{selectInput} para especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPM.
+La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función \textit{fileInput} y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPM (en caso de contar con el). También se incluye un widget mediante la función \textit{selectInput} para que el usuario pueda especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPM.
 
 \begin{figure}[htb]
 \begin{center}
@@ -499,9 +499,11 @@ La sección de los indicadores cuenta con 3 pestañas (\ref{pest}).
 
 En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior, ambas tablas también cuentan con un botón de descarga.
 
-\subsection{Server \label{subsec:server}}
+\subsection{Comportamiento reactivo \label{subsec:server}}
 
-En esta parte de la App se realizan todos los cálculos necesarios. En primer lugar se crean todos los elementos reactivos (se guardan las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función \textit{reactive}. Luego se crean todos los componentes de salida con funciones render, las tablas con \textit{renderDT} y los gráficos con \textit{renderPlotly}. Tanto las tablas como los gráficos se crean en outputs diferentes para cada una de las categorías de indicadores.
+La función server toma dos parámetros: \emph{input} y \emph{output}. El argumento \emph{input} es un objeto similar a una lista que contiene todos los elementos de entrada enviados por el navegador. Mientras el argumento \emph{output} es similar al anterior con la principal diferencia de que es usado para enviar objetos de salida y no para recibir objetos de entrada.
+
+En esta parte del código se controla el comportamiento de la app. En primer lugar se crean todos los elementos reactivos (se guardan las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función \textit{reactive}. Luego se crean todos los componentes de salida con funciones render, las tablas con \textit{renderDT} y los gráficos con \textit{renderPlotly}. Las funciones render cumplen con dos objetivos: establecer un contexto reactivo especial que rastrea automáticamente qué entradas usa la salida y convierte estas salidas del código de \emph{R} en \emph{HTML} adecuado para mostrar en una página web (CITAR MASTERING SHINY). Tanto las tablas como los gráficos se crean en outputs diferentes para cada una de las categorías de indicadores.
 
 \textit{Plotly} \citep{plotly} hace los gráficos interactivos, cuenta con varias opciones para poder visualizarlos de manera más precisa y permite descargarlos como imagen.
 
