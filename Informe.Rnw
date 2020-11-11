@@ -39,8 +39,6 @@
 \linespread{1.6}
 
 \begin{document}
-% cambiar a knitr: global options-sweave-en el primer campo poner knitr
-% \SweaveOpts{concordance=TRUE} % luego del cambio comentar (o borrar) esta linea)
 
 <<echo=FALSE>>=
 options(scipen = 999)  
