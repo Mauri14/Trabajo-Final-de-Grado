@@ -464,7 +464,8 @@ Esta aplicación procesa los datos de la ECH, particularmente se realizó en bas
 En esta aplicación en particular, previo a la creación del UI y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas, el listado de variables utilizadas de la ECH y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
 \subsection{Interfaz del usuario \label{subsec:ui}}
-La UI cuenta con tres partes, el encabezado (\textit{dashboardHeader}), la barra lateral (\textit{dashboardSidebar}) y el contenido (\textit{dashboardBody}).
+
+Para una mejor visualización se utilizó la librería \emph{shinydashboard}, la cual cuenta con un conjunto de funciones diseñadas para crear \emph{HTML} para generar un tablero (dashboard). La UI cuenta con tres partes, el encabezado (\textit{dashboardHeader}), la barra lateral (\textit{dashboardSidebar}) y el contenido (\textit{dashboardBody}).
 
 Dentro del encabezado solo aparece el título y un link que lleva directamente a la página del INE donde están disponibles las bases de datos de la ECH.
 
@@ -477,7 +478,7 @@ La barra lateral es utilizada para cargar las bases de datos y para seleccionar 
 \end{center}
 \end{figure}
 
-En el body se especifica el contenido de cada una de las secciones. La ventana de inicio cuenta con dos pestañas, en la primera de estas se encuentra un manual de uso de la aplicación, donde se explica su utilidad y los pasos a seguir para el correcto funcionamiento de esta. Mientras en la segunda pestaña se encuentra un listado con las variables de las bases de datos de la ECH que son utilizadas en la app.
+En el body se especifica el contenido de cada una de las secciones. La ventana de inicio cuenta con dos pestañas creadas con la función \emph{tabPanel}, en la primera de estas se encuentra un manual de uso de la aplicación, donde se explica su utilidad y los pasos a seguir para el correcto funcionamiento de esta. Mientras en la segunda pestaña se encuentra un listado con las variables de las bases de datos de la ECH que son utilizadas en la app.
 
 La sección de los indicadores cuenta con 3 pestañas (\ref{pest}).
 
@@ -499,11 +500,14 @@ En la primera de estas pestañas se selecciona el indicador que se quiere calcul
 
 \subsection{Comportamiento reactivo \label{subsec:server}}
 
-La función server toma dos parámetros: \emph{input} y \emph{output}. El argumento \emph{input} es un objeto similar a una lista que contiene todos los elementos de entrada enviados por el navegador. Mientras el argumento \emph{output} es similar al anterior con la principal diferencia de que es usado para enviar objetos de salida y no para recibir objetos de entrada.
+La función \emph{server} toma dos parámetros: \emph{input} y \emph{output}. El argumento \emph{input} es un objeto similar a una lista que contiene todos los elementos de entrada enviados por el navegador. Mientras el argumento \emph{output} es similar al anterior con la principal diferencia de que es usado para enviar objetos de salida y no para recibir objetos de entrada.
 
 En esta parte del código se controla el comportamiento de la app. En primer lugar se crean todos los elementos reactivos (se guardan las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función \textit{reactive}. Las expresiones reactivas tienen dos propiedades importantes: no funcionan hasta que no se las llama y quedan almacenadas en el caché, es decir, no hace ningún trabajo la segunda y las siguientes veces que se las llama porque almacena en caché el resultado anterior. Luego se crean todos los componentes de salida con funciones render, las tablas con \textit{renderDT} y los gráficos con \textit{renderPlotly}. Las funciones render cumplen con dos objetivos: establecer un contexto reactivo especial que rastrea automáticamente qué entradas usa la salida y convierte estas salidas del código de \emph{R} en \emph{HTML} adecuado para mostrar en una página web (CITAR MASTERING SHINY). Tanto las tablas como los gráficos se crean en outputs diferentes para cada una de las categorías de indicadores.
 
 \textit{Plotly} \citep{plotly} hace los gráficos interactivos, cuenta con varias opciones para poder visualizarlos de manera más precisa y permite descargarlos como imagen.
+
+Para el caso de la selección de la categoría a visualizar en el gráfico de mapa, se utilizan las funciones \emph{uiOutput} y \emph{renderUI}. La primera de estas inserta un marcador de posición en la interfaz de usuario, es decir el código se ejecuta cuando se inicia la aplicación pero deja un espacio para que el código del servidor (server) pueda llenar luego. Mientras \emph{renderUI} llena ese espacio con UI generada en el servidor. Esta técnica permite regenerar la interfaz del usuario mientras la app está corriendo, y se utiliza en este caso ya que las categorías de los indicadores no son siempre las mismas, sino que varían según el indicador seleccionado.
+
 
 \chapter{Ejemplo de aplicación \label{cap:aplic}}
 
