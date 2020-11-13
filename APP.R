@@ -2473,7 +2473,7 @@ contenido <- dashboardBody(
   
   
   tabItems(
-    tabItem(tabName = "inicio", h1("Estimación en dominios de indicadores socioeconómicos a partir de la Encuesta Continua de Hogares"),
+    tabItem(tabName = "inicio", h1("Monitor de indicadores socioeconómicos estimados a partir de la Encuesta Continua de Hogares"),
             fluidRow(
               tabBox(
                 width = 12,

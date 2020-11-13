@@ -220,7 +220,7 @@ Como la muestra es aleatoria, los estimadores son variables aleatorias y están,
 
 En la práctica muchos usuarios que utilizan la bases de datos de encuestas públicas para realizar sus propias inferencias no siempre tienen en cuenta todas las fuentes de variabilidad que afectan al error estándar. Esto, puede derivar en la realización de inferencias inválidas sobre los parámetros de la población. Uno de los motivos por los cuales surge este problema es el no contar con los insumos necesarios en la bases de datos públicas de las encuestas sobre el diseño de muestreo. En el caso de la ECH, para los años anteriores a 2018 no se cuenta con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos a los que pertenece cada individuo.
 
-Para un diseño complejo como el de la ECH, no existen métodos exactos para calcular los SE, lo que implica que se deba recurrir a distintas estrategias o métodos que aproximan de mejor forma la variabilidad de las estimaciones. Dentro de la amplia gama de métodos que existen se optó por el método del último conglomerado en conjunto con la linearización de Taylor para computar los SE, que es el más usado en la práctica y se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método puede manejar tanto parámetros lineales como no lineales. (PAPER DE LUMLEY EXPLICA COMO FUNCIONA EL SURVEY) \citep{surveyLumley}.
+Para un diseño complejo como el de la ECH, no existen métodos exactos para calcular los SE, lo que implica que se deba recurrir a distintas estrategias o métodos que aproximan de mejor forma la variabilidad de las estimaciones. Dentro de la amplia gama de métodos que existen se optó por el método del último conglomerado en conjunto con la linearización de Taylor para computar los SE, que es el más usado en la práctica y se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método puede manejar tanto parámetros lineales como no lineales \citep{surveyLumley}.
 
 \subsection{Método del último conglomerado \label{subsec:ultcong}}
 
@@ -335,7 +335,7 @@ Los datos de la muestra son ponderados, de forma de obtener estimaciones tanto a
 Los ponderadores originales son ajustados en varias etapas una vez concluida la recolección de la información. El primer ajuste se realiza en base a la no respuesta obtenida en campo, es decir, teniendo en cuenta las encuestas efectivamente realizadas. Un segundo ajuste se efectúa utilizando técnicas de calibración en base a las proyecciones de la población residente en viviendas particulares. Esto implica que la ECH expanda a la población proyectada para el año de referencia para cada uno de los departamentos del país, y para la estructura de la población a nivel del total del país por sexo y cinco tramos de edades (0 a 14 años, 15 a 29 años, 30 a 49 años, 50 a 64 años y 65 años o más) \citep{ine}.
 
 
-\section{Listado de indicadores \label{sec:lista}}
+\section{Indicadores socioeconómicos \label{sec:lista}}
 
 Los indicadores presentados en este trabajo son calculados todos los años por el Observatorio Territorio Uruguay (OTU) perteneciente a la Oficina de Planeamiento y Presupuesto (OPP), y se encuentran disponibles en su página oficial. Estos indicadores se dividen en 7 categorías:
 
@@ -393,7 +393,7 @@ ind<-diseno%>%
       summarise(estimacion.tot= survey_mean(eval(parse(text=variable))))
 @
 
-En primer lugar se crea el objeto de diseño mediante la función $as\_survey\_design$, donde los insumos que se le indican son las unidades primarias de muestreo ($upm\_fic$), los ponderadores ($pesoano$) y los estratos ($estrato$). Todas estas son variables presentes en la base de datos de la ECH. Luego se crean los objetos filtro y variable, el filtro define la población objetivo que en este caso son las personas mayores de 5 años, mientras la variable utilizada es $e61==1$ la cual es una variable presente en la ECH que hace referencia a la utilización de computadora en el último mes.
+En primer lugar se crea el objeto de diseño mediante la función $as\_survey\_design$, donde los insumos que se le indican son las unidades primarias de muestreo ($upm\_fic$), los ponderadores ($pesoano$) y los estratos ($estrato$). Todas estas son variables presentes en la base de datos de la ECH. Luego se crean los objetos filtro y variable, el filtro define la población objetivo que en este caso son las personas mayores de 5 años, mientras la variable utilizada es $e61==1$, la cual es una variable presente en la ECH que hace referencia a la utilización de computadora en el último mes.
 
 Las líneas de código siguientes son la base de las funciones creadas para el cálculo de los indicadores, donde en este caso se le indica el objeto de diseño, se le aplica el filtro necesario, se agrupa por departamento y por sexo ($e26$) y se estima la media de la variable indicada para cada sexo a nivel de cada departamento, dando como resultado un objeto (data frame) con las estimaciones puntuales y errores estándar para el indicador deseado.
 
@@ -459,7 +459,7 @@ Una Shiny app contiene al menos dos componentes: un script para la interfaz del 
 
 \subsection{Monitor de indicadores socioeconómicos \label{subsec:app}}
 
-Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2019, pero también funciona perfectamente para los años (..)2015 a 2018 y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la aplicación como en los anexos \ref{ane:var} de este informe, estará disponible un listado con las variables utilizadas.
+Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2019, pero también funciona perfectamente para años anteriores y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la aplicación como en los anexos \ref{ane:var} de este informe, estará disponible un listado con las variables utilizadas.
 
 En esta aplicación en particular, previo a la creación del UI y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas, el listado de variables utilizadas de la ECH y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
