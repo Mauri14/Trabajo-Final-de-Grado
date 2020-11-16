@@ -373,9 +373,9 @@ En anexo \ref{ane:ind} se presenta un listado completo de los indicadores trabaj
 
 \section{Estimación de los indicadores \label{sec:estindic}}
 
-Para replicar el diseño muestral de la ECH y poder llevar a cabo el computo de los indicadores, se utiliza el software libre \textit{R}, más precisamente el paquete \citep{srvyr}. Este paquete utiliza las funciones del paquete \textit{survey} antes mencionado, permitiendo el uso de un estilo de sintaxis inspirado en el paquete \textit{dplyr} \citep{dplyr}.
+Para replicar el diseño muestral de la ECH y poder llevar a cabo el computo de los indicadores, se utiliza el software libre \textit{R}, más precisamente el paquete \textit{srvyr} \citep{srvyr}. Este paquete utiliza las funciones del paquete \textit{survey} antes mencionado, permitiendo el uso de un estilo de sintaxis inspirado en el paquete \textit{dplyr} \citep{dplyr}.
 
-Este paquete \textit{srvyr} cuenta con funciones tales como $survey\_mean$ para calcular medias o proporciones, $survey\_ratio$ para ratios o $survey\_total$ para totales. Estas funciones utilizan el valor que toma el indicador en cada uno de los individuos (hogares o personas según corresponda) de la muestra y los ponderadores, dando como resultado tanto las estimaciones puntuales que correspondan como las estimaciones de los errores estándar, utilizando las ecuaciones y metodologías descritas en este documento para realizar los cálculos.
+El paquete \textit{srvyr} cuenta con funciones tales como $survey\_mean$ para calcular medias o proporciones, $survey\_ratio$ para ratios o $survey\_total$ para totales. Estas funciones utilizan el valor que toma el indicador en cada uno de los individuos (hogares o personas según corresponda) de la muestra y los ponderadores, dando como resultado tanto las estimaciones puntuales que correspondan como las estimaciones de los errores estándar, utilizando las ecuaciones y metodologías descritas en este documento para realizar los cálculos.
 
 A continuación se presenta un breve ejemplo de como se utilizan las funciones de esta librería, para el caso concreto del indicador \textit{Utilización de computadora el último mes por sexo}.
 
@@ -449,13 +449,13 @@ Cabe aclarar que INE hizo pública esta información para los años 2018 y 2019.
 
 \section{Aplicación web utilizando Shiny \label{sec:shiny}}
 
-Shiny \citep{shiny} es una librería que permite crear fácilmente aplicaciones web interactivas a partir de R. La interactividad de estas aplicaciones permite la manipulación de los datos sin la necesidad de manipular el código, es decir, en caso de estar disponible en alguna página web, puede ser fácilmente utilizada por personas que no tengan conocimientos de R.
+Shiny \citep{shiny} es una librería que permite crear fácilmente aplicaciones web interactivas a partir de R. La interactividad de estas aplicaciones permite la manipulación de los datos sin la necesidad de manipular el código, es decir, en caso de estar disponible en la web, puede ser fácilmente utilizada por personas que no tengan conocimientos de R.
+
+Una Shiny app contiene al menos dos componentes: un script para la interfaz del usuario (UI) donde se controla el diseño de la aplicación; y un script para realizar los cálculos necesarios (server). En el server se debe especificar como convertir los valores de entrada (inputs) en resultados (outputs).
 
 Estas aplicaciones cuentan con programación reactiva. Esto significa que al cambiar los valores de entrada (inputs) se volveran a ejecutar las partes del código de R correspondientes, lo que a su vez hará que se actualicen las salidas (outputs) modificadas, es decir, la modificación de un valor reactivo llevará automaticamente a todas las expresiones reactivas que dependen directa o indirectamente de este valor a ejecutarse nuevamente. 
 
 Se cuenta además con widgets pre-construidos que facilitan la construcción de aplicaciones bonitas e interactivas. Un widget es un elemento web que los usuarios pueden interactuar con él enviando mensajes a la aplicación Shiny.
-
-Una Shiny app contiene al menos dos componentes: un script para la interfaz del usuario (UI) donde se controla el diseño de la aplicación; y un script para realizar los cálculos necesarios (server). En el server se debe especificar como convertir los valores de entrada (inputs) en resultados (outputs).
 
 \subsection{Monitor de indicadores socioeconómicos \label{subsec:app}}
 
@@ -496,13 +496,13 @@ La sección de los indicadores cuenta con 3 pestañas (\ref{pest}).
 \end{center}
 \end{figure}
 
-En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para este indicador, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior, ambas tablas también cuentan con un botón de descarga.
+En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para los resultados, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior, ambas tablas también cuentan con un botón de descarga.
 
 \subsection{Comportamiento reactivo \label{subsec:server}}
 
 La función \emph{server} toma dos parámetros: \emph{input} y \emph{output}. El argumento \emph{input} es un objeto similar a una lista que contiene todos los elementos de entrada enviados por el navegador. Mientras el argumento \emph{output} es similar al anterior con la principal diferencia de que es usado para enviar objetos de salida y no para recibir objetos de entrada.
 
-En esta parte del código se controla el comportamiento de la app. En primer lugar se crean todos los elementos reactivos (se guardan las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función \textit{reactive}. Las expresiones reactivas tienen dos propiedades importantes: no funcionan hasta que no se las llama y quedan almacenadas en el caché, es decir, no hace ningún trabajo la segunda y las siguientes veces que se las llama porque almacena en caché el resultado anterior. Luego se crean todos los componentes de salida con funciones render, las tablas con \textit{renderDT} y los gráficos con \textit{renderPlotly}. Las funciones render cumplen con dos objetivos: establecer un contexto reactivo especial que rastrea automáticamente qué entradas usa la salida y convierte estas salidas del código de \emph{R} en \emph{HTML} adecuado para mostrar en una página web \citep{mastering}. Tanto las tablas como los gráficos se crean en outputs diferentes para cada una de las categorías de indicadores.
+En esta parte del código se controla el comportamiento de la app. En primer lugar se crean todos los elementos reactivos (se guardan las bases de datos cargadas, los diseños y todos los indicadores) utilizando la función \textit{reactive}. Las expresiones reactivas tienen dos propiedades importantes: no funcionan hasta que no se las llama y quedan almacenadas en el caché, es decir, no hace ningún trabajo la segunda y las siguientes veces que se las llama porque almacena en caché el resultado anterior. Luego se crean todos los componentes de salida con funciones render, las tablas con \textit{renderDT} y los gráficos con \textit{renderPlotly}. Las funciones render cumplen con dos objetivos: establecer un contexto reactivo especial que rastrea automáticamente qué entradas usa la salida y convierte estas salidas del código de \emph{R} en \emph{HTML} adecuado para mostrar en una página web \citep{mastering}. 
 
 \textit{Plotly} \citep{plotly} hace los gráficos interactivos, cuenta con varias opciones para poder visualizarlos de manera más precisa y permite descargarlos como imagen.
 
@@ -550,7 +550,7 @@ En la misma pestaña se observan como resultados los dos tipos de gráficos ante
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/barras.PNG}
-\caption{Gráfico de barras de la tasa de desempleo a nivel departamental y de todo el país desagregando por sexo. \label{barras}}
+\caption{Gráfico de barras de la tasa de desempleo para el año 2019 a nivel departamental y de todo el país desagregando por sexo. \label{barras}}
 \end{center}
 \end{figure}
 
@@ -618,7 +618,7 @@ La diferencia en este indicador es que se presenta un gráfico de barras apilada
 \begin{figure}[htb]
 \begin{center}
 \includegraphics[width=1\textwidth]{img/Barras_hog.PNG}
-\caption{Gráfico de barras de la proporción de hogares por presencia de lugar para cocinar por departamento. \label{barras2}}
+\caption{Gráfico de barras de la proporción de hogares por presencia de lugar para cocinar por departamento para el año 2019. \label{barras2}}
 \end{center}
 \end{figure}
 
