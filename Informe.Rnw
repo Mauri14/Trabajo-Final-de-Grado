@@ -302,7 +302,7 @@ Los intervalos de confianza se suelen calcular de la siguiente manera:
 
 \[ \hat \theta \pm \text{constante}\times \widehat{\text{SE}}(\hat \theta) \]
 
-Donde el estimador $\hat \theta$ se asume tiene una distribución aproximadamente normal. Por lo que el intervalo de confianza para un parámetro cualquiera $\theta$ con un nivel de confianza $100(1-\alpha))\%$ queda definido como:
+Donde el estimador $\hat \theta$ se asume tiene una distribución aproximadamente normal. Por lo que el intervalo de confianza para un parámetro cualquiera $\theta$ con un nivel de confianza $100(1-\alpha)\%$ queda definido como:
 
 \[ \hat \theta \pm z_{1-\alpha/2}\times \widehat{\text{SE}}(\hat \theta) \]
 
