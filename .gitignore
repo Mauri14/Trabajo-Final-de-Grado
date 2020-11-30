@@ -13,3 +13,6 @@ TFG.pdf
 *.lof
 *.log
 *.lot
+*.tex
+*.toc
+*.gz

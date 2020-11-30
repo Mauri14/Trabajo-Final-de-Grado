@@ -1,0 +1,71 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\astroncite{Chang et~al.}{2020}]{shiny}
+Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. (2020).
+\newblock {\em shiny: Web Application Framework for R}.
+\newblock R package version 1.4.0.2.
+
+\bibitem[\protect\astroncite{{Freedman Ellis}}{2020}]{srvyr}
+{Freedman Ellis}, G. (2020).
+\newblock {\em srvyr: 'dplyr'-Like Syntax for Summary Statistics of Survey
+  Data}.
+\newblock R package version 0.3.9.
+
+\bibitem[\protect\astroncite{INE.}{2020}]{ine}
+INE. (2020).
+\newblock {\em Ficha técnica Encuesta Continua de Hogares}.
+\newblock {División Estadísticas Sociodemográficas, Departamento Encuesta
+  Continua de Hogares}, Montevideo, Uruguay.
+
+\bibitem[\protect\astroncite{Instituto~de Estadística}{2020}]{informeOPP}
+Instituto~de Estadística, F. (2020).
+\newblock Revisión de indicadores del observatorio territorio uruguay
+  estimación para Áreas pequeñas.
+\newblock El objetivo de este trabajo es realizar una revisión crítica de los
+  indicadores que reporta el OTU y generar una serie de instrumentos que
+  garanticen la validez y confiabilidad estadística de los mismos.
+
+\bibitem[\protect\astroncite{Lumley}{2004}]{surveyLumley}
+Lumley, T. (2004).
+\newblock {Analysis of Complex Survey Samples}.
+\newblock {\em Journal of Statistical Software}, 9(i08).
+
+\bibitem[\protect\astroncite{Lumley}{2020}]{survey}
+Lumley, T. (2020).
+\newblock survey: analysis of complex survey samples.
+\newblock R package version 4.0.
+
+\bibitem[\protect\astroncite{Rojas}{2016}]{rojas2016estrategias}
+Rojas, H. A.~G. (2016).
+\newblock {\em Estrategias de muestreo: dise{\~n}o de encuestas y
+  estimaci{\'o}n de par{\'a}metros}.
+\newblock Ediciones de la U.
+
+\bibitem[\protect\astroncite{{RStudio Team}}{2020}]{r}
+{RStudio Team} (2020).
+\newblock {\em RStudio: Integrated Development Environment for R}.
+\newblock RStudio, PBC., Boston, MA.
+
+\bibitem[\protect\astroncite{S{\"a}rndal et~al.}{2003}]{sarndal2003model}
+S{\"a}rndal, C.-E., Swensson, B., and Wretman, J. (2003).
+\newblock {\em Model assisted survey sampling}.
+\newblock Springer Science \& Business Media.
+
+\bibitem[\protect\astroncite{Sievert}{2020}]{plotly}
+Sievert, C. (2020).
+\newblock {\em Interactive Web-Based Data Visualization with R, plotly, and
+  shiny}.
+\newblock Chapman and Hall/CRC.
+
+\bibitem[\protect\astroncite{Wickham}{2020}]{mastering}
+Wickham, H. (2020).
+\newblock {\em Mastering Shiny: Build Interactive Apps, Reports, and Dashboards
+  Powered by R}.
+\newblock O'Reilly Media, Inc, USA.
+
+\bibitem[\protect\astroncite{Wickham et~al.}{2020}]{dplyr}
+Wickham, H., François, R., Henry, L., and Müller, K. (2020).
+\newblock {\em dplyr: A Grammar of Data Manipulation}.
+\newblock R package version 0.8.5.
+
+\end{thebibliography}
