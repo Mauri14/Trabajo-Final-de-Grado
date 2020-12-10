@@ -122,9 +122,7 @@ Las encuestas por muestreo no solo son utilizadas para obtener estimaciones a ni
 
 Se trabajará con distintos indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Año a año el Instituto Nacional de Estadística (INE) hace públicas las bases de datos de la encuesta junto con un informe donde se presentan los resultados de distintos indicadores, en su mayoría a nivel nacional y desagregando en Montevideo e interior. En este trabajo se busca extender la cantidad de indicadores incluyendo desagregaciones departamentales en todos ellos.
 
-Los indicadores presentados en este trabajo abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Estos se calculan tanto a nivel de toda la población (total país), así como para distintas aperturas (dominios o áreas de estimación), las cuales son definidas a nivel geográfico (departamentos). Algunos de estos indicadores son un insumo clave para la economía de los países y por ende para la toma de decisiones de las políticas públicas.
-
-Como experiencia personal trabajé con la ECH, principalmente con el cálculo de indicadores a partir de esta encuesta, y contar con una herramienta como la realizada en este trabajo simplifica mucho la tarea. 
+Los indicadores presentados en este trabajo abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Como experiencia personal trabajé con la ECH, principalmente con el cálculo de indicadores a partir de esta encuesta, y contar con una herramienta como la realizada en este trabajo simplifica mucho la tarea. 
 
 Otra de las ventajas de esta aplicación es la disponibilidad en la web y el no necesitar de conocimientos en R o en algún otro programa estadístico para poder obtener las estimaciones puntuales e intervalos de confianza para los indicadores, pudiendo visualizar interactivamente los resultados a partir de tablas o distintos gráficos.
 
@@ -134,17 +132,7 @@ En el capítulo 2 se presentan los métodos estadísticos utilizados en este tra
 
 \chapter{Métodos estadísticos \label{cap:Met}}
 
-\section{Introducción \label{sec:in}}
-
-Todos los indicadores presentados en este trabajo son estimaciones, por lo tanto se encuentran sujetas a errores de muestreo por el hecho de ser obtenidas a partir de una parte de la población (muestra) y no a partir de un censo. Estos errores de muestreo dependen de varios factores como ser: la variabilidad de la variable de interés, el tipo de indicador (parámetro), el dominio de estimación, la estrategia de selección de la muestra (diseño muestral) y los ajustes realizados para la construcción de los ponderadores.
-
-El error de muestreo de la estimación de un parámetro es generalmente cuantificado por medio del error estándar de la estimación, que mide la variación de las estimaciones entre las distintas muestras y es el insumo principal para la construcción de intervalos de confianza.
-
-Existen también los errores no muestrales, estos no se deben a la utilización de una muestra, sino a otras causas, como errores en la recolección o en el procesamiento de los datos, entre otros. Estos no serán abordados en este trabajo en particular.
-
-En su mayoría los indicadores presentados son ratios (tasas, promedios y proporciones).
-
-\subsection{Dominios \label{subsec:dom}}
+\section{Dominios \label{sec:dom}}
 
 En la práctica, las encuestas nacionales como la ECH, no son solamente utilizadas para hacer estimaciones a nivel de toda la población sino que también se realizan para diferentes subpoblaciones. Estas subpoblaciones para las cuales se computan de manera específica, tanto estimaciones puntuales como intervalos de confianza, son denominadas dominios \citep{sarndal2003model}.
 
@@ -163,37 +151,23 @@ Un dominio $U_d$ es una sub-población específica o subgrupo poblacional que cu
 \end{enumerate}
 \end{defi}
 
-Los dominios pueden clasificarse como planeados o no planeados. Los dominios planeados son aquellas subpoblaciones para las cuales se quiere brindar estimaciones con precisiones específicas y los mismos son definidos como estratos de diseño, lo cual permite definir tamaños de muestra específicos. Mientras que los dominios no planeados, son aquellos que no fueron tenidos en cuenta a la hora de diseñar la muestra, debido a que generalmente no se tiene información en el marco de muestreo. Estos dominios son los más comunes en la práctica y un claro ejemplo de los mismos son aquellos definidos por las personas que se encuentran comprendidas dentro de un tramo de edad específico.
+Los dominios pueden clasificarse como planeados o no planeados, según si fueron tenidos en cuenta o no en la planificación de la muestra. Los más comunes en la práctica son los no planeados.
 
 \section{Estimaciones puntuales \label{sec:estpunt}}
 
-En toda encuesta por muestreo, el objetivo es seleccionar una muestra aleatoria $s$ de tamaño $n$ de una población $U$ de tamaño $N$. Utilizando la muestra aleatoria $s$ se busca obtener estimaciones de distintos parámetros de interés de la población $U$. Un parámetro de interés puede ser el total de la variable de interés $y$, el cual viene dado por:
+El objetivo principal de una encuesta por muestreo es el obtener estimaciones de distintos parámetros de interés de la población sin observar toda la población, sino un subconjunto de esta, denominado muestra. Es decir, dada una población $U$ de tamaño $N$, se selecciona una muestra $s$ de tamaño $n$.
 
-\[ t=\sum_{i=1}^{N}y_{i}=\sum_{i\in U}^{}y_{i} \]
+Por ejemplo, un parámetro de interés puede ser el total de la variable de interés $y$, el cual se define como:
 
-La mayoría de los indicadores calculados en este trabajo se obtienen a partir del cociente (ratio) entre totales de dos variables $y$ y $z$, quedando definido de la siguiente manera:
+\[ t=\sum_{i\in U}^{}y_{i} \]
+
+Donde $y_i$ es el valor que toma la variable $y$ en el individuo $i$.
+
+La mayoría de los indicadores calculados en este trabajo son tasas o proporciones, las cuales se obtienen a partir del cociente (ratio) entre totales de dos variables $y$ y $z$, quedando definido de la siguiente manera:
 
 \[ R=\frac{\sum_{i\in U} y_i}{\sum_{i\in U} z_i} \]
 
-Las unidades, tanto hogares como personas, tienen una probabilidad de inclusión que viene determinada por el diseño muestral utilizado, la cual se denota como:
-
-\[ \pi_i=\text{Prob} (i \in s) \]
-
-Posteriormente, la probabilidad de inclusión $\pi_i$ de una unidad $i$ en la muestra $s$ es utilizada como insumo principal para calcular los ponderadores. El ponderador $w$ de una unidad (hogar o persona) incluida en la muestra se define como el inverso de la probabilidad de selección $\pi_i$, es decir:
-
-\begin{equation}\label{m4}
-\begin{array}{cc}
-w_i=\frac{1}{\pi_i}
-\end{array}
-\end{equation}
-
-El ponderador $w_i$ indica cuántas unidades de la población $U$ que no fueron seleccionadas representa la unidad $i$ que fue encuestada, es decir que pertenece a la muestra $s$.
-
-Para poder computar las estimaciones de los parámetros de interés, se define el estimador de Horvitz-Thompson.
-
-\[ \hat{t}_{\pi }=\sum_{s}^{}\frac{y_{i}}{\pi _{i}} \]
-
-El mismo también puede ser planteado de la siguiente forma:
+Los totales mencionados son desconocidos, por lo que serán estimados a partir de la muestra. Para ello se define el estimador de Horvitz-Thompson.
 
 \begin{equation}\label{m6}
 \begin{array}{cc}
@@ -201,7 +175,13 @@ El mismo también puede ser planteado de la siguiente forma:
 \end{array}
 \end{equation}
 
-Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$ \citep{sarndal2003model}. Por otra parte, el estimador de ratio o cociente $R$ entre dos variables queda definido:
+Donde $w_i$ es el peso de la unidad $i$ incluida en la muestra. El insumo principal para la construcción de los ponderadores es la probabilidad de inclusión $\pi_i$ de la unidad $i$ en la muestra $s$. Más precisamente el ponderador o peso muestral $w_i$ se define como el inverso de la probabilidad de inclusión. 
+
+El ponderador $w_i$ indica cuántas unidades de la población $U$ que no fueron seleccionadas, están representadas por la unidad $i$ que si pertenece a la muestra $s$.
+
+Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$ \citep{sarndal2003model}. 
+
+Por otro lado, para la estimación de ratios, el estimador queda definido de la siguiente manera:
 
 \begin{equation}\label{m7}
 \begin{array}{cc}
@@ -209,18 +189,19 @@ Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$ \citep{sarndal2003m
 \end{array}
 \end{equation}
 
-El estimador $\hat R$ es un estimador no lineal ya que es un cociente entre dos estimadores, por lo tanto es aproximadamente insesgado. En toda encuesta suelen existir problemas de no respuesta y/o cobertura, es decir, el marco de muestreo donde físicamente es seleccionada la muestra no tiene un enlace perfecto con la población. Esto implica que en la práctica no se utilicen de forma directa los ponderadores para realizar las expansiones, sino que estos son ajustados por no respuesta y posteriormente calibrados a información conocida de la población. Estos nuevos ponderadores ajustados son los que finalmente son utilizados para la producción de las estimaciones de los distintos indicadores (parámetros) y son los que se encuentran incluidos en las bases de datos públicas de la ECH \citep{informeOPP}.
+Este estimador no es lineal ya que es un cociente entre dos estimadores, por lo tanto es aproximadamente insesgado. 
 
-Generalmente, los ajustes por no respuesta tienden a aumentar el error estándar (SE) de las estimaciones, ya que buscan únicamente reducir el posible sesgo ocasionado por las unidades que no respondieron a la encuesta, mientras que por otro lado, la calibración busca reducir los SE por medio de variables auxiliares o de control que se encuentran correlacionadas con las variables de interés de la encuesta. 
-
+En toda encuesta suelen existir problemas de no respuesta, esto implica que en la práctica no se utilicen de forma directa los ponderadores para realizar las expansiones, sino que estos son ajustados por no respuesta y posteriormente calibrados a información conocida de la población. Estos últimos ponderadores son los que se encuentran en las bases de datos públicas de la ECH, por lo que serán los utilizados a la hora de realizar las estimaciones \citep{informeOPP}.
 
 \section{Estimación de los errores estándar (SE) \label{sec:estse}}
 
-Como la muestra es aleatoria, los estimadores son variables aleatorias y están, por lo tanto, sujetos a fluctuación. Esta fluctuación puede ser medida a partir del error estándar de la estimación. El SE es una medida de la precisión de la estimación y la misma puede ser utilizada para realizar inferencia de la población de interés por medio de la construcción de intervalos de confianza. El SE cuantifica la variación entre las estimaciones obtenidas entre las distintas muestras. Son calculados con el objetivo de añadir a las estimaciones puntuales una medida de calidad de las mismas. Por lo tanto, el problema se encuentra en poder obtener una estimación del SE que refleje, en lo posible, todas las fuentes de variabilidad del estimador o al menos las más importantes. Las fuentes de variabilidad vienen dadas por el diseño muestral implementado, así como también los distintos ajustes que son llevados a cabo para obtener los ponderadores finales $w_i$.
+Como la muestra es aleatoria, los estimadores son variables aleatorias y están, por lo tanto, sujetos a fluctuación. Esta fluctuación puede ser medida a partir del error estándar (SE) de la estimación. El SE es una medida de la precisión de la estimación que se puede utilizar para realizar inferencia de la población de interés a partir de la construcción de intervalos de confianza. Los errores estándar son calculados con el objetivo de añadir a las estimaciones puntuales una medida de calidad de las mismas. Los estimadores presentan varias fuentes de variabilidad, dadas tanto por el diseño muestral utilizado como por los ajustes realizados a los ponderadores, por lo que se busca que la estimación de los SE capte de la mejor manera posible estas variaciones.
 
-En la práctica muchos usuarios que utilizan la bases de datos de encuestas públicas para realizar sus propias inferencias no siempre tienen en cuenta todas las fuentes de variabilidad que afectan al error estándar. Esto, puede derivar en la realización de inferencias inválidas sobre los parámetros de la población. Uno de los motivos por los cuales surge este problema es el no contar con los insumos necesarios en la bases de datos públicas de las encuestas sobre el diseño de muestreo. En el caso de la ECH, para los años anteriores a 2018 no se cuenta con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos a los que pertenece cada individuo.
+Existen también los errores no muestrales, estos no se deben a la utilización de una muestra, sino a otras causas, como errores en la recolección o en el procesamiento de los datos, entre otros. Estos no serán abordados en este trabajo en particular.
 
-Para un diseño complejo como el de la ECH, no existen métodos exactos para calcular los SE, lo que implica que se deba recurrir a distintas estrategias o métodos que aproximan de mejor forma la variabilidad de las estimaciones. Dentro de la amplia gama de métodos que existen se optó por el método del último conglomerado en conjunto con la linearización de Taylor para computar los SE, que es el más usado en la práctica y se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método puede manejar tanto parámetros lineales como no lineales \citep{surveyLumley}.
+El no contar con parte de la infromación sobre el diseño de muestreo en la bases de datos públicas de las encuestas puede llevar al usuario a obtener resultados incorrectos a la hora de estimar los SE. En el caso de la ECH, para los años anteriores a 2018 no se cuenta con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos a los que pertenece cada individuo.
+
+No existen métodos exactos para calcular los SE en el caso de un diseño complejo como el de la ECH, por lo que se debe optar por un método que aproxime la variabilidad de las estimaciones de la mejor forma posible. En este trabajo en particular se recurrió al método del último conglomerado en conjunto con la linearización de Taylor, el cual se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método permite calcular parámetros lineales y no lineales \citep{surveyLumley}.
 
 \subsection{Método del último conglomerado \label{subsec:ultcong}}
 
@@ -322,17 +303,30 @@ Un intervalo con nivel de confianza del $95\%$ significa que, en promedio, de ca
 
 La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
 
-El diseño muestral de la ECH es aleatorio, estratificado, por conglomerados y en dos etapas de selección. Como primer paso para la selección de la muestra la población es particionada en estratos. El primer nivel es geográfico y corresponde a los diecinueve departamentos del país y a la zona metropolitana. En un segundo nivel, cada una de las localidades dentro del departamento es clasificada en cuatro categorías: i) localidades con más de 20.000 habitantes, ii) localidades entre 5.000 y menos de 20.000 habitantes, iii) localidades entre 200 y 5.000 habitantes y iv) áreas rurales y localidades con menos de 200 habitantes. Para Maldonado y Rocha se agrega un nivel más correspondiente a las zonas balnearias. En el departamento de Montevideo y zona metropolitana se conforman cinco y tres estratos socioeconómicos respectivamente.
+La ECH cuenta con un diseño muestral aleatorio complejo, donde se incluyen estratos, conglomerados y se cuenta con varias etapas de selección.
 
-Dentro de cada estrato y de forma independiente se selecciona, en una primera etapa, conglomerados de zonas censales (Unidades Primarias de muestreo - UPM) bajo un muestreo aleatorio, sistemático y proporcional al tamaño (PPS), utilizando como medida de tamaño (MOS) la cantidad de viviendas particulares según datos provenientes del último censo de población y vivienda del año 2011. Luego, en segunda etapa se seleccionan cinco viviendas titulares y dos viviendas suplentes en cada una de las UPM seleccionadas en la primera etapa, con igual probabilidad de selección bajo un muestreo aleatorio simple.
+En primer lugar se divide a la población en estratos geográficos que corresponden a los diecinueve departamentos y a la zona metropolitana. Mientras que en un segundo nivel de estratificación, se clasifican a todas las localidades dentro de cada departamento en cuatro categorías según la cantidad de habitantes con la que cuentan: 
 
-Dentro de cada vivienda seleccionada se relevan características propias de la vivienda así como del hogar que reside en la misma e información de todos los integrantes que conforman el hogar. Esto implica que la ECH brinde información para computar distintos indicadores no solo a nivel de hogar sino también a nivel de persona. Es por esto, que el INE publica dos bases de datos, una base con información a nivel del hogar y la vivienda y otra base con información a nivel de personas.
+\begin{itemize}
+\item Localidades con 20000 o más habitantes
+\item Localidades entre 5000 y 20000 habitantes
+\item Localidades entre 200 y 5000 habitantes
+\item Áreas rurales y localidades con menos de 200 habitantes
 
-El tamaño de muestra efectivo anual de la ECH, es decir, la cantidad de hogares que cumplen los criterios de ser elegibles y respondieron se encuentra en el entorno de 42000 hogares.
+\end{itemize}
 
-Los datos de la muestra son ponderados, de forma de obtener estimaciones tanto a nivel nacional, departamental y de otros dominios de estudio, entre ellos, sexo y tramos de edades. Existen varias etapas para la determinación de los ponderadores finales de la ECH. El componente principal es el inverso de la probabilidad de selección del hogar y sus integrantes en la muestra de la ECH, denominado ponderador original. El ponderador original de un hogar perteneciente a un estrato cualquiera se define como el inverso de la tasa de muestreo en el estrato.
+Además en los departamentos de Maldonado y Rocha se agregan estratos correspondientes a las zonas balnearias. Montevideo queda particionado en cinco estratos socioeconómicos, mientras la zona metropolitana se divide en tres.
 
-Los ponderadores originales son ajustados en varias etapas una vez concluida la recolección de la información. El primer ajuste se realiza en base a la no respuesta obtenida en campo, es decir, teniendo en cuenta las encuestas efectivamente realizadas. Un segundo ajuste se efectúa utilizando técnicas de calibración en base a las proyecciones de la población residente en viviendas particulares. Esto implica que la ECH expanda a la población proyectada para el año de referencia para cada uno de los departamentos del país, y para la estructura de la población a nivel del total del país por sexo y cinco tramos de edades (0 a 14 años, 15 a 29 años, 30 a 49 años, 50 a 64 años y 65 años o más) \citep{ine}.
+Una vez definidos los estratos, se selecciona de manera independiente dentro de cada uno de ellos, conglomerados de viviendas (zonas censales), las cuales se denominan unidades primarias de muestreo (UPM). Estas se seleccionan bajo un muestreo sistemático y proporcional al tamaño (PPS), utilizando como medida de tamaño (MOS) la cantidad de viviendas según el censo de población y vivienda del año 2011.
+
+En segunda etapa, dentro de cada UPM seleccionada en la primera etapa, se seleccionan cinco viviendas titulares y dos viviendas suplentes bajo un muestreo aleatorio simple.
+
+Dentro de cada vivienda seleccionada se relevan características propias de la vivienda así como información de todos los integrantes que conforman el hogar. Esto implica que la ECH brinde información para computar distintos indicadores no solo a nivel de hogar sino también a nivel de persona. Es por esto, que el INE publica dos bases de datos, una base con información a nivel del hogar y la vivienda y otra base con información a nivel de personas.
+
+El tamaño de muestra efectivo anual de la ECH, es decir, la cantidad de hogares que fueron seleccionados en la muestra y respondieron a la encuesta, se encuentra en el entorno de 42000 hogares.
+
+Los datos de la muestra son ponderados con el objetivo de poder realizar estimaciones de distintos indicadores, tanto a nivel nacional, departamental y en otros dominios como el sexo y determinados tramos etarios. En primer lugar se definen los ponderadores originales como el inverso de la tasa de muestreo en el estrato, pero luego son ajustados en base a distintos aspectos, como lo es la no respuesta.
+\citep{ine}.
 
 
 \section{Indicadores socioeconómicos \label{sec:lista}}
