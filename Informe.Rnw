@@ -205,34 +205,36 @@ No existen métodos exactos para calcular los SE en el caso de un diseño comple
 
 \subsection{Método del último conglomerado \label{subsec:ultcong}}
 
-El método del último conglomerado es utilizado ampliamente en la práctica para la estimación de los SE en diseños por conglomerados en una o varias etapas de selección, en donde, los conglomerados (UPM) son seleccionados con probabilidades proporcional al tamaño. 
-
-A continuación se desarrolla el método del último conglomerado aplicado a un muestreo aleatorio, estratificado, por conglomerados y en dos etapas de selección, como lo es el de la ECH. Pero previamente, se introduce la notación y conceptos necesarios para desarrollar dicho método.
-
-La población de interés $U$ es particionada en grupos o estratos $U_1, U_2,...,U_h,...,U_H$ excluyentes. En cada uno de los estratos, se selecciona una muestra aleatoria $s_h$ de forma independiente en dos etapas de selección. Sea $M_h$ la cantidad de UPM en el estrato $h$ y $N_h$ la cantidad de unidades en dicho estrato. En una primera etapa, dentro de un estrato $h$ se selecciona $m_h$ UPM entre las $M_h$ bajo un muestreo aleatorio sin reposición con probabilidad proporcional al tamaño en base a una medida de tamaño (MOS). La probabilidad de selección de la UPM $j$ perteneciente al estrato $h$ viene dada por:
+El método del último conglomerado es un método utilizado para la aproximación de varianzas en muestras obtenidas a partir de diseños muestrales complejos, particularmente cuando estos incluyen varias etapas de selección. Este método consta principalmente en utilizar únicamente la varianza de los estimadores en la primera etapa, es decir, en la selección de las UPM, sin tener en cuenta las etapas posteriores, asumiendo así que la variabilidad se encuentra mayormente en esta primera etapa de selección.
 
 
- \[  \pi_{jh}=m_h\times \frac{\text{MOS}_j}{\sum\limits_{j=1}^{M_h}\text{MOS}_j} \] 
+La ECH en particular cuenta con un diseño muestral por conglomerados en dos etapas de selección, pero además es estratificado, es decir que la población $U$ en primera instancia se divide en $H$ estratos y se selecciona una muestra $s_h$ de forma independiente dentro de cada uno de ellos.
 
-Luego, dentro de cada UPM $j$ seleccionada en la primera etapa dentro del estrato de diseño $h$, se seleccionan $n_{jh}$ unidades, generalmente, con igual probabilidad de selección bajo un muestreo aleatorio simple o sistemático con arranque aleatorio. La probabilidad de selección de la unidad $i$ dentro de la UPM $j$ viene dada por:
 
-\[ \pi_{i|jh}=\frac{n_{jh}}{\text{MOS}_{j}} \]
+Dentro de cada estrato se encuentran $M_h$ UPM de las cuales se seleccionan $m_h$ con probabilidad proporcional al tamaño, en base a una medida de tamaño (MOS), que en este caso, surge de la cantidad de viviendas $N_j$ de la UPM según los datos del censo de población del año 2011.
 
-La probabilidad de selección final de la unidad en la muestra queda definida de la siguiente forma:
+En una segunda etapa, se seleccionan $n_{jh}$ unidades dentro de cada UPM seleccionada previamente, bajo un muestreo aleatorio simple. Cabe aclarar que el número de unidades seleccionadas en cada UPM es fijo, es decir $n_j=\alpha$. Por lo tanto la probabilidad de inclusión en la muestra de una unidad $i$ queda definida como:
 
 \[ \pi_{ijh}=\pi_{jh}\times \pi_{i|jh} \]
 
-Por lo que el peso muestral de la unidad $i$ queda definido como el inverso de la probabilidad de selección, es decir:
 
-\[ w_{i}=\pi_{ijh}^{-1} \]
+Donde $\pi_{jh}$ es la probabilidad de selección de la UPM $j$ en el estrato $h$ definida como:
 
-En la ECH, las UPM corresponden a conglomerados de zonas censales, mientras la medida de tamaño MOS para la definición de las probabilidades de inclusión, es el número de viviendas $N_j$ de la UPM $j$ según datos del último censo de población disponible (2011 en este caso). Finalmente, el número de viviendas en cada UPM seleccionada en la primera etapa es fijo, es decir $n_j=\alpha$. Bajo los dos criterios anteriores, las probabilidades de selección y por tanto los pesos muestrales son iguales dentro de un mismo estrato:
+\[ \pi_{jh}=m_h\times \frac{\text{MOS}_j}{\sum\limits_{j=1}^{M_h}\text{MOS}_j} \] 
+ 
+ 
+Mientras que $\pi_{i|jh}$ es la probabilidad de selección de la unidad $i$ dentro de la UPM $j$:
+
+\[ \pi_{i|jh}=\frac{n_{jh}}{\text{MOS}_{j}} \]
+
+
+Las probabilidades de selección y por tanto los pesos muestrales (definidos previamente como el inverso de la probabilidad de selección), son iguales dentro de un mismo estrato:
 
 \[ \pi_{ijh}=\pi_{jh}\times \pi_{i|jh}=m_h\times \frac{N_j}{\sum\limits_{j=1}^{M_h}N_j}=\frac{m_h\times \alpha}{N_h}=\frac{n}{N} \]
 
-Una vez definidos los ponderadores $w_i$, se pueden computar las estimaciones de los distintos indicadores. Sin embargo, el problema es que bajo este tipo de diseños no existen estimaciones insesgadas de los errores estándar, ya que el insumo principal para las estimaciones de los SE utilizando el estimador Horvitz-Thompson, son las probabilidades de inclusión de segundo orden, es decir, la probabilidad de que dos unidades cualquiera $i$ y $k$ pertenezcan a la muestra.
 
-El método del último conglomerado asume que la mayor variabilidad en la estimación proviene de la primera etapa de muestreo, es decir, en la selección de las UPMs. Por lo tanto, la estimación del SE cuadrado (varianza) utilizando el método del último conglomerado para la estimación del total de una variable cualquiera $y$ para un muestreo aleatorio, estratificado, por conglomerados y en varia etapas de selección viene dada por:
+Como se mencionó anteriormente, el método del último conglomerado asume que la mayor parte de la variabilidad proviene de la etapa de selección de las UPM (primera etapa). Por lo que, a la hora de estimar la varianza del estimador del total de una variable $y$ bajo un diseño muestral como el de la ECH, se utiliza la siguiente fórmula: 
+
 
 \begin{equation}
 \begin{array}{cc}
@@ -241,15 +243,9 @@ El método del último conglomerado asume que la mayor variabilidad en la estima
 \end{array}
 \end{equation}
 
-donde:
+Siendo $\hat t_{jh}=\sum\nolimits_{s_{jh}} w_i\times y_i$ la estimación del total de la variable $y$ en la UPM $j$ perteneciente al estrato $h$, $\hat t_h=\sum\nolimits_{h=1}^H\hat t_{jh}$ la estimación del total de la variable $y$ en el estrato $h$. Mientras que $m_h$, como se definió anteriormente, es la cantidad de UPM pertenecientes al estrato $h$ seleccionadas en la muestra.
 
-$m_h$ es la cantidad de UPM pertenecientes al estrato $h$ seleccionadas en la muestra.
-
-$\hat t_{jh}=\sum\nolimits_{s_{jh}} w_i\times y_i$ es la estimación del total de la variable $y$ en la UPM $j$ perteneciente al estrato $h$.
-
-$\hat t_h=\sum\nolimits_{h=1}^H\hat t_{jh}$ es la estimación del total de la variable $y$ en el estrato $h$.
-
-Por otra parte, si el objetivo es estimar el total de la variable $y$ pero para un dominio o área de estimación cualquiera $d$, el SE se obtiene reemplazando en la ecuación anterior \ref{ec:m13} la variable $y$ por la variable $y_d$ la cual, toma el valor $y$ para los casos de la muestra incluidos en el dominio $d$ y cero en otro caso. Esta técnica se utiliza para añadir una variabilidad extra a las estimaciones, producto de que el tamaño de muestra en el dominio (por ejemplo, personas comprendidas en un determinado tramo de edad y dentro de un determinado departamento) es aleatorio. 
+En el caso de la estimación en dominios se debe reemplazar la variable $y$, presente en la ecuación anterior \ref{ec:m13}, por una variable $y_d$ que toma el valor $y$ cuando la unidad pertenece al dominio $d$ en cuestión, y cero cuando no pertenece al dominio. Como el tamaño de muestra en el dominio suele ser aleatorio, mediante este procedimiento se logra incluir una variabilidad extra que lo refleje. 
 
 
 \subsection{Linearización de Taylor \label{subsec:taylor}}
