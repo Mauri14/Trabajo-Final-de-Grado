@@ -130,6 +130,80 @@ Este trabajo se estructura de la siguiente manera.
 
 En el capítulo 2 se presentan los métodos estadísticos utilizados en este trabajo, tanto los conceptos como las fórmulas que se aplican tanto en las estimaciones puntuales como para los errores estándar e intervalos de confianza. En el capítulo 3 se define el diseño de la ECH y se presentan los indicadores trabajados. El capítulo 4 refiere a la computación estadística, explicando la forma de cálculo de los indicadores, las características y el funcionamiento de la aplicación. En el capítulo 5 se presenta un ejemplo de aplicación de la app en dos indicadores. Finalmente en el capítulo 6 se realiza la discusión final, presentando los posibles trabajos a futuro.
 
+
+\chapter{Indicadores socioeconómicos en base a la ECH \label{cap:ind}}
+
+\section{ECH \label{sec:ech}}
+
+La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
+
+La ECH cuenta con un diseño muestral aleatorio complejo, donde se incluyen estratos, conglomerados y se cuenta con varias etapas de selección.
+
+En primer lugar se divide a la población en estratos geográficos que corresponden a los diecinueve departamentos y a la zona metropolitana. Mientras que en un segundo nivel de estratificación, se clasifican a todas las localidades dentro de cada departamento en cuatro categorías según la cantidad de habitantes con la que cuentan: 
+
+\begin{itemize}
+\item Localidades con 20000 o más habitantes
+\item Localidades entre 5000 y 20000 habitantes
+\item Localidades entre 200 y 5000 habitantes
+\item Áreas rurales y localidades con menos de 200 habitantes
+
+\end{itemize}
+
+Además en los departamentos de Maldonado y Rocha se agregan estratos correspondientes a las zonas balnearias. Montevideo queda particionado en cinco estratos socioeconómicos, mientras la zona metropolitana se divide en tres.
+
+Una vez definidos los estratos, se selecciona de manera independiente dentro de cada uno de ellos, conglomerados de viviendas (zonas censales), las cuales se denominan unidades primarias de muestreo (UPM). Estas se seleccionan bajo un muestreo sistemático y proporcional al tamaño (PPS), utilizando como medida de tamaño (MOS) la cantidad de viviendas según el censo de población y vivienda del año 2011. A continuación se presenta un gráfico donde se observa la distribución de la cantidad de UPM dentro de cada estrato.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=1\textwidth]{img/upm-estratos2.png}
+\caption{Distribución de la cantidad de UPM por estrato. \label{upm-est}}
+\end{center}
+\end{figure}
+
+Se observa que más de la mitad de los estratos (45 de los 82) tienen menos de 50 UPM, mientras los estratos que contienen mayor cantidad de UPM son los pertenecientes a Montevideo y al área metropolitana. 
+
+En segunda etapa, dentro de cada UPM seleccionada en la primera etapa, se seleccionan cinco viviendas titulares y dos viviendas suplentes bajo un muestreo aleatorio simple.
+
+Dentro de cada vivienda seleccionada se relevan características propias de la vivienda así como información de todos los integrantes que conforman el hogar. Esto implica que la ECH brinde información para computar distintos indicadores no solo a nivel de hogar sino también a nivel de persona. Es por esto, que el INE publica dos bases de datos, una base con información a nivel del hogar y la vivienda y otra base con información a nivel de personas.
+
+El tamaño de muestra efectivo anual de la ECH, es decir, la cantidad de hogares que fueron seleccionados en la muestra y respondieron a la encuesta, se encuentra en el entorno de 42000 hogares.
+
+Los datos de la muestra son ponderados con el objetivo de poder realizar estimaciones de distintos indicadores, tanto a nivel nacional, departamental y en otros dominios como el sexo y determinados tramos etarios. En primer lugar se definen los ponderadores originales como el inverso de la tasa de muestreo en el estrato, pero luego son ajustados en base a distintos aspectos, como lo es la no respuesta \citep{ine}.
+
+
+\section{Indicadores \label{sec:lista}}
+
+Los indicadores presentados en este trabajo son calculados todos los años por el Observatorio Territorio Uruguay (OTU) perteneciente a la Oficina de Planeamiento y Presupuesto (OPP), y se encuentran disponibles en su página oficial \citep{OTUpag}. Estos indicadores se dividen en 7 categorías según las dimensiones a las que refieren (algunos indicadores refieren a más de una dimensión):
+
+\begin{itemize}
+\item Educación
+\item Salud
+\item Mercado laboral
+\item Ingresos y bienestar
+\item Tecnología y comunicación
+\item Demografía
+\item Viviendas y hogares
+
+\end{itemize}
+
+Dentro de la categoría \textit{Educación} se encuentran 17 indicadores, referidos a tasas de asistencia a distintos niveles educativos, tasas de analfabetismo, promedio de años de educación, entre otros.
+
+En la categoría \textit{Salud} hay 3 indicadores que evalúan la afiliación a emergencias móviles y el tipo de atención en salud.
+
+Hay 13 indicadores disponibles dentro de \textit{Mercado laboral}, además de los principales indicadores de este rubro (tasas de empleo, desempleo, actividad), se encuentran otros referidos a la informalidad, categoría de ocupación, entre otros.
+
+La categoría \textit{Ingresos y bienestar} cuenta con 8 indicadores, índices de pobreza (en personas y hogares) y algunos indicadores presentes también en la categoría \textit{Mercado laboral} (empleo, desempleo e informalidad).
+
+En \textit{Tecnología y comunicación} se encuentran 7 indicadores referidos a tenencia de distintos dispositivos como celulares o computadoras y a la utilización de estos dispositivos y de internet.
+
+\textit{Demografía} contiene 3 indicadores referidos a residencias previas o lugar de nacimiento de las personas.
+
+Finalmente la categoría \textit{Viviendas y hogares} cuenta con 8 indicadores, todos ellos referidos a distintas características de los hogares.
+
+Recordando que hay indicadores que se encuentran en varias categorías, en total se trabaja con 53 indicadores socio-económicos, desagregando todos por departamento y a su vez hay algunos que se desagregan también por sexo o tramos etarios.
+
+En anexo \ref{ane:ind} se presenta un listado completo de los indicadores trabajados.
+
 \chapter{Métodos estadísticos \label{cap:Met}}
 
 \section{Dominios \label{sec:dom}}
@@ -289,70 +363,6 @@ Particularmente se trabajará con una confianza del $95\%$, por lo que al sustit
 
 Un intervalo con nivel de confianza del $95\%$ significa que, en promedio, de cada 100 muestras obtenidas bajo el mismo diseño, el intervalo contiene al verdadero valor del parámetro en 95 de ellas.
 
-\chapter{Indicadores \label{cap:ind}}
-
-\section{ECH \label{sec:ech}}
-
-La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
-
-La ECH cuenta con un diseño muestral aleatorio complejo, donde se incluyen estratos, conglomerados y se cuenta con varias etapas de selección.
-
-En primer lugar se divide a la población en estratos geográficos que corresponden a los diecinueve departamentos y a la zona metropolitana. Mientras que en un segundo nivel de estratificación, se clasifican a todas las localidades dentro de cada departamento en cuatro categorías según la cantidad de habitantes con la que cuentan: 
-
-\begin{itemize}
-\item Localidades con 20000 o más habitantes
-\item Localidades entre 5000 y 20000 habitantes
-\item Localidades entre 200 y 5000 habitantes
-\item Áreas rurales y localidades con menos de 200 habitantes
-
-\end{itemize}
-
-Además en los departamentos de Maldonado y Rocha se agregan estratos correspondientes a las zonas balnearias. Montevideo queda particionado en cinco estratos socioeconómicos, mientras la zona metropolitana se divide en tres.
-
-Una vez definidos los estratos, se selecciona de manera independiente dentro de cada uno de ellos, conglomerados de viviendas (zonas censales), las cuales se denominan unidades primarias de muestreo (UPM). Estas se seleccionan bajo un muestreo sistemático y proporcional al tamaño (PPS), utilizando como medida de tamaño (MOS) la cantidad de viviendas según el censo de población y vivienda del año 2011.
-
-En segunda etapa, dentro de cada UPM seleccionada en la primera etapa, se seleccionan cinco viviendas titulares y dos viviendas suplentes bajo un muestreo aleatorio simple.
-
-Dentro de cada vivienda seleccionada se relevan características propias de la vivienda así como información de todos los integrantes que conforman el hogar. Esto implica que la ECH brinde información para computar distintos indicadores no solo a nivel de hogar sino también a nivel de persona. Es por esto, que el INE publica dos bases de datos, una base con información a nivel del hogar y la vivienda y otra base con información a nivel de personas.
-
-El tamaño de muestra efectivo anual de la ECH, es decir, la cantidad de hogares que fueron seleccionados en la muestra y respondieron a la encuesta, se encuentra en el entorno de 42000 hogares.
-
-Los datos de la muestra son ponderados con el objetivo de poder realizar estimaciones de distintos indicadores, tanto a nivel nacional, departamental y en otros dominios como el sexo y determinados tramos etarios. En primer lugar se definen los ponderadores originales como el inverso de la tasa de muestreo en el estrato, pero luego son ajustados en base a distintos aspectos, como lo es la no respuesta.
-\citep{ine}.
-
-
-\section{Indicadores socioeconómicos \label{sec:lista}}
-
-Los indicadores presentados en este trabajo son calculados todos los años por el Observatorio Territorio Uruguay (OTU) perteneciente a la Oficina de Planeamiento y Presupuesto (OPP), y se encuentran disponibles en su página oficial. Estos indicadores se dividen en 7 categorías:
-
-\begin{itemize}
-\item Educación
-\item Salud
-\item Mercado laboral
-\item Ingresos y bienestar
-\item Tecnología y comunicación
-\item Demografía
-\item Viviendas y hogares
-
-\end{itemize}
-
-Dentro de la categoría \textit{Educación} se encuentran 17 indicadores, referidos a tasas de asistencia a distintos niveles educativos, tasas de analfabetismo, promedio de años de educación, entre otros.
-
-En la categoría \textit{Salud} hay 3 indicadores que evalúan la afiliación a emergencias móviles y el tipo de atención en salud.
-
-Hay 13 indicadores disponibles dentro de \textit{Mercado laboral}, además de los principales indicadores de este rubro (tasas de empleo, desempleo, actividad), se encuentran otros referidos a la informalidad, categoría de ocupación, entre otros.
-
-La categoría \textit{Ingresos y bienestar} cuenta con 8 indicadores, índices de pobreza (en personas y hogares) y algunos indicadores presentes también en la categoría \textit{Mercado laboral} (empleo, desempleo e informalidad).
-
-En \textit{Tecnología y comunicación} se encuentran 7 indicadores referidos a tenencia de distintos dispositivos como celulares o computadoras y a la utilización de estos dispositivos y de internet.
-
-\textit{Demografía} contiene 3 indicadores referidos a residencias previas o lugar de nacimiento de las personas.
-
-Finalmente la categoría \textit{Viviendas y hogares} cuenta con 8 indicadores, todos ellos referidos a distintas características de los hogares.
-
-Recordando que hay indicadores que se encuentran en varias categorías, en total se trabaja con 53 indicadores socio-económicos, desagregando todos por departamento y a su vez hay algunos que se desagregan también por sexo o tramos etarios.
-
-En anexo \ref{ane:ind} se presenta un listado completo de los indicadores trabajados.
 
 \chapter{Métodos computacionales \label{cap:comp}}
 
