@@ -609,7 +609,7 @@ En la app este indicador se encuentra en la sección \textit{Viviendas y hogares
 \end{center}
 \end{figure}
 
-La diferencia en este indicador es que se presenta un gráfico de barras apiladas (\ref{barras2}) en lugar de agrupadas como era el caso de la tasa de desempleo.
+La diferencia en este indicador es que se presenta un gráfico de barras apiladas (\ref{barras2}), en lugar de agrupadas como era el caso de la tasa de desempleo, ya que en este caso se desea observar la proporción que representa cada categoría de la variable en cuestión dentro de cada departamento. Las categorías acumulan el $100\%$ por lo que de esta forma se pueden observar las diferencias relativas entre las cantidades en cada grupo.
 
 \begin{figure}[htb]
 \begin{center}
