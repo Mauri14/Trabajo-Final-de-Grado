@@ -366,6 +366,7 @@ Un intervalo con nivel de confianza del $95\%$ significa que, en promedio, de ca
 
 \chapter{Métodos computacionales \label{cap:comp}}
 
+En este cápitulo se presenta en primer lugar los programas y funciones utilizados para la estimación de los indicadores, mostrando un ejemplo concreto. Luego se realiza una introducción a las aplicaciones web Shiny y se explica el funcionamiento de la app creada en este trabajo.
 
 \section{Estimación de los indicadores \label{sec:estindic}}
 
@@ -455,9 +456,11 @@ Se cuenta además con widgets pre-construidos que facilitan la construcción de 
 
 \subsection{Monitor de indicadores socioeconómicos \label{subsec:app}}
 
+Con el objetivo de poder obtener resultados sobre distintos indicadores obtenidos a partir de la ECH, pudiendo visualizarlos interactivamente a partir de tablas y gráficos, y con la posibilidad de contar con una medida de precisión de las estimaciones, se crea esta aplicación web a partir de Shiny.
+
 Esta aplicación procesa los datos de la ECH, particularmente se realizó en base a la encuesta del año 2019, pero también funciona perfectamente para años anteriores y está pensada para que funcione también para los próximos años, en caso de que la encuesta no tenga cambios abruptos en su formato y estructura. Para el cálculo de los indicadores se utilizan un grupo de variables de la ECH, lo que hace a la app dependiente de esas variables, es decir, en caso de que esas variables cambien de nombre o dejen de estar disponibles, la app debe ser actualizada. Tanto en la aplicación como en los anexos \ref{ane:var} de este informe, estará disponible un listado con las variables utilizadas.
 
-En esta aplicación en particular, previo a la creación del UI y el server, se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas, el listado de variables utilizadas de la ECH y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
+En esta aplicación en particular, previo a la creación del UI y el server, se crea un archivo con nombre \emph{global.R}, donde se cargan las librerías a utilizar, los datos espaciales necesarios para los gráficos de mapas, el listado de variables utilizadas de la ECH y se crean las funciones que se utilizan para el cálculo de los indicadores. Esta parte del código se corre solo una vez al iniciar la app.
 
 \subsection{Interfaz del usuario \label{subsec:ui}}
 
@@ -474,7 +477,7 @@ La barra lateral es utilizada para cargar las bases de datos y para seleccionar 
 \end{center}
 \end{figure}
 
-En el body se especifica el contenido de cada una de las secciones. La ventana de inicio cuenta con dos pestañas creadas con la función \emph{tabPanel}, en la primera de estas se encuentra un manual de uso de la aplicación, donde se explica su utilidad y los pasos a seguir para el correcto funcionamiento de esta. Mientras en la segunda pestaña se encuentra un listado con las variables de las bases de datos de la ECH que son utilizadas en la app.
+En el body se especifica el contenido de cada una de las secciones. En primer lugar se encuentra la ventana de inicio, la cual fue creada para realizar una introducción a la app, y cuenta con dos pestañas creadas con la función \emph{tabPanel}, en la primera de estas se encuentra un manual de uso de la aplicación, donde se explica su utilidad y los pasos a seguir para el correcto funcionamiento de esta. Mientras en la segunda pestaña se encuentra un listado con las variables de las bases de datos de la ECH que son utilizadas en la app, las cuales, como se mencionó anteriormente, son fundamentales para el funcionamiento de la aplicación.
 
 La sección de los indicadores cuenta con 3 pestañas (\ref{pest}).
 
@@ -492,7 +495,11 @@ La sección de los indicadores cuenta con 3 pestañas (\ref{pest}).
 \end{center}
 \end{figure}
 
-En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para los resultados, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. Mientras la tercer pestaña cuenta con las tablas para los límites de los intervalos de confianza de las estimaciones, divididas en dos paneles, uno para el límite inferior y otro para el superior, ambas tablas también cuentan con un botón de descarga.
+En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para los resultados, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). El gráfico de mapa es una herramienta útil para poder visualizar los resultados, en este caso, a nivel departamental, pudiendo observar en caso de que existiese, alguna relación entre el indicador que se esté observando con lo geográfico. Mientras el gráfico de barras se utiliza para resumir un conjunto de datos por categorías, utilizando las barras simples cuando la única categorización es departamental, agrupadas cuando se presenta además otra variable con diferentes categorías (por ejemplo el sexo), y apiladas cuando además de presentar otra variable categórica, estas categorías suman el $100\%$. 
+
+En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. A partir de una tabla se pueden visualizar los resultados en formato de filas y columnas, permitiendo al usuario filtrar valores. 
+
+Mientras la tercer pestaña cuenta con tres paneles, en los dos primeros aparecen las tablas para los límites de los intervalos de confianza de las estimaciones, primero para el límite inferior y en el segundo para el superior, ambas tablas también cuentan con un botón de descarga. En el tercer panel se encuentra un gráfico donde se visualiza la estimación puntual del indicador en cuestión, con su respectivo intervalo de confianza al $95\%$, contando además con un seleccionador de la categoría a graficar en caso de ser necesario. Esta última es posiblemente la forma más completa de visualizar los resultados, ya que se presenta en el mismo gráfico el valor de la estimación puntual del indicador junto con una medida de calidad de la estimación como lo es el intervalo de confianza.
 
 \subsection{Comportamiento reactivo \label{subsec:server}}
 
@@ -502,7 +509,7 @@ En esta parte del código se controla el comportamiento de la app. En primer lug
 
 \textit{Plotly} \citep{plotly} hace los gráficos interactivos, cuenta con varias opciones para poder visualizarlos de manera más precisa y permite descargarlos como imagen.
 
-Para el caso de la selección de la categoría a visualizar en el gráfico de mapa, se utilizan las funciones \emph{uiOutput} y \emph{renderUI}. La primera de estas inserta un marcador de posición en la interfaz de usuario, es decir el código se ejecuta cuando se inicia la aplicación pero deja un espacio para que el código del servidor (server) pueda llenar luego. Mientras \emph{renderUI} llena ese espacio con UI generada en el servidor. Esta técnica permite regenerar la interfaz del usuario mientras la app está corriendo, y se utiliza en este caso ya que las categorías de los indicadores no son siempre las mismas, sino que varían según el indicador seleccionado.
+Para el caso de la selección de la categoría a visualizar en el gráfico de mapa y el gráfico con los IC, se utilizan las funciones \emph{uiOutput} y \emph{renderUI}. La primera de estas inserta un marcador de posición en la interfaz de usuario, es decir el código se ejecuta cuando se inicia la aplicación pero deja un espacio para que el código del servidor (server) pueda llenar luego. Mientras \emph{renderUI} llena ese espacio con UI generada en el servidor. Esta técnica permite regenerar la interfaz del usuario mientras la app está corriendo, y se utiliza en este caso ya que las categorías de los indicadores no son siempre las mismas, sino que varían según el indicador seleccionado.
 
 
 \chapter{Ejemplo de aplicación \label{cap:aplic}}
