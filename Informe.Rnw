@@ -160,7 +160,7 @@ Una vez definidos los estratos, se selecciona de manera independiente dentro de 
 \end{center}
 \end{figure}
 
-Se observa que más de la mitad de los estratos (45 de los 82) tienen menos de 50 UPM, mientras los estratos que contienen mayor cantidad de UPM son los pertenecientes a Montevideo y al área metropolitana. 
+Se observa que más de la mitad de los estratos (45 de los 82) tienen menos de 50 UPM (el ancho de los bins es de 50), mientras los estratos que contienen mayor cantidad de UPM son los pertenecientes a Montevideo y al área metropolitana. 
 
 En segunda etapa, dentro de cada UPM seleccionada en la primera etapa, se seleccionan cinco viviendas titulares y dos viviendas suplentes bajo un muestreo aleatorio simple.
 
@@ -495,7 +495,7 @@ La sección de los indicadores cuenta con 3 pestañas (\ref{pest}).
 \end{center}
 \end{figure}
 
-En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para los resultados, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). El gráfico de mapa es una herramienta útil para poder visualizar los resultados, en este caso, a nivel departamental, pudiendo observar en caso de que existiese, alguna relación entre el indicador que se esté observando con lo geográfico. Mientras el gráfico de barras se utiliza para resumir un conjunto de datos por categorías, utilizando las barras simples cuando la única categorización es departamental, agrupadas cuando se presenta además otra variable con diferentes categorías (por ejemplo el sexo), y apiladas cuando además de presentar otra variable categórica, estas categorías suman el $100\%$. 
+En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para los resultados, un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). El gráfico de mapa es una herramienta útil para poder visualizar los resultados, en este caso, a nivel departamental, pudiendo observar en caso de que existiese, alguna relación entre el indicador que se esté observando con lo geográfico. Mientras el gráfico de barras se utiliza para resumir un conjunto de datos por categorías, utilizando las barras simples cuando la única categorización es departamental, agrupadas cuando se presenta además otra variable con diferentes categorías (por ejemplo el sexo), y apiladas cuando además de presentar otra variable categórica, estas categorías suman el $100\%$ dentro de cada grupo (departamento). 
 
 En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. A partir de una tabla se pueden visualizar los resultados en formato de filas y columnas, permitiendo al usuario filtrar valores. 
 
@@ -532,21 +532,7 @@ Al ser un indicador calculado en base a personas, necesitando del cálculo de un
 
 Para la obtención de los resultados de este indicador en la app en primer lugar se cargan las bases de datos necesarias, disponibles en la página web del INE. Primero se debe cargar la base de personas, luego la de hogares y en tercer lugar, el archivo con la información sobre estratos y UPM.
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.30\textwidth]{img/bases.PNG}
-\caption{Bases de datos. \label{pest}}
-\end{center}
-\end{figure}
-
-Una vez cargadas las bases se selecciona dentro de la sección de indicadores, la categoría \textit{Mercado laboral} donde se encuentra este indicador. Una vez dentro de esta sección, se selecciona el indicador que se desea obtener, tal como se muestra en la figura \ref{ind}.
-
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[width=1\textwidth]{img/indicador.png}
-\caption{Selección del indicador Tasa de desempleo por sexo. \label{ind}}
-\end{center}
-\end{figure}
+Una vez cargadas las bases se selecciona dentro de la sección de indicadores, la categoría \textit{Mercado laboral} donde se encuentra este indicador. Una vez dentro de esta sección, se selecciona el indicador que se desea obtener.
 
 En la misma pestaña se observan como resultados los dos tipos de gráficos antes mencionados, los cuales se presentan en las figuras \ref{barras} y \ref{mapa}.
 
@@ -564,16 +550,13 @@ En la misma pestaña se observan como resultados los dos tipos de gráficos ante
 \end{center}
 \end{figure}
 
+En el gráfico \ref{barras} podemos observar que los departamentos con mayor tasa de desempleo son Durazno y Salto, mientras Cerro Largo, San José y Treinta y Tres son los que presentan menor desempleo. También podemos observar que el desempleo afecta más a las mujeres en prácticamente todos los departamentos.
+
+Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este caso las opciones son \textit{Hombre}, \textit{Mujer} o \textit{Total}, de las cuales se selecciona la categoría \textit{Hombre}. 
+
+En este gráfico presentado en la figura \ref{mapa} se pueden visualizar además aspectos geográficos, como comparar la tasa de desempleo en departamentos cercanos, por ejemplo podemos observar que los departamentos ubicados en el sureste del país se comportan de manera similar en este caso.
+
 Como se puede observar en la figura \ref{mapa}, al colocar el cursor sobre uno de los departamentos, el gráfico nos brinda el valor de la estimación para dicho departamento. Esto también es posible en el diagrama de barras presentado y es una de las ventajas del uso de gráficos interactivos creados con la librería \textit{plotly}.
-
-Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este caso las opciones son \textit{Hombre}, \textit{Mujer} o \textit{Total}. 
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=1\textwidth]{img/cat_mapa.PNG}
-\caption{Categorías para visualizar en el mapa. \label{catmapa}}
-\end{center}
-\end{figure}
 
 En la segunda pestaña de esta sección se puede observar una tabla como la presentada en la figura \ref{tabl}, que contiene las estimaciones puntuales del indicador seleccionado, a nivel departamental y nacional.
 
@@ -584,17 +567,14 @@ En la segunda pestaña de esta sección se puede observar una tabla como la pres
 \end{center}
 \end{figure}
 
-Por último, en la pestaña \textit{IC}, se observan tablas con los límites de los intervalos de confianza al $95\%$ de las estimaciones anteriores.
+Por último, en la pestaña \textit{IC}, se observan tablas con los límites de los intervalos de confianza al $95\%$ de las estimaciones anteriores y un gráfico donde se presenta la estimación puntual del indicador junto con su respectivo intervalo de confianza. Se presenta este gráfico para la tasa de desmpleo en hombres.
 
 \begin{figure}[htb]
-\includegraphics[width=1.2\textwidth]{img/inf.PNG}
-\caption{Tabla con los límites inferiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablinf}}
+\includegraphics[width=1\textwidth]{img/IC.PNG}
+\caption{Estimación de la tasa de desempleo en hombres para los 19 departamentos y para todo el país en el año 2019, con los respectivos intervalos de confianza al $95\%$. \label{ICdesem}}
 \end{figure}
 
-\begin{figure}[htb]
-\includegraphics[width=1.2\textwidth]{img/sup.PNG}
-\caption{Tabla con los límites superiores de los intervalos de confianza al $95\%$ de las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tablsup}}
-\end{figure}
+En el gráfico \ref{ICdesem} el orden de los departamentos está determinado por el valor de la estimación puntual del indicador en el mismo. Podemos observar que la mayoría de los intervalos se solapan, por lo que las diferencias entre estos departamentos no son estadísticamente significativas. También se observa que los intervalos son menos amplios para el total país y los departamentos más poblados (Montevideo y Canelones), lo cual es esperable debido al mayor tamaño de muestra en estos casos.
 
 \section{Hogares por presencia de lugar para cocinar \label{sec:hog}}
 
@@ -609,13 +589,6 @@ Este indicador se calcula sobre la base de hogares, se utiliza la \emph{funcion9
 
 En la app este indicador se encuentra en la sección \textit{Viviendas y hogares}, por lo que de igual manera que para el indicador anterior, se ingresa a la sección, se selecciona el indicador deseado y se observan los resultados.
 
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[width=1\textwidth]{img/indicador_hog.PNG}
-\caption{Selección del indicador Hogares por presencia de lugar para cocinar. \label{ind2}}
-\end{center}
-\end{figure}
-
 La diferencia en este indicador es que se presenta un gráfico de barras apiladas (\ref{barras2}), en lugar de agrupadas como era el caso de la tasa de desempleo, ya que en este caso se desea observar la proporción que representa cada categoría de la variable en cuestión dentro de cada departamento. Las categorías acumulan el $100\%$ por lo que de esta forma se pueden observar las diferencias relativas entre las cantidades en cada grupo.
 
 \begin{figure}[htb]
@@ -625,14 +598,18 @@ La diferencia en este indicador es que se presenta un gráfico de barras apilada
 \end{center}
 \end{figure}
 
+En la figura \ref{barras2} se observa que en todos los departamentos predomina la presencia de lugar privado para cocinar en los hogares. En Río Negro es donde la categoría \emph{Compartido} tiene mayor frecuencia, mientras los departamentos de Durazno, Paysandú y Salto son donde los hogares que no tienen lugar para cocinar representan un porcentaje mayor.
+
 El gráfico de mapa es similar al presentado para la tasa de desempleo, donde también se puede seleccionar la categoría a visualizar. La visualización de las tablas de estimaciones puntuales e intervalos de confianza también son similares al caso del indicador anterior.
 
 \begin{figure}[htb]
 \begin{center}
-\includegraphics[width=1.2\textwidth]{img/tabla_hog.PNG}
-\caption{Tabla con las estimaciones puntuales de la proporción de hogares por presencia de lugar para cocinar a nivel departamental y de todo el país en el año 2019. \label{tabl2}}
+\includegraphics[width=1\textwidth]{img/IC_hog.PNG}
+\caption{Hogares con lugar privado para cocinar para los 19 departamentos y para todo el país en el año 2019, con los respectivos intervalos de confianza al $95\%$. \label{IC2}}
 \end{center}
 \end{figure}
+
+En el caso de este indicador, como se observa en la figura \ref{IC2}, también hay intervalos que se solapan, mientras que el departamento con el intervalo más amplio es Río Negro (0.843 - 0.90).
 
 \chapter{Discusión \label{cap:discu}}
 
