@@ -211,7 +211,7 @@ En este capítulo se presenta el marco teórico para la inferencia sobre los ind
 
 \section{Notación y definiciones \label{sec:not}}
 
-El objetivo principal de una encuesta por muestreo es el obtener estimaciones de distintos parámetros de interés de la población sin observar toda la población, sino un subconjunto de esta, denominado muestra. Es decir, dada la población objetivo $U$ de tamaño $N$, se selecciona una muestra $s$ de tamaño $n$. En el caso particular de la ECH, $U$ es la población de Uruguay y $N$ es aproximadamente 3.45 millones.
+El objetivo principal de una encuesta por muestreo es el obtener estimaciones de distintos parámetros de interés de la población sin observar toda la población, sino un subconjunto de esta, denominado muestra. Es decir, dada la población objetivo $U$ de tamaño $N$, se selecciona una muestra $s$ de tamaño $n$. En el caso particular de la ECH, recordando que ésta cuenta con una base de hogares y otra de personas, en el caso de esta última $U$ es la población de Uruguay y $N$ es aproximadamente 3.45 millones.
 
 Por ejemplo, un parámetro de interés puede ser el total de la variable de interés $y$, el cual se define como:
 
@@ -234,14 +234,14 @@ Según \citep{rojas2016estrategias} un dominio $U_d$ debe cumplir con dos condic
 
 \end{itemize}
 
-Los dominios pueden clasificarse como planeados o no planeados, según si fueron tenidos en cuenta o no en la planificación de la muestra. Los más comunes en la práctica son los no planeados.
+Los dominios pueden clasificarse como planeados o no planeados, según si fueron tenidos en cuenta o no en la planificación de la muestra. Los más comunes en la práctica son los no planeados. Por ejemplo en el indicador \emph{Adolescentes de 12 a 17 años que asisten a establecimientos educativos}, el dominio de estimación son las personas que tienen entre 12 y 17 años, siendo un ejemplo de dominio no planeado.
 
 
 \section{Inferencia \label{sec:infer}}
 
 \subsection{Estimaciones puntuales \label{subsec:estpunt}}
 
-Tanto $t$ como $R$, mencionados anteriormente, son desconocidos, por lo que serán estimados a partir de la muestra. Para ello se define el estimador de Horvitz-Thompson.
+Tanto $t$ como $R$, mencionados anteriormente, son desconocidos, por lo que serán estimados a partir de la muestra. Para ello se define el estimador de Horvitz-Thompson \citep{HT}.
 
 \begin{equation}\label{m6}
 \begin{array}{cc}
@@ -249,14 +249,11 @@ Tanto $t$ como $R$, mencionados anteriormente, son desconocidos, por lo que ser�
 \end{array}
 \end{equation}
 
-Donde $w_i$ es el peso de la unidad $i$ incluida en la muestra. El insumo principal para la construcción de los ponderadores es la probabilidad de inclusión $\pi_i$ de la unidad $i$ en la muestra $s$. Más precisamente el ponderador o peso muestral $w_i$ se define como el inverso de la probabilidad de inclusión. 
+Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$ \citep{HT}. Donde $w_i$ es el peso de la unidad $i$ incluida en la muestra, es decir, $w_i$ indica cuántas unidades de la población $U$ que no fueron seleccionadas, están representadas por la unidad $i$ que si pertenece a la muestra $s$. En la base de datos de personas de la ECH 2019, la variable correspondiente a los ponderadores anuales toma valores entre 7 y 57.
 
-El ponderador $w_i$ indica cuántas unidades de la población $U$ que no fueron seleccionadas, están representadas por la unidad $i$ que si pertenece a la muestra $s$.
-
-Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$ \citep{sarndal2003model}. 
+El insumo principal para la construcción de los ponderadores es la probabilidad de inclusión $\pi_i$ de la unidad $i$ en la muestra $s$. Más precisamente el ponderador o peso muestral $w_i$ se define como el inverso de la probabilidad de inclusión.
 
 La ECH en particular cuenta con un diseño muestral por conglomerados en dos etapas de selección, pero además es estratificado, es decir que la población $U$ en primera instancia se divide en $H$ estratos y se selecciona una muestra $s_h$ de forma independiente dentro de cada uno de ellos.
-
 
 Dentro de cada estrato se encuentran $M_h$ UPM de las cuales se seleccionan $m_h$ con probabilidad proporcional al tamaño, en base a una medida de tamaño (MOS), que en este caso, surge de la cantidad de viviendas $N_j$ de la UPM según los datos del censo de población del año 2011.
 
@@ -279,7 +276,7 @@ Las probabilidades de selección y por tanto los pesos muestrales (definidos pre
 
 \[ \pi_{ijh}=\pi_{jh}\times \pi_{i|jh}=m_h\times \frac{N_j}{\sum\limits_{j=1}^{M_h}N_j}=\frac{m_h\times \alpha}{N_h}=\frac{n}{N} \]
 
-Por otro lado, para la estimación de ratios, el estimador queda definido de la siguiente manera:
+Como se mencionó anteriormente, los indicadores trabajados son en su mayoría ratios, por lo que el estimador queda definido de la siguiente manera:
 
 \begin{equation}\label{m7}
 \begin{array}{cc}
@@ -293,27 +290,20 @@ En toda encuesta suelen existir problemas de no respuesta, esto implica que en l
 
 \subsection{Intervalos de confianza \label{subsec:ic}}
 
-Los intervalos de confianza son una medida de calidad de las estimaciones y son computados con el fin de poder extraer conclusiones sobre la población.
-
-Los intervalos de confianza se suelen calcular de la siguiente manera:
-
-\[ \hat \theta \pm \text{constante}\times \widehat{\text{SE}}(\hat \theta) \]
-
-Donde el estimador $\hat \theta$ se asume tiene una distribución aproximadamente normal, por lo que el intervalo de confianza para un parámetro $\theta$ con un nivel de confianza $100(1-\alpha)\%$ queda definido como:
-
-\[ \hat \theta \pm z_{1-\alpha/2}\times \widehat{\text{SE}}(\hat \theta) \]
-
-Particularmente se trabajará con una confianza del $95\%$, por lo que al sustituir el valor de la constante en la ecuación anterior queda planteado de la siguiente forma:
+Los intervalos de confianza son una medida de calidad de las estimaciones y son computados con el fin de poder extraer conclusiones sobre la población. Estos se suelen calcular como el valor de la estimación puntual del parámetro $\theta$ más (menos para el extremo inferior) la estimación del error estándar del estimador multiplicado por una constante. Donde el estimador $\hat \theta$ se asume tiene una distribución aproximadamente normal, por lo que el intervalo de confianza para un parámetro $\theta$ con un nivel de confianza $100(1-\alpha)\%$ queda definido como:
 
 \begin{equation}\label{m18}
 \begin{array}{cc}
-\hat \theta \pm 1.96\times \widehat{\text{SE}}(\hat \theta)
+\hat \theta \pm z_{1-\alpha/2}\times \widehat{\text{SE}}(\hat \theta) 
 \end{array}
 \end{equation}
 
+Particularmente se trabajará con una confianza del $95\%$, por lo que se sustituye en la ecuación anterior el valor de la constante $z_{1-\alpha/2}$ por 1.96.
+
 Un intervalo con nivel de confianza del $95\%$ significa que, en promedio, de cada 100 muestras obtenidas bajo el mismo diseño, el intervalo contiene al verdadero valor del parámetro en 95 de ellas.
 
-A partir de la estimación de los errores estándar, se obtienen los intervalos de confianza.
+Uno de los insumos principales para la construcción de los intervalos de confianza son los errores estándar, por lo que a continuación se presentaran los métodos utilizados para el cálculo de los mismos.
+
 
 \section{Estimación de los errores estándar (SE) \label{sec:estse}}
 
@@ -323,13 +313,13 @@ Existen también los errores no muestrales, estos no se deben a la utilización 
 
 El no contar con parte de la infromación sobre el diseño de muestreo en la bases de datos públicas de las encuestas puede llevar al usuario a obtener resultados incorrectos a la hora de estimar los SE. En el caso de la ECH, para los años anteriores a 2018 no se cuenta con la disponibilidad de información clave sobre el diseño muestral como los son las unidades primarias de muestreo (UPM) y los estratos a los que pertenece cada individuo.
 
-No existen métodos exactos para calcular los SE en el caso de un diseño complejo como el de la ECH, por lo que se debe optar por un método que aproxime la variabilidad de las estimaciones de la mejor forma posible. En este trabajo en particular se recurrió al método del último conglomerado en conjunto con la linearización de Taylor, el cual se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método permite calcular parámetros lineales y no lineales \citep{surveyLumley}.
+No existen métodos exactos para calcular los SE en el caso de un diseño complejo como el de la ECH, ya que el estimador planteado por \citep{HT} necesita de las probabilidades de inclusión de segundo orden, con las cuales no se cuenta. Por lo que se debe optar por un método que aproxime la variabilidad de las estimaciones de la mejor forma posible. En este trabajo en particular se recurrió a la aproximación de una etapa planteado en \citep{Lumley} en conjunto con la linearización de Taylor, el cual se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método permite calcular parámetros lineales y no lineales \citep{surveyLumley}.
 
-\subsection{Método del último conglomerado \label{subsec:ultcong}}
+\subsection{Aproximación de una etapa \label{subsec:unaetapa}}
 
-El método del último conglomerado es un método utilizado para la aproximación de varianzas en muestras obtenidas a partir de diseños muestrales complejos, particularmente cuando estos incluyen varias etapas de selección. Este método consta principalmente en utilizar únicamente la varianza de los estimadores en la primera etapa, es decir, en la selección de las UPM, sin tener en cuenta las etapas posteriores, asumiendo así que la variabilidad se encuentra mayormente en esta primera etapa de selección.
+Este método, planteado inicialmente por \citep{Hansen} con el nombre de \emph{The ultimate cluster variance estimate}, es un método utilizado para la aproximación de varianzas en muestras obtenidas a partir de diseños muestrales complejos, particularmente cuando estos incluyen varias etapas de selección. Este método consta principalmente en utilizar únicamente la varianza de los estimadores en la primera etapa, es decir, en la selección de las UPM, sin tener en cuenta las etapas posteriores, asumiendo así que la variabilidad se encuentra mayormente en esta primera etapa de selección.
 
-Como se mencionó anteriormente, el método del último conglomerado asume que la mayor parte de la variabilidad proviene de la etapa de selección de las UPM (primera etapa). Por lo que, a la hora de estimar la varianza del estimador del total de una variable $y$ bajo un diseño muestral como el de la ECH, se utiliza la siguiente fórmula: 
+En un diseño como el de la ECH, que consta de dos etapas de selección, la varianza de los estimadores tiene dos componentes: la variabilidad entre las UPM y la variabilidad dentro de las UPM. En las situaciones donde $N$ es grande, la contribución de este segundo componente a la varianza es despreciable comparandolo con el primer componente \citep{Lohr}. Por lo que, a la hora de estimar la varianza del estimador del total de una variable $y$ bajo un diseño muestral como el de la ECH, se utiliza la siguiente fórmula: 
 
 
 \begin{equation}
