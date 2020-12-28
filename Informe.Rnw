@@ -116,19 +116,19 @@ Informe de Pasantía
 %%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCCION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introducción \label{cap:Intro}}
 
-El objetivo de este trabajo es generar una herramienta computacional que facilite el procesamiento de la Encuesta Continua de Hogares (ECH) mediante el cálculo de diversos indicadores y sus respectivos intervalos de confianza, aportando además una visualización interactiva de los resultados.
-
 Las encuestas por muestreo no solo son utilizadas para obtener estimaciones a nivel de toda la población, sino que también pueden ser útiles para realizar estimaciones en subconjuntos de la población. Estos subconjuntos son denominados dominios, y los mismos pueden estar definidos por áreas geográficas, grupos demográficos u otro tipo de subpoblaciones.
 
-Se trabajará con distintos indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Año a año el Instituto Nacional de Estadística (INE) hace públicas las bases de datos de la encuesta junto con un informe donde se presentan los resultados de distintos indicadores, en su mayoría a nivel nacional y desagregando en Montevideo e interior. En este trabajo se busca extender la cantidad de indicadores incluyendo desagregaciones departamentales en todos ellos.
+Año a año el Instituto Nacional de Estadística (INE) hace públicas las bases de datos de la Encuesta Continua de Hogares (ECH) junto con un informe donde se presentan los resultados de distintos indicadores, en su mayoría a nivel nacional y desagregando en Montevideo e interior. 
 
-Los indicadores presentados en este trabajo abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Como experiencia personal trabajé con la ECH, principalmente con el cálculo de indicadores a partir de esta encuesta, y contar con una herramienta como la realizada en este trabajo simplifica mucho la tarea. 
+El objetivo de este trabajo es generar una herramienta computacional que facilite el procesamiento de la ECH mediante el cálculo de diversos indicadores y sus respectivos intervalos de confianza, aportando además una visualización interactiva de los resultados. Se busca extender la cantidad de indicadores presentados en el informe del INE, incluyendo además desagregaciones departamentales en todos ellos.
+
+Se trabajará con distintos indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Estos abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Como experiencia personal trabajé con la ECH, principalmente con el cálculo de indicadores a partir de esta encuesta, y contar con una herramienta como la realizada en este trabajo simplifica mucho la tarea.
 
 Otra de las ventajas de esta aplicación es la disponibilidad en la web y el no necesitar de conocimientos en R o en algún otro programa estadístico para poder obtener las estimaciones puntuales e intervalos de confianza para los indicadores, pudiendo visualizar interactivamente los resultados a partir de tablas o distintos gráficos.
 
 Este trabajo se estructura de la siguiente manera.
 
-En el capítulo 2 se presentan los métodos estadísticos utilizados en este trabajo, tanto los conceptos como las fórmulas que se aplican tanto en las estimaciones puntuales como para los errores estándar e intervalos de confianza. En el capítulo 3 se define el diseño de la ECH y se presentan los indicadores trabajados. El capítulo 4 refiere a la computación estadística, explicando la forma de cálculo de los indicadores, las características y el funcionamiento de la aplicación. En el capítulo 5 se presenta un ejemplo de aplicación de la app en dos indicadores. Finalmente en el capítulo 6 se realiza la discusión final, presentando los posibles trabajos a futuro.
+En el capítulo 2 define el diseño de la ECH y se presentan los indicadores trabajados. En el capítulo 3 se presentan los métodos estadísticos utilizados en este trabajo, tanto los conceptos como las fórmulas que se aplican tanto en las estimaciones puntuales como para los errores estándar e intervalos de confianza. El capítulo 4 refiere a la computación estadística, explicando la forma de cálculo de los indicadores, las características y el funcionamiento de la aplicación. En el capítulo 5 se presenta un ejemplo de aplicación de la app en dos indicadores. Finalmente en el capítulo 6 se realiza la discusión final, presentando los posibles trabajos a futuro.
 
 
 \chapter{Indicadores socioeconómicos en base a la ECH \label{cap:ind}}
@@ -211,7 +211,7 @@ En este capítulo se presenta el marco teórico para la inferencia sobre los ind
 
 \section{Notación y definiciones \label{sec:not}}
 
-El objetivo principal de una encuesta por muestreo es el obtener estimaciones de distintos parámetros de interés de la población sin observar toda la población, sino un subconjunto de esta, denominado muestra. Es decir, dada la población objetivo $U$ de tamaño $N$, se selecciona una muestra $s$ de tamaño $n$. En el caso particular de la ECH, recordando que ésta cuenta con una base de hogares y otra de personas, en el caso de esta última $U$ es la población de Uruguay y $N$ es aproximadamente 3.45 millones.
+El objetivo principal de una encuesta por muestreo es el obtener estimaciones de distintos parámetros de interés de la población sin observar toda la población, sino un subconjunto de esta, denominado muestra. Es decir, dada la población objetivo $U$ de tamaño $N$, se selecciona una muestra $s$ de tamaño $n$. En el caso particular de la ECH, recordando que ésta cuenta con una base de hogares y otra de personas, en el caso de esta última, $U$ es la población de Uruguay y $N$ es aproximadamente 3.45 millones.
 
 Por ejemplo, un parámetro de interés puede ser el total de la variable de interés $y$, el cual se define como:
 
@@ -223,7 +223,7 @@ La mayoría de los indicadores calculados en este trabajo son tasas o proporcion
 
 \[ R=\frac{\sum_{i\in U} y_i}{\sum_{i\in U} z_i} \]
 
-En la práctica, las encuestas nacionales como la ECH, no son solamente utilizadas para hacer estimaciones a nivel de toda la población sino que también se realizan para diferentes subpoblaciones. Estas subpoblaciones para las cuales se computan de manera específica, tanto estimaciones puntuales como intervalos de confianza, son denominadas dominios \citep{sarndal2003model}.
+Por otra parte, las encuestas nacionales como la ECH, en la práctica no son solamente utilizadas para hacer estimaciones a nivel de toda la población sino que también se realizan para diferentes subpoblaciones. Estas subpoblaciones para las cuales se computan de manera específica, tanto estimaciones puntuales como intervalos de confianza, son denominadas dominios \citep{sarndal2003model}.
 
 Según \citep{rojas2016estrategias} un dominio $U_d$ debe cumplir con dos condiciones fundamentales:
 
@@ -241,7 +241,7 @@ Los dominios pueden clasificarse como planeados o no planeados, según si fueron
 
 \subsection{Estimaciones puntuales \label{subsec:estpunt}}
 
-Tanto $t$ como $R$, mencionados anteriormente, son desconocidos, por lo que serán estimados a partir de la muestra. Para ello se define el estimador de Horvitz-Thompson \citep{HT}.
+Tanto $t$ como $R$, definidos anteriormente, son desconocidos, por lo que serán estimados a partir de la muestra. Para ello se define el estimador de Horvitz-Thompson \citep{HT}.
 
 \begin{equation}\label{m6}
 \begin{array}{cc}
@@ -618,7 +618,7 @@ Otra de las ventajas que presenta esta aplicación, es el cálculo de una gran c
 
 Una de las principales limitaciones que puede tener esta aplicación, es la dependencia sobre las variables de la ECH, es decir, el hecho de que si las variables utilizadas cambian de nombre o dejan de aparecer en encuestas de años próximos, la app debe ser modificada para su correcto funcionamiento.
 
-Otras mejoras que puede tener la app son por ejemplo: gráficos para los intervalos de confianza; otras medidas de calidad de las estimaciones, como lo son coeficientes de variación o tamaños de muestra efectivos; obtener estimaciones en dominios más pequeños como por ejemplo separar a las capitales departamentales del resto del departamento; agregar más indicadores o dejar más libertad al usuario para que pueda calcular sus propios indicadores.
+Otras mejoras que puede tener la app son por ejemplo: otras medidas de calidad de las estimaciones, como lo son coeficientes de variación o tamaños de muestra efectivos; obtener estimaciones en dominios más pequeños como por ejemplo separar a las capitales departamentales del resto del departamento; agregar más indicadores o dejar más libertad al usuario para que pueda calcular sus propios indicadores.
 
 Independientemente de las posibles mejoras que pueda tener la app, siempre va a quedar a efectos del usuario el correcto uso de la misma y la correcta interpretación de los resultados.
 
