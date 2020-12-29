@@ -234,7 +234,7 @@ Según \citep{rojas2016estrategias} un dominio $U_d$ debe cumplir con dos condic
 
 \end{itemize}
 
-Los dominios pueden clasificarse como planeados o no planeados, según si fueron tenidos en cuenta o no en la planificación de la muestra. Los más comunes en la práctica son los no planeados. Por ejemplo en el indicador \emph{Adolescentes de 12 a 17 años que asisten a establecimientos educativos}, el dominio de estimación son las personas que tienen entre 12 y 17 años, siendo un ejemplo de dominio no planeado.
+Los dominios pueden clasificarse como planeados o no planeados, según si fueron tenidos en cuenta o no en la planificación de la muestra. Los más comunes en la práctica son los no planeados. Por ejemplo en el indicador \emph{Adolescentes de 12 a 17 años que asisten a establecimientos educativos}, un dominio de estimación son las personas que tienen entre 12 y 17 años dentro de determinado departamento, siendo un ejemplo de dominio no planeado.
 
 
 \section{Inferencia \label{sec:infer}}
