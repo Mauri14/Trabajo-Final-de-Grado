@@ -1854,7 +1854,7 @@ server <- function(input, output){
     p<- if (input$Nombre == "741" | input$Nombre == "751" | input$Nombre == "1807"| input$Nombre == "740"| input$Nombre == "748"| input$Nombre == "690"| input$Nombre == "756"| input$Nombre == "689"| input$Nombre == "732"| input$Nombre == "739")
       indicador_edu()%>%
       gather(key= Sexo, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Sexo))+
+      ggplot(aes(x=reorder(dpto, Valor), y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
