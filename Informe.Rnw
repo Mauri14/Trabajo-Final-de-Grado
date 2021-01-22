@@ -19,6 +19,7 @@
 %\usepackage{multirow}
 %\usepackage{multicol}
 \usepackage{verbatim}
+\usepackage{hyperref}
 %\usepackage{fancyvrb}
 \usepackage[authoryear]{natbib}
 
@@ -117,13 +118,13 @@ Informe de Pasantía
 \chapter{Introducción \label{cap:Intro}}
 Las encuestas por muestreo no solo son utilizadas para obtener estimaciones a nivel de toda la población, sino que también pueden ser útiles para realizar estimaciones en subconjuntos de la población. Estos subconjuntos son denominados dominios, y los mismos pueden estar definidos por áreas geográficas, grupos demográficos u otro tipo de subpoblaciones.
 
-En Uruguay, la principal fuente de informacion para construir indicadores socio-demograficos lo constituye la Encuesta Continua de Hogares (ECH) realizada anualmente por Instituto Nacional de Estadística (INE). Dicha encuesta cuenta con un disennn1ño muestral muy solido en base al cual INE presenta estimaciones de algunos indicadores relevantes a nivel nacional como por ejemplo la tasa de desempleo. La informacion de microdatos producida por ECH es de acceso abierto por lo que cualquier investigador puede obtener esos datos y utilizarlos directamente.  Sin embargo, para el caso de usuarios no-expertos en el manejo de datos, unicamente acceden a los indicadores relevaods directamente por INE. 
+En Uruguay, la principal fuente de información para construir indicadores socio-demográficos lo constituye la Encuesta Continua de Hogares (ECH) realizada anualmente por Instituto Nacional de Estadística (INE). Dicha encuesta cuenta con un diseño muestral muy sólido en base al cual INE presenta estimaciones de algunos indicadores relevantes a nivel nacional como por ejemplo la tasa de desempleo. La información de microdatos producida por ECH es de acceso abierto por lo que cualquier investigador puede obtener esos datos y utilizarlos directamente.  Sin embargo, para el caso de usuarios no-expertos en el manejo de datos, únicamente acceden a los indicadores relevados directamente por INE. 
 
-El objetivo de este trabajo es generar un *Monitor de indicadores socio-demográficos*, una herramienta computacional que facilite el procesamiento de la ECH mediante el cálculo de diversos indicadores y sus respectivos intervalos de confianza, aportando además una visualización interactiva de los resultados. En primer lugar, se busca extender la cantidad de indicadores presentados en el informe del INE, incluyendo además desagregaciones departamentales en todos ellos. Se trabajará con distintos indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Estos abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Un segundo aspecto relevante del monitor es su  disponibilidad en la web, haciendo posible para un usuario final acceder a los resultados (estimaciones, intervalos, graficos) sin necesidad de programar directamente. 
+El objetivo de este trabajo es generar un *Monitor de indicadores socioeconómicos*, una herramienta computacional que facilite el procesamiento de la ECH mediante el cálculo de diversos indicadores y sus respectivos intervalos de confianza, aportando además una visualización interactiva de los resultados. En primer lugar, se busca extender la cantidad de indicadores presentados en el informe del INE, incluyendo además desagregaciones departamentales en todos ellos. Se trabajará con distintos indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Estos abordan distintas dimensiones, como ser, educación, salud, mercado laboral, entre otras. Un segundo aspecto relevante del monitor es su disponibilidad en la web, haciendo posible para un usuario final acceder a los resultados (estimaciones, intervalos, gráficos) sin necesidad de programar directamente. 
 
 Este trabajo se estructura de la siguiente manera. En el capítulo 2 define el diseño de la ECH y se presentan los indicadores trabajados. En el capítulo 3 se presentan los métodos estadísticos utilizados en este trabajo, tanto los conceptos como las fórmulas que se aplican tanto en las estimaciones puntuales como para los errores estándar e intervalos de confianza. El capítulo 4 refiere a la computación estadística, explicando la forma de cálculo de los indicadores, las características y el funcionamiento de la aplicación. En el capítulo 5 se presenta un ejemplo de aplicación de la app en dos indicadores. Finalmente en el capítulo 6 se realiza la discusión final, presentando los posibles trabajos a futuro.
 
-Buena parte de los resultados presentados en este trabajo fueron desarrollados en el marco del convenio entre IESTA y la Oficina de Planificación y Presupuesto (OPP), donde trabaje como integrante de equipo durante todo el año 2019. Mis tareas consitieron principalmente con el cálculo de indicadores a partir de la encuesta continua de hogares, en este contexto fue notorio que contar con una herramienta como el monitor que se presenta en este trabajo simplifica mucho la tarea.
+Buena parte de los resultados presentados en este trabajo fueron desarrollados en el marco del convenio entre IESTA y la Oficina de Planificación y Presupuesto (OPP), donde trabajé como integrante de equipo durante los años 2019 y 2020. Mis tareas consitieron principalmente en el cálculo de indicadores a partir de la encuesta continua de hogares, en este contexto fue notorio que contar con una herramienta como el monitor que se presenta en este trabajo simplifica mucho la tarea.
 
 % Las encuestas por muestreo no solo son utilizadas para obtener estimaciones a nivel de toda la población, sino que también pueden ser útiles para realizar estimaciones en subconjuntos de la población. Estos subconjuntos son denominados dominios, y los mismos pueden estar definidos por áreas geográficas, grupos demográficos u otro tipo de subpoblaciones.
 % 
@@ -146,7 +147,7 @@ Buena parte de los resultados presentados en este trabajo fueron desarrollados e
 
 La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
 
-La ECH cuenta con un diseño muestral aleatorio complejo, donde se incluyen estratos, conglomerados y se cuenta con varias etapas de selección. A continuación se realiza una breve descripción del mismo, la descripcion completa se puede encontrar en \cite{ine}, disponible en LINK.A.LA.IFCHA  
+La ECH cuenta con un diseño muestral aleatorio complejo, donde se incluyen estratos, conglomerados y se cuenta con varias etapas de selección. A continuación se realiza una breve descripción del mismo, la descripcion completa se puede encontrar en \cite{ine}, disponible en \href{https://www.ine.gub.uy/c/document_library/get_file?uuid=225fb0f2-44f2-4e3b-8496-6f613be0617a&groupId=10181}{Ficha técnica Encuesta Continua de Hogares}
 
 En primer lugar se divide a la población en estratos geográficos que corresponden a los diecinueve departamentos y a la zona metropolitana. Mientras que en un segundo nivel de estratificación, se clasifican a todas las localidades dentro de cada departamento en cuatro categorías según la cantidad de habitantes con la que cuentan: 
 
@@ -181,7 +182,7 @@ Los datos de la muestra son ponderados con el objetivo de poder realizar estimac
 
 \section{Indicadores \label{sec:lista}}
 
-Los indicadores presentados en este trabajo son calculados todos los años por el Observatorio Territorio Uruguay (OTU) perteneciente a la Oficina de Planeamiento y Presupuesto (OPP), y se encuentran disponibles en su página oficial (LINK.A.PAGINA.DE.OTU). Estos indicadores se dividen en 7 categorías según las dimensiones a las que refieren (algunos indicadores refieren a más de una dimensión):
+Los indicadores presentados en este trabajo son calculados todos los años por el Observatorio Territorio Uruguay (OTU) perteneciente a la Oficina de Planeamiento y Presupuesto (OPP), y se encuentran disponibles en su página oficial (\href{https://otu.opp.gub.uy/}{OTU}). Estos indicadores se dividen en 7 categorías según las dimensiones a las que refieren (algunos indicadores refieren a más de una dimensión):
 
 \begin{itemize}
 \item Educación
@@ -346,7 +347,7 @@ Una de las principales ventajas que presenta este método es que usa directament
 
 \subsection{Linearización de Taylor \label{subsec:taylor}}
 
-La mayoría de los indicadores trabajados no son lineales, ya que como se mencionó anteriormente son ratios o cocientes entre totales. La aproximación por linearización de Taylor se basa en expresar el estimador no lineal como función de estimadores lineales. En primer lugar se utiliza el desarrollo de Taylor de primer orden para aproximar el estimador de ratio $R=t_y/t_z$:
+La mayoría de los indicadores trabajados no son lineales, ya que como se mencionó anteriormente son ratios o cocientes entre totales. La aproximación por linearización de Taylor, planteada entre otros por \citep{sarndal2003model}, se basa en expresar el estimador no lineal como función de estimadores lineales. En primer lugar se utiliza el desarrollo de Taylor de primer orden para aproximar el estimador de ratio $R=t_y/t_z$:
 
 \[ \hat  R \approx R +\frac{1}{t_z}\times \sum\nolimits_{i\in s} w_i\times (y_i-Rz_i) \]
 
@@ -408,19 +409,19 @@ Todas las funciones necesitan de algunos insumos para estimar los indicadores co
 
 Las primeras 7 funciones se utilizan para los indicadores que se obtienen a partir de la base de personas de la ECH, mientras las últimas 2 trabajan con la base de hogares.
 
-La \emph{funcion1} se utiliza para los indicadores que necesitan del cálculo de la proporción de individuos que cumplen determinada condición (por ejemplo quienes tienen estudios terciarios), desagregando además por sexo. 
+La {\verb funcion1 } se utiliza para los indicadores que necesitan del cálculo de la proporción de individuos que cumplen determinada condición (por ejemplo quienes tienen estudios terciarios), desagregando además por sexo. 
 
-La \emph{funcion2} es utilizada para los indicadores en los cuales es necesario calcular la proporción de distintas categorías de una variable, y también se desagrega por sexo. 
+La {\verb funcion2 } es utilizada para los indicadores en los cuales es necesario calcular la proporción de distintas categorías de una variable, y también se desagrega por sexo. 
 
-Las funciones \emph{funcion3}, \emph{funcion4} y \emph{funcion5} son similares, calculan proporciones al igual que en la función 1, pero desagregando en tramos de edad en lugar de por sexo. La diferencia entre estas tres funciones es que desagregan en distintos tramos etarios.
+Las funciones {\verb funcion3 }, {\verb funcion4 } y {\verb funcion5 } son similares, calculan proporciones al igual que en la función 1, pero desagregando en tramos de edad en lugar de por sexo. La diferencia entre estas tres funciones es que desagregan en distintos tramos etarios.
 
-La \emph{funcion6} se utiliza unicamente para la estimación del indicador \textit{Promedio de años de educación de las personas de 25 años y más por sexo}. La variable en este caso es cuantitativa, se promedia y se desagrega por sexo.
+La {\verb funcion6 } se utiliza unicamente para la estimación del indicador \textit{Promedio de años de educación de las personas de 25 años y más por sexo}. La variable en este caso es cuantitativa, se promedia y se desagrega por sexo.
 
-La \emph{funcion7} se utiliza para los indicadores que hacen referencia a tasas brutas, es decir, necesitan del cálculo de un ratio.
+La {\verb funcion7 } se utiliza para los indicadores que hacen referencia a tasas brutas, es decir, necesitan del cálculo de un ratio.
 
 Los indicadores \textit{Población total por condición de actividad por sexo} y \textit{Personas por tipo de atención en salud}, fueron calculados de manera particular, sin el uso de ninguna función.
 
-Las funciones {\verb funcion8 } y \emph{funcion9}, como se mencionó anteriormente, son las utilizadas para la estimación de los indicadores que se obtienen a partir de la base de hogares de la ECH. La \emph{funcion8} se utiliza para los indicadores que requieren el cálculo de la proporción de hogares que cumplen con determinada condición, mientras que en la \emph{funcion9}, la variable en cuestión presenta más de 2 categorías.
+Las funciones {\verb funcion8 } y {\verb funcion9 }, como se mencionó anteriormente, son las utilizadas para la estimación de los indicadores que se obtienen a partir de la base de hogares de la ECH. La {\verb funcion8 } se utiliza para los indicadores que requieren el cálculo de la proporción de hogares que cumplen con determinada condición, mientras que en la {\verb funcion9 }, la variable en cuestión presenta más de 2 categorías.
 
 El indicador \textit{Hogares por tipo de relación con la vivienda} fue estimado de manera particular, sin el uso de ninguna función.
 
@@ -432,7 +433,7 @@ El cálculo del indicador presentado anteriormente, una vez creadas las funcione
 funcion1(pr,"e27>5","e61==1")
 @
 
-Este indicador es estimado en base a personas y con desagregación por departamento y por sexo. Se utiliza la función \textit{funcion1}, el diseño utilizado $pr$, el filtro $e27>5$ y la variable $e61==1$ son los presentados anteriormente.
+Este indicador es estimado en base a personas y con desagregación por departamento y por sexo. Se utiliza la función {\verb funcion1 }, el diseño utilizado $pr$, el filtro $e27>5$ y la variable $e61==1$ son los presentados anteriormente.
 
 \subsection{Descripción de los diseños \label{subsec:dis}}
 
