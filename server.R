@@ -1880,7 +1880,7 @@ server <- function(input, output){
     else if (input$Nombre == "1020")
       indicador_edu()%>%
       gather(key= Tramo_etario, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Tramo_etario))+
+      ggplot(aes(x=reorder(dpto,Valor), y= Valor, fill= Tramo_etario))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_fill_brewer(palette = "Set2")+
       scale_y_continuous(labels = scales::percent)+
@@ -1891,7 +1891,7 @@ server <- function(input, output){
     else if (input$Nombre == "1380")
       indicador_edu()%>%
       gather(key= Sexo, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Sexo))+
+      ggplot(aes(x=reorder(dpto,Valor), y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_fill_brewer(palette = "Set2")+
       coord_flip()+
@@ -1900,7 +1900,7 @@ server <- function(input, output){
       theme (axis.title = element_text(face="bold"))
     else if (input$Nombre == "747" | input$Nombre == "746"| input$Nombre == "1808")
       indicador_edu()%>%
-      ggplot(aes(x=dpto, y= tasa))+
+      ggplot(aes(x=reorder(dpto,tasa), y= tasa))+
       geom_bar(stat = "identity", fill= "lightblue")+
       coord_flip()+
       labs(x= "Departamento", y= "Indicador")+
@@ -1919,7 +1919,7 @@ server <- function(input, output){
     p<- if (input$Nombre2 == "501")
       indicador_salud()%>%
       gather(key= Sexo, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Sexo))+
+      ggplot(aes(x=reorder(dpto,Valor), y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
@@ -1930,7 +1930,7 @@ server <- function(input, output){
     else if (input$Nombre2 == "529")
       indicador_salud()%>%
       gather(key= Tramo_etario, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Tramo_etario))+
+      ggplot(aes(x=reorder(dpto,Valor), y= Valor, fill= Tramo_etario))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
@@ -1963,7 +1963,7 @@ server <- function(input, output){
     p<-if (input$Nombre3 == "533" | input$Nombre3 == "521" | input$Nombre3 == "526"| input$Nombre3 == "618"| input$Nombre3 == "608"| input$Nombre3 == "690"| input$Nombre3 == "502")
       indicador_lab()%>%
       gather(key= Sexo, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Sexo))+
+      ggplot(aes(x=reorder(dpto,Valor), y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
@@ -1988,7 +1988,7 @@ server <- function(input, output){
     else if (input$Nombre3 == "531"| input$Nombre3 == "607" | input$Nombre3 == "534")
       indicador_lab()%>%
       gather(key= Tramo_etario, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Tramo_etario))+
+      ggplot(aes(x=reorder(dpto,Valor), y= Valor, fill= Tramo_etario))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
@@ -2022,7 +2022,7 @@ server <- function(input, output){
     p<-if (input$Nombre4 == "526" | input$Nombre4 == "568" | input$Nombre4 == "1636")
       indicador_ing()%>%
       gather(key= Sexo, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Sexo))+
+      ggplot(aes(x=reorder(dpto,Valor), y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
@@ -2033,7 +2033,7 @@ server <- function(input, output){
     else if (input$Nombre4 == "531"| input$Nombre4 == "534")
       indicador_ing()%>%
       gather(key= Tramo_etario, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Tramo_etario))+
+      ggplot(aes(x=reorder(dpto,Valor), y= Valor, fill= Tramo_etario))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
@@ -2043,7 +2043,7 @@ server <- function(input, output){
       theme (axis.title = element_text(face="bold"))
     else if (input$Nombre4 == "577" | input$Nombre4 == "1929"| input$Nombre4 == "553")
       indicador_ing()%>%
-      ggplot(aes(x=dpto, y= Total))+
+      ggplot(aes(x=reorder(dpto,Total), y= Total))+
       geom_bar(stat = "identity", fill= "lightblue")+
       coord_flip()+
       scale_y_continuous(labels = scales::percent)+
@@ -2063,7 +2063,7 @@ server <- function(input, output){
     p<-if (input$Nombre5 == "605" | input$Nombre5 == "581" | input$Nombre5 == "603")
       indicador_tec()%>%
       gather(key= Sexo, value= Valor, -dpto)%>% 
-      ggplot(aes(x=dpto, y= Valor, fill= Sexo))+
+      ggplot(aes(x=reorder(dpto,Valor), y= Valor, fill= Sexo))+
       geom_bar(position = "dodge", stat = "identity")+
       scale_y_continuous(labels = scales::percent)+
       scale_fill_brewer(palette = "Set2")+
@@ -2088,7 +2088,7 @@ server <- function(input, output){
       theme (axis.title = element_text(face="bold"))
     else if (input$Nombre5 == "591" | input$Nombre5 == "594"| input$Nombre5 == "584")
       indicador_tec()%>%
-      ggplot(aes(x=dpto, y= Total))+
+      ggplot(aes(x=reorder(dpto,Total), y= Total))+
       geom_bar(stat = "identity", fill= "lightblue")+
       coord_flip()+
       scale_y_continuous(labels = scales::percent)+
@@ -2132,7 +2132,7 @@ server <- function(input, output){
     
     p<-if (input$Nombre7 == "577" | input$Nombre7 == "553")
       indicador_hog()%>%
-      ggplot(aes(x=dpto, y= Total))+
+      ggplot(aes(x=reorder(dpto,Total), y= Total))+
       geom_bar(stat = "identity", fill= "lightblue")+
       coord_flip()+
       scale_y_continuous(labels = scales::percent)+
