@@ -281,10 +281,6 @@ Mientras que $\pi_{i|jh}$ es la probabilidad de selección de la unidad $i$ dent
 \[ \pi_{i|jh}=\frac{n_{jh}}{\text{MOS}_{j}} \]
 
 
-Las probabilidades de selección y por tanto los pesos muestrales (definidos previamente como el inverso de la probabilidad de selección), son iguales dentro de un mismo estrato:
-
-\[ \pi_{ijh}=\pi_{jh}\times \pi_{i|jh}=m_h\times \frac{N_j}{\sum\limits_{j=1}^{M_h}N_j}=\frac{m_h\times \alpha}{N_h}=\frac{n}{N} \]
-
 Como se mencionó anteriormente, los indicadores trabajados son en su mayoría ratios, por lo que el estimador queda definido de la siguiente manera:
 
 \begin{equation}\label{m7}
@@ -549,7 +545,7 @@ En la misma pestaña se observan como resultados los dos tipos de gráficos ante
 \end{center}
 \end{figure}
 
-En el gráfico \ref{barras} podemos observar que los departamentos con mayor tasa de desempleo son Durazno y Salto, mientras Cerro Largo, San José y Treinta y Tres son los que presentan menor desempleo. También podemos observar que el desempleo afecta más a las mujeres en prácticamente todos los departamentos.
+En el gráfico \ref{barras} los departamentos están ordenados por el valor que toman, más precisamente por el promedio de los tres valores (Hombre, Mujer y Total) correspondientes al departamento, por lo que podemos observar que los departamentos con mayor tasa de desempleo son Durazno y Salto, mientras Cerro Largo y San José son los que presentan menor desempleo. También podemos observar que el desempleo afecta más a las mujeres en prácticamente todos los departamentos.
 
 Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este caso las opciones son \textit{Hombre}, \textit{Mujer} o \textit{Total}, de las cuales se selecciona la categoría \textit{Hombre}. 
 
