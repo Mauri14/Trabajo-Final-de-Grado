@@ -627,6 +627,8 @@ Otras mejoras que puede tener la app son por ejemplo: otras medidas de calidad d
 
 Independientemente de las posibles mejoras que pueda tener la app, siempre va a quedar a efectos del usuario el correcto uso de la misma y la correcta interpretación de los resultados.
 
+Un posible trabajo a futuro, es el de comparar los errores estándar de las estimaciones de algunos indicadores con los dos diseños planteados anteriormente, es decir, con el diseño completo con la información sobre los estratos y las UPM, y el diseño sin esta información, con el objetivo de poder observar cuanto difieren los cálculos en ambos casos para diferentes indicadores.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAFíA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliographystyle{apa}
