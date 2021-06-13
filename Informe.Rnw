@@ -334,7 +334,7 @@ En un diseño como el de la ECH, que consta de dos etapas de selección, la vari
 \end{array}
 \end{equation}
 
-Siendo $\hat t_{jh}=\sum\nolimits_{s_{jh}} w_i\times y_i$ la estimación del total de la variable $y$ en la UPM $j$ perteneciente al estrato $h$, $\hat t_h=\sum\nolimits_{h=1}^H\hat t_{jh}$ la estimación del total de la variable $y$ en el estrato $h$. Mientras que $m_h$, como se definió anteriormente, es la cantidad de UPM pertenecientes al estrato $h$ seleccionadas en la muestra.
+Siendo $\hat t_{jh}=\sum\nolimits_{s_{jh}} w_i\times y_i$ la estimación del total de la variable $y$ en la UPM $j$ perteneciente al estrato $h$, $\hat t_h=\sum\limits_{j \in s_h}\hat t_{jh}$ la estimación del total de la variable $y$ en el estrato $h$. Mientras que $m_h$, como se definió anteriormente, es la cantidad de UPM pertenecientes al estrato $h$ seleccionadas en la muestra.
 
 En el caso de la estimación en dominios se debe reemplazar la variable $y$, presente en la ecuación anterior \ref{ec:m13}, por una variable $y_d$ que toma el valor $y$ cuando la unidad pertenece al dominio $d$ en cuestión, y cero cuando no pertenece al dominio. Como el tamaño de muestra en el dominio suele ser aleatorio, mediante este procedimiento se logra incluir una variabilidad extra que lo refleje. 
 
@@ -354,7 +354,7 @@ Posteriormente se aproxima la varianza de la estimación mediante la varianza de
 \label{m15}
 \end{equation}
 
-Siendo $\hat t_z=\sum\nolimits_{i\in s}w_i\times z_i$ la estimación del total de la variable $z$; $\hat t_{r,jh}=\sum\nolimits_{s_{jh}} w_i\times r_i$ la estimación del total de la variable $r$ en la UPM $j$ perteneciente al estrato $h$; y $\hat t_{r,h}=\sum\nolimits_{h=1}^H\hat t_{r,jh}$ la estimación del total de la variable $r$ en el estrato $h$.
+Siendo $\hat t_z=\sum\nolimits_{i\in s}w_i\times z_i$ la estimación del total de la variable $z$; $\hat t_{r,jh}=\sum\nolimits_{s_{jh}} w_i\times r_i$ la estimación del total de la variable $r$ en la UPM $j$ perteneciente al estrato $h$; y $\hat t_{r,h}=\sum\limits_{j \in s_h}\hat t_{r,jh}$ la estimación del total de la variable $r$ en el estrato $h$.
 
 Para la estimación en un dominio en particular, se procede de la misma manera que se planteó anteriormente, sustituyendo las variables en cuestión por sus correspondientes en el dominio.
 
