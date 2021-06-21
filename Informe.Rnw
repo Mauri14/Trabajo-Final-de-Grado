@@ -126,6 +126,8 @@ Este trabajo se estructura de la siguiente manera. En el capítulo 2 define el d
 
 Buena parte de los resultados presentados en este trabajo fueron desarrollados en el marco del convenio entre IESTA y la Oficina de Planeamiento y Presupuesto (OPP), donde trabajé como integrante del equipo durante los años 2019 y 2020. Mis tareas consistieron principalmente en el cálculo de indicadores a partir de la ECH, en este contexto fue notorio que contar con una herramienta como el monitor que se presenta en este trabajo simplifica considerablemente la tarea.
 
+El monitor se encuentra disponible en el siguiente repositorio en \href{https://github.com/Mauri14/Trabajo-Final-de-Grado}{GitHub}.
+
 % Las encuestas por muestreo no solo son utilizadas para obtener estimaciones a nivel de toda la población, sino que también pueden ser útiles para realizar estimaciones en subconjuntos de la población. Estos subconjuntos son denominados dominios, y los mismos pueden estar definidos por áreas geográficas, grupos demográficos u otro tipo de subpoblaciones.
 % 
 % Año a año el Instituto Nacional de Estadística (INE) hace públicas las bases de datos de la Encuesta Continua de Hogares (ECH) junto con un informe donde se presentan los resultados de distintos indicadores, en su mayoría a nivel nacional y desagregando en Montevideo e interior. 
@@ -164,7 +166,8 @@ Una vez definidos los estratos, se selecciona de manera independiente dentro de 
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=1\textwidth]{img/upm-estratos2.png}
+%\includegraphics[width=1\textwidth]{img/upm-estratos2.png}
+\includegraphics[scale=.5]{img/upm-estratos2.png}
 \caption{Distribución de la cantidad de UPM por estrato. \label{upm-est}}
 \end{center}
 \end{figure}
@@ -568,8 +571,11 @@ En la segunda pestaña de esta sección se puede observar una tabla como la pres
 Por último, en la pestaña \textit{IC}, se observan tablas con los límites de los intervalos de confianza al $95\%$ de las estimaciones anteriores y un gráfico donde se presenta la estimación puntual del indicador junto con su respectivo intervalo de confianza. Se presenta este gráfico para la tasa de desempleo en hombres.
 
 \begin{figure}[htb]
-\includegraphics[width=1\textwidth]{img/IC.PNG}
+\begin{center}
+%\includegraphics[width=1\textwidth]{img/IC.PNG}
+\includegraphics[scale=.5]{img/IC.PNG}
 \caption{Estimación de la tasa de desempleo en hombres para los 19 departamentos y para todo el país en el año 2019, con los respectivos intervalos de confianza al $95\%$. \label{ICdesem}}
+\end{center}
 \end{figure}
 
 En el gráfico \ref{ICdesem} el orden de los departamentos está determinado por el valor de la estimación puntual del indicador en el mismo. Podemos observar que la mayoría de los intervalos se solapan, por lo que las diferencias entre estos departamentos no son estadísticamente significativas. También se observa que los intervalos son menos amplios para el total país y los departamentos más poblados (Montevideo y Canelones), lo cual es esperable debido al mayor tamaño de muestra en estos casos.
@@ -591,7 +597,8 @@ La diferencia en este indicador es que se presenta un gráfico de barras apilada
 
 \begin{figure}[htb]
 \begin{center}
-\includegraphics[width=1\textwidth]{img/Barras_hog.PNG}
+%\includegraphics[width=1\textwidth]{img/Barras_hog.PNG}
+\includegraphics[scale=.5]{img/Barras_hog.PNG}
 \caption{Gráfico de barras de la proporción de hogares por presencia de lugar para cocinar por departamento para el año 2019. \label{barras2}}
 \end{center}
 \end{figure}
@@ -602,7 +609,8 @@ El gráfico de mapa es similar al presentado para la tasa de desempleo, donde ta
 
 \begin{figure}[htb]
 \begin{center}
-\includegraphics[width=1\textwidth]{img/IC_hog.PNG}
+%\includegraphics[width=1\textwidth]{img/IC_hog.PNG}
+\includegraphics[scale=.5]{img/IC_hog.PNG}
 \caption{Hogares con lugar privado para cocinar para los 19 departamentos y para todo el país en el año 2019, con los respectivos intervalos de confianza al $95\%$. \label{IC2}}
 \end{center}
 \end{figure}
