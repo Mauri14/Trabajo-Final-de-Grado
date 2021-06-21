@@ -531,16 +531,18 @@ Una vez cargadas las bases se selecciona dentro de la sección de indicadores, l
 
 En la misma pestaña se observan como resultados los dos tipos de gráficos antes mencionados, los cuales se presentan en las figuras \ref{barras} y \ref{mapa}.
 
-\begin{figure}[h]
+\begin{figure}[hbpt]
 \begin{center}
-\includegraphics[width=1\textwidth]{img/barras.PNG}
+%\includegraphics[width=1\textwidth]{img/barras.PNG}
+\includegraphics[scale=.5]{img/barras.PNG}
 \caption{Gráfico de barras de la tasa de desempleo para el año 2019 a nivel departamental y de todo el país desagregando por sexo. \label{barras}}
 \end{center}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[hbpt]
 \begin{center}
-\includegraphics[width=1\textwidth]{img/Mapa.png}
+%\includegraphics[width=1\textwidth]{img/Mapa.png}
+\includegraphics[scale=.5]{img/Mapa.png}
 \caption{Tasa de desempleo a nivel departamental para la categoría Hombres. \label{mapa}}
 \end{center}
 \end{figure}
@@ -555,9 +557,10 @@ Como se puede observar en la figura \ref{mapa}, al colocar el cursor sobre uno d
 
 En la segunda pestaña de esta sección se puede observar una tabla como la presentada en la figura \ref{tabl}, que contiene las estimaciones puntuales del indicador seleccionado, a nivel departamental y nacional.
 
-\begin{figure}[htb]
+\begin{figure}[htbt]
 \begin{center}
-\includegraphics[width=1.2\textwidth]{img/tabla.PNG}
+%\includegraphics[width=1.2\textwidth]{img/tabla.PNG}
+\includegraphics[scale=.5]{img/tabla.PNG}
 \caption{Tabla con las estimaciones puntuales de la tasa de desempleo para los 19 departamentos y para todo el país en el año 2019. \label{tabl}}
 \end{center}
 \end{figure}
