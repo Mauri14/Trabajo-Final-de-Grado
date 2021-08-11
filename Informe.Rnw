@@ -124,7 +124,7 @@ El objetivo de este trabajo es generar un \textbf{Monitor de indicadores socioec
 
 Este trabajo se estructura de la siguiente manera. En el capítulo 2 define el diseño de la ECH y se presentan los indicadores trabajados. En el capítulo 3 se exponen los métodos estadísticos utilizados en este trabajo, los conceptos y las fórmulas que se aplican tanto para las estimaciones puntuales como para los errores estándar e intervalos de confianza. El capítulo 4 refiere a la computación estadística, explicando la forma de cálculo de los indicadores, las características y el funcionamiento de la aplicación. En el capítulo 5 se presenta un ejemplo de aplicación de la app en dos indicadores. Finalmente en el capítulo 6 se realiza la discusión final, presentando los posibles trabajos a futuro.
 
-Buena parte de los resultados presentados en este trabajo fueron desarrollados en el marco del convenio entre IESTA y la Oficina de Planeamiento y Presupuesto (OPP), donde trabajé como integrante del equipo durante los años 2019 y 2020. Mis tareas consistieron principalmente en el cálculo de indicadores a partir de la ECH, en este contexto fue notorio que contar con una herramienta como el monitor que se presenta en este trabajo simplifica considerablemente la tarea.
+Buena parte de los resultados presentados en este trabajo fueron desarrollados en el marco del convenio entre IESTA y la Oficina de Planeamiento y Presupuesto (OPP), donde trabajé como integrante del equipo durante los años 2019 y 2020. Mis tareas consistieron principalmente en el cálculo de indicadores a partir de la ECH, en este contexto fue notorio que contar con una herramienta como el monitor que se presenta en este trabajo simplifica considerablemente la tarea. Parte de los resultados de este convenio fueron presentados en el siguiente informe \citep{informeOPP}.
 
 El monitor se encuentra disponible en el siguiente repositorio en \href{https://github.com/Mauri14/Trabajo-Final-de-Grado}{GitHub}.
 
@@ -218,7 +218,7 @@ En anexo \ref{ane:ind} se presenta un listado completo de los indicadores trabaj
 
 \chapter{Métodos estadísticos \label{cap:Met}}
 
-En este capítulo se presenta el marco teórico para la inferencia sobre los indicadores presentados en el capítulo anterior. En primer lugar se plantea la notación y las principales definiciones aplicadas, luego se presenta la inferencia estadística, es decir las fórmulas aplicadas para la estimación puntual de los indicadores y sus respectivos intervalos de confianza. Finalmente se presentan los métodos utilizados para el cálculo de los errores estándar (SE).
+En este capítulo se presenta el marco teórico para la inferencia sobre los indicadores presentados en el capítulo anterior. La presentación de los métodos se apoya en \citep{tesisJP} y el informe \citep{informeOPP} mencionado anteriormente. .En primer lugar se plantea la notación y las principales definiciones aplicadas, luego se presenta la inferencia estadística, es decir las fórmulas aplicadas para la estimación puntual de los indicadores y sus respectivos intervalos de confianza. Finalmente se presentan los métodos utilizados para el cálculo de los errores estándar (SE).
 
 
 \section{Notación y definiciones \label{sec:not}}
@@ -294,7 +294,7 @@ Como se mencionó anteriormente, los indicadores trabajados son en su mayoría r
 
 Este estimador no es lineal, ya que es un cociente entre dos estimadores, por lo tanto es aproximadamente insesgado. 
 
-En toda encuesta suelen existir problemas de no respuesta, esto implica que en la práctica no se utilicen de forma directa los ponderadores para realizar las expansiones, sino que estos son ajustados por no respuesta y posteriormente calibrados a información conocida de la población. Estos últimos ponderadores son los que se encuentran en las bases de datos públicas de la ECH, por lo que serán los utilizados a la hora de realizar las estimaciones \citep{informeOPP}.
+En toda encuesta suelen existir problemas de no respuesta, esto implica que en la práctica no se utilicen de forma directa los ponderadores para realizar las expansiones, sino que estos son ajustados por no respuesta y posteriormente calibrados a información conocida de la población. Estos últimos ponderadores son los que se encuentran en las bases de datos públicas de la ECH, por lo que serán los utilizados a la hora de realizar las estimaciones.
 
 \subsection{Intervalos de confianza \label{subsec:ic}}
 
