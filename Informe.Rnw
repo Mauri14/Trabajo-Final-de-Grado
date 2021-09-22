@@ -72,7 +72,7 @@ Informe de Pasantía
 \vspace{2.5cm}
 
 
-\textbf{\large Estimación en dominios de indicadores socioeconómicos a partir de la Encuesta Continua de Hogares}
+\textbf{\large Monitor de indicadores socioeconómicos obtenidos a partir de la Encuesta Continua de Hogares}
 
 \vspace{1.5 cm}
 
@@ -122,7 +122,7 @@ En Uruguay, la principal fuente de información para construir indicadores socio
 
 El objetivo de este trabajo es generar un \textbf{Monitor de indicadores socioeconómicos}, una herramienta computacional que facilite el procesamiento de la ECH mediante el cálculo de diversos indicadores y sus respectivos intervalos de confianza, aportando además una visualización interactiva de los resultados. En primer lugar, se busca extender la cantidad de indicadores presentados en el informe del INE, incluyendo además desagregaciones departamentales en todos ellos. Se trabajará con distintos indicadores socioeconómicos que se obtienen a partir de estimaciones provenientes de la Encuesta Continua de Hogares. Estos indicadores abordan distintas dimensiones, como por ejemplo, educación, salud y mercado laboral, entre otras. Un segundo aspecto relevante del monitor es su disponibilidad en la web, haciendo posible para un usuario final acceder a los resultados (estimaciones, intervalos, gráficos) sin necesidad de programar directamente. El monitor se encuentra disponible en el siguiente repositorio en \href{https://github.com/Mauri14/Trabajo-Final-de-Grado}{GitHub}.
 
-Este trabajo se estructura de la siguiente manera. En el capítulo 2 define el diseño de la ECH y se presentan los indicadores trabajados. En el capítulo 3 se exponen los métodos estadísticos utilizados en este trabajo, los conceptos y las fórmulas que se aplican tanto para las estimaciones puntuales como para los errores estándar e intervalos de confianza. El capítulo 4 refiere a la computación estadística, explicando la forma de cálculo de los indicadores, las características y el funcionamiento de la aplicación. En el capítulo 5 se presenta un ejemplo de aplicación de la app en dos indicadores. Finalmente en el capítulo 6 se realiza la discusión final, presentando los posibles trabajos a futuro.
+Este trabajo se estructura de la siguiente manera. En el capítulo 2 se describe el diseño de la ECH y se presentan los indicadores trabajados. En el capítulo 3 se exponen los métodos estadísticos utilizados en este trabajo, los conceptos y las fórmulas que se aplican tanto para las estimaciones puntuales como para los errores estándar e intervalos de confianza. El capítulo 4 refiere a la computación estadística, explicando la forma de cálculo de los indicadores, las características y el funcionamiento de la aplicación. En el capítulo 5 se presenta un ejemplo de aplicación de la app en dos indicadores. Finalmente en el capítulo 6 se realiza la discusión final, presentando los posibles trabajos a futuro.
 
 Buena parte de los resultados presentados en este trabajo fueron desarrollados en el marco del convenio entre IESTA y la Oficina de Planeamiento y Presupuesto (OPP), donde trabajé como integrante del equipo durante los años 2019 y 2020. Mis tareas consistieron principalmente en el cálculo de indicadores a partir de la ECH, en este contexto fue notorio que contar con una herramienta como el monitor que se presenta en este trabajo simplifica considerablemente la tarea. Parte de los resultados de este convenio fueron presentados en el siguiente informe \citep{informeOPP}.
 
@@ -143,40 +143,40 @@ Buena parte de los resultados presentados en este trabajo fueron desarrollados e
 % En el capítulo 2 define el diseño de la ECH y se presentan los indicadores trabajados. En el capítulo 3 se presentan los métodos estadísticos utilizados en este trabajo, tanto los conceptos como las fórmulas que se aplican tanto en las estimaciones puntuales como para los errores estándar e intervalos de confianza. El capítulo 4 refiere a la computación estadística, explicando la forma de cálculo de los indicadores, las características y el funcionamiento de la aplicación. En el capítulo 5 se presenta un ejemplo de aplicación de la app en dos indicadores. Finalmente en el capítulo 6 se realiza la discusión final, presentando los posibles trabajos a futuro.
 
 
-\chapter{Indicadores socioeconómicos en base a la ECH \label{cap:ind}}
+\chapter{Indicadores socioeconómicos \label{cap:ind}}
 
-\section{ECH \label{sec:ech}}
+\section{Encuesta Continua de Hogares (ECH) \label{sec:ech}}
 
-La Encuesta Continua de Hogares (ECH) es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es un tema de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
+La ECH es una encuesta realizada de forma ininterrumpida por el Instituto Nacional de Estadística (INE) desde el año 1968.  La ECH es de interés nacional, ya que brinda los indicadores oficiales del mercado laboral y de ingresos de los hogares y las personas con periodicidad mensual, trimestral, semestral y anual, entre otros.
 
-Esta encuesta cuenta con un diseño muestral aleatorio complejo, donde se incluyen estratos, conglomerados y se cuenta con varias etapas de selección. A continuación se realiza una breve descripción del mismo, la descripción completa se puede encontrar en \cite{ine}, disponible en \href{https://www.ine.gub.uy/c/document_library/get_file?uuid=225fb0f2-44f2-4e3b-8496-6f613be0617a&groupId=10181}{Ficha técnica Encuesta Continua de Hogares}.
+Esta encuesta cuenta con un diseño muestral aleatorio complejo, donde se incluyen estratos, conglomerados y se cuenta con varias etapas de selección. A continuación se realiza una breve descripción del mismo, la descripción completa se puede encontrar en \cite{ine}, disponible en la \href{https://www.ine.gub.uy/c/document_library/get_file?uuid=225fb0f2-44f2-4e3b-8496-6f613be0617a&groupId=10181}{Ficha técnica Encuesta Continua de Hogares}.
 
-En primer lugar se divide a la población en estratos geográficos que corresponden a los diecinueve departamentos y a la zona metropolitana. Mientras que en un segundo nivel de estratificación, se clasifica a todas las localidades dentro de cada departamento en cuatro categorías según la cantidad de habitantes con la que cuentan: 
+En primer lugar se divide a la población en estratos geográficos que corresponden a los diecinueve departamentos y a la zona metropolitana. En un segundo nivel de estratificación, se clasifica a todas las localidades dentro de cada departamento en cuatro categorías según la cantidad de habitantes. 
 
 \begin{itemize}
-\item Localidades con 20000 o más habitantes
-\item Localidades entre 5000 y 20000 habitantes
-\item Localidades entre 200 y 5000 habitantes
-\item Áreas rurales y localidades con menos de 200 habitantes
+\item Localidades de 20000 o más habitantes
+\item Localidades de entre 5000 y 20000 habitantes
+\item Localidades de entre 200 y 5000 habitantes
+\item Áreas rurales y localidades con menos de 200 habitantes.
 \end{itemize}
 
 Además en los departamentos de Maldonado y Rocha se agregan estratos correspondientes a las zonas balnearias. Montevideo, por su parte, queda particionado en cinco estratos socioeconómicos, mientras la zona metropolitana se divide en tres.
 
-Una vez definidos los estratos, se selecciona de manera independiente dentro de cada uno de ellos, conglomerados de viviendas (zonas censales), las cuales se denominan unidades primarias de muestreo (UPM). Estas se seleccionan bajo un muestreo sistemático y proporcional al tamaño (PPS), utilizando como medida de tamaño (MOS) la cantidad de viviendas según el censo de población y vivienda del año 2011. A continuación se presenta un gráfico donde se observa la distribución de la cantidad de UPM dentro de cada estrato.
+Una vez definidos los estratos, se selecciona de manera independiente dentro de cada uno de ellos, conglomerados de viviendas (zonas censales), las cuales se denominan unidades primarias de muestreo (UPM). Estas se seleccionan bajo un muestreo sistemático y proporcional al tamaño (PPS), utilizando como medida de tamaño (MOS, Measure Of Size) la cantidad de viviendas según el censo de población y vivienda del año 2011. A continuación se presenta un gráfico donde se observa la distribución de la cantidad de UPM dentro de cada estrato.
 
 \begin{figure}[ht]
 \begin{center}
 %\includegraphics[width=1\textwidth]{img/upm-estratos2.png}
 \includegraphics[scale=.5]{img/upm-estratos2.png}
-\caption{Distribución de la cantidad de UPM por estrato. \label{upm-est}}
+\caption{Histograma de la cantidad de UPM por estrato. \label{upm-est}}
 \end{center}
 \end{figure}
 
-Se observa que más de la mitad de los estratos (45 de los 82) tienen menos de 50 UPM (el ancho de los bins es de 50), mientras los estratos que contienen mayor cantidad de UPM son los pertenecientes a Montevideo y al área metropolitana. 
+El ancho de los bins es de 50, por lo que podemos observar que más de la mitad de los estratos (45 de los 82) tienen menos de 50 UPM. Los estratos que contienen mayor cantidad de UPM son los pertenecientes a Montevideo y al área metropolitana. 
 
 En la segunda etapa, dentro de cada UPM seleccionada en la primera etapa, se seleccionan cinco viviendas titulares y dos viviendas suplentes bajo un muestreo aleatorio simple.
 
-Dentro de cada vivienda seleccionada se relevan características propias de la vivienda así como información de todos los integrantes que conforman el hogar. Esto implica que la ECH brinde información para computar distintos indicadores no solo a nivel de hogar sino también a nivel de persona. Es por esto, que el INE publica dos bases de datos, una base con información a nivel del hogar y la vivienda y otra base con información a nivel de personas.
+Dentro de cada vivienda seleccionada se relevan características propias de la vivienda así como información de todos los integrantes que conforman el hogar. Esto implica que la ECH brinde información para calcular distintos indicadores no solo a nivel de hogar sino también a nivel de persona. Es por esto, que el INE publica dos bases de datos, una base con información a nivel del hogar y vivienda y otra base con información a nivel de personas.
 
 El tamaño de muestra efectivo anual de la ECH, es decir, la cantidad de hogares que fueron seleccionados en la muestra y respondieron a la encuesta, se encuentra en el entorno de 42000 hogares.
 
@@ -214,11 +214,11 @@ Finalmente la categoría \textit{Viviendas y hogares} cuenta con 8 indicadores, 
 
 Recordando que hay indicadores que se encuentran en varias categorías, en total se trabaja con 53 indicadores socio-económicos, desagregando todos por departamento y a su vez, algunos de estos se desagregan también por sexo o tramos etarios.
 
-En anexo \ref{ane:ind} se presenta un listado completo de los indicadores trabajados.
+En el anexo \ref{ane:ind} se presenta un listado completo de los indicadores trabajados.
 
-\chapter{Métodos estadísticos \label{cap:Met}}
+\chapter{Marco teórico \label{cap:Met}}
 
-En este capítulo se presenta el marco teórico para la inferencia sobre los indicadores presentados en el capítulo anterior. La presentación de los métodos se apoya en \citep{tesisJP} y el informe \citep{informeOPP} mencionado anteriormente. .En primer lugar se plantea la notación y las principales definiciones aplicadas, luego se presenta la inferencia estadística, es decir las fórmulas aplicadas para la estimación puntual de los indicadores y sus respectivos intervalos de confianza. Finalmente se presentan los métodos utilizados para el cálculo de los errores estándar (SE).
+En este capítulo se presenta el marco teórico para la inferencia sobre los indicadores presentados en el capítulo anterior. La presentación de los métodos se apoya en \citep{tesisJP} y el informe \citep{informeOPP} mencionado anteriormente. En primer lugar se plantea la notación y las principales definiciones aplicadas, luego se presenta la inferencia estadística, es decir las fórmulas aplicadas para la estimación puntual de los indicadores y sus respectivos intervalos de confianza. Finalmente se presentan los métodos utilizados para el cálculo de los errores estándar (SE).
 
 
 \section{Notación y definiciones \label{sec:not}}
@@ -231,7 +231,7 @@ Por ejemplo, un parámetro de interés puede ser el total de la variable de inte
 
 Donde $y_i$ es el valor que toma la variable $y$ en el individuo $i$.
 
-La mayoría de los indicadores calculados en este trabajo son tasas o proporciones, las cuales se obtienen a partir del cociente (ratio) entre totales de dos variables $y$ y $z$, quedando definido de la siguiente manera:
+La mayoría de los indicadores calculados en este trabajo son tasas o proporciones, las cuales se obtienen a partir del cociente (\emph{ratio}) entre totales de dos variables $y$ y $z$, quedando definido de la siguiente manera:
 
 \[ R=\frac{\sum_{i\in U} y_i}{\sum_{i\in U} z_i} \]
 
@@ -261,13 +261,13 @@ Tanto $t$ como $R$, definidos anteriormente, son desconocidos, por lo que serán
 \end{array}
 \end{equation}
 
-Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$ \citep{HT}. Donde $w_i$ es el peso de la unidad $i$ incluida en la muestra, es decir, $w_i$ indica cuántas unidades de la población $U$ que no fueron seleccionadas, están representadas por la unidad $i$ que sí pertenece a la muestra $s$. En la base de datos de personas de la ECH 2019, la variable correspondiente a los ponderadores anuales toma valores entre 7 y 57.
+Donde $w_i$ es el peso de la unidad $i$ incluida en la muestra, es decir, $w_i$ indica cuántas unidades de la población $U$ que no fueron seleccionadas, están representadas por la unidad $i$ que sí pertenece a la muestra $s$. En la base de datos de personas de la ECH 2019,  los ponderadores anuales toman valores entre 7 y 57. Este estimador es insesgado para el total $t=\sum_{U}^{}y_i$ \citep{HT}. 
 
-El insumo principal para la construcción de los ponderadores es la probabilidad de inclusión $\pi_i$ de la unidad $i$ en la muestra $s$. Más precisamente el ponderador o peso muestral $w_i$ se define como el inverso de la probabilidad de inclusión.
+La construcción de los ponderadores parten de la probabilidad de inclusión $\pi_i$ de la unidad $i$ en la muestra $s$. Más precisamente el ponderador o peso muestral $w_i$ se define como el inverso de la probabilidad de inclusión.
 
 La ECH en particular cuenta con un diseño muestral por conglomerados en dos etapas de selección, pero además es estratificado, es decir que la población $U$ en primera instancia se divide en $H$ estratos y se selecciona una muestra $s_h$ de forma independiente dentro de cada uno de ellos.
 
-Dentro de cada estrato se encuentran $M_h$ UPM de las cuales se seleccionan $m_h$ con probabilidad proporcional al tamaño, en base a una medida de tamaño (MOS), que en este caso, surge de la cantidad de viviendas $N_j$ de la UPM según los datos del censo de población del año 2011.
+Dentro de cada estrato se encuentran $M_h$ $UPM_s$ de las cuales se seleccionan $m_h$ con probabilidad proporcional al tamaño, en base a una medida de tamaño (MOS), que en este caso, surge de la cantidad de viviendas $N_j$ de la UPM según los datos del censo de población del año 2011.
 
 En una segunda etapa, se seleccionan $n_{jh}$ unidades dentro de cada UPM seleccionada previamente, bajo un muestreo aleatorio simple. Cabe aclarar que el número de unidades seleccionadas en cada UPM es fijo, es decir $n_j=\alpha$. Por lo tanto la probabilidad de inclusión en la muestra de una unidad $i$ queda definida como:
 
@@ -298,7 +298,7 @@ En toda encuesta suelen existir problemas de no respuesta, esto implica que en l
 
 \subsection{Intervalos de confianza \label{subsec:ic}}
 
-Los intervalos de confianza son una medida de calidad de las estimaciones y son computados con el fin de poder extraer conclusiones sobre la población. Estos se suelen calcular como el valor de la estimación puntual del parámetro $\theta$ más (menos para el extremo inferior) la estimación del error estándar del estimador multiplicado por una constante. Donde el estimador $\hat \theta$ se asume tiene una distribución aproximadamente normal, por lo que el intervalo de confianza para un parámetro $\theta$ con un nivel de confianza $100(1-\alpha)\%$ queda definido como:
+Los intervalos de confianza son una medida de calidad de las estimaciones y son calculados con el fin de poder extraer conclusiones sobre la población. Estos se suelen calcular como el valor de la estimación puntual del parámetro $\theta$ más (menos para el extremo inferior) la estimación del error estándar del estimador multiplicado por una constante. Se asume que el estimador $\hat \theta$ tiene una distribución aproximadamente normal, por lo que el intervalo de confianza para un parámetro $\theta$ con un nivel de confianza $100(1-\alpha)\%$ queda definido como:
 
 \begin{equation}\label{m18}
 \begin{array}{cc}
@@ -310,22 +310,22 @@ Particularmente se trabajará con una confianza del $95\%$, por lo que se sustit
 
 Un intervalo con nivel de confianza del $95\%$ significa que, en promedio, de cada 100 muestras obtenidas bajo el mismo diseño, el intervalo contiene al verdadero valor del parámetro en 95 de ellas.
 
-Uno de los insumos principales para la construcción de los intervalos de confianza son los errores estándar, por lo que a continuación se presentaran los métodos utilizados para el cálculo de los mismos.
+Para la construcción de los intervalos de confianza es necesario el cálculo de los errores estándar, por lo que a continuación se presentaran los métodos utilizados para el cálculo de los mismos.
 
 
 \section{Estimación de los errores estándar (SE) \label{sec:estse}}
 
-Como la muestra es aleatoria, los estimadores son variables aleatorias y están, por lo tanto, sujetos a fluctuación. Esta fluctuación puede ser medida a partir del error estándar (SE) de la estimación. El SE es una medida de la precisión de la estimación, que se puede utilizar para realizar inferencia de la población de interés, a partir de la construcción de intervalos de confianza. Los errores estándar son calculados con el objetivo de añadir a las estimaciones puntuales una medida de calidad de las mismas. Los estimadores presentan diversas fuentes de variabilidad, dadas tanto por el diseño muestral utilizado como por los ajustes realizados a los ponderadores. Por esta razón, se busca que la estimación de los SE capte de la mejor manera posible estas variaciones.
+Como la muestra es aleatoria, los estimadores son variables aleatorias y están, por lo tanto, sujetos a variación. Esta variación puede ser medida a partir del error estándar (SE) de la estimación. El SE es una medida de la precisión de la estimación, que se puede utilizar para realizar inferencia de la población de interés, a partir de la construcción de intervalos de confianza. Los errores estándar son calculados con el objetivo de añadir a las estimaciones puntuales una medida de calidad de las mismas. Los estimadores presentan diversas fuentes de variabilidad, dadas tanto por el diseño muestral utilizado como por los ajustes realizados a los ponderadores. Por esta razón, se busca que la estimación de los SE capte de la mejor manera posible estas variaciones.
 
 Existen también los errores no muestrales, que no se deben a la utilización de una muestra, sino a otras causas, como por ejemplo errores en la recolección o en el procesamiento de los datos, entre otros. Estos no serán abordados en este trabajo en particular.
 
 El no contar con parte de la información sobre el diseño de muestreo en las bases de datos públicas de las encuestas puede llevar al usuario a obtener resultados incorrectos a la hora de estimar los SE. En el caso de la ECH, para los años anteriores a 2018 no se cuenta con la disponibilidad de información clave sobre el diseño muestral, como las unidades primarias de muestreo (UPM) y los estratos a los que pertenece cada individuo.
 
-No existen métodos exactos para calcular los SE en el caso de un diseño complejo como el de la ECH, ya que el estimador planteado por \citep{HT} necesita de las probabilidades de inclusión de segundo orden, con las cuales no se cuenta. Por lo tanto, se debe optar por un método que aproxime la variabilidad de las estimaciones de la mejor forma posible. En este trabajo en particular se recurrió a la aproximación de una etapa planteado en \citep{Lumley} en conjunto con la linearización de Taylor, el cual se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método permite calcular los SE para parámetros lineales y no lineales \citep{surveyLumley}.
+No existen métodos exactos para calcular los SE en el caso de un diseño complejo como el de la ECH, ya que el estimador planteado por \citep{HT} necesita de las probabilidades de inclusión de segundo orden, con las cuales no se cuenta. Por lo tanto, se debe optar por un método que aproxime la varianza de las estimaciones de la mejor forma posible. En este trabajo en particular se recurrió a la aproximación de una etapa planteado en \citep{Lumley} en conjunto con la linearización de Taylor, el cual se encuentra implementado en el paquete \textit{survey} \citep{survey} del \textit{R} \citep{r}. Este método permite calcular los SE para parámetros lineales y no lineales \citep{surveyLumley}.
 
 \subsection{Aproximación de una etapa \label{subsec:unaetapa}}
 
-Este método, planteado inicialmente por \citep{Hansen} con el nombre de \emph{The ultimate cluster variance estimate}, es un método utilizado para la aproximación de varianzas en muestras obtenidas a partir de diseños muestrales complejos, particularmente cuando estos incluyen varias etapas de selección. El mismo consiste principalmente en utilizar únicamente la varianza de los estimadores en la primera etapa, es decir, en la selección de las UPM, sin tener en cuenta las etapas posteriores, asumiendo así que la variabilidad se encuentra mayormente en esta primera etapa de selección.
+Este método, planteado inicialmente por \citep{Hansen} con el nombre de \emph{"The ultimate cluster variance estimate"}, es un método utilizado para la aproximación de varianzas en muestras obtenidas a partir de diseños muestrales complejos, particularmente cuando estos incluyen varias etapas de selección. El mismo consiste principalmente en utilizar únicamente la varianza de los estimadores en la primera etapa, es decir, en la selección de las UPM, sin tener en cuenta las etapas posteriores, asumiendo así que la variabilidad se encuentra mayormente en esta primera etapa de selección.
 
 En un diseño como el de la ECH, que consta de dos etapas de selección, la varianza de los estimadores tiene dos componentes: la variabilidad entre las UPM y la variabilidad dentro de las UPM. En las situaciones donde $N$ es grande, la contribución de este segundo componente a la varianza es despreciable en comparación con el primer componente \citep{Lohr}. Por lo tanto, a la hora de estimar la varianza del estimador del total de una variable $y$ bajo un diseño muestral como el de la ECH, se utiliza la siguiente fórmula: 
 
@@ -339,14 +339,14 @@ En un diseño como el de la ECH, que consta de dos etapas de selección, la vari
 
 Siendo $\hat t_{jh}=\sum\nolimits_{s_{jh}} w_i\times y_i$ la estimación del total de la variable $y$ en la UPM $j$ perteneciente al estrato $h$, $\hat t_h=\sum\limits_{j \in s_h}\hat t_{jh}$ la estimación del total de la variable $y$ en el estrato $h$. Mientras que $m_h$, como se definió anteriormente, es la cantidad de UPM pertenecientes al estrato $h$ seleccionadas en la muestra.
 
-En el caso de la estimación en dominios se debe reemplazar la variable $y$, presente en la ecuación anterior \ref{ec:m13}, por una variable $y_d$ que toma el valor $y$ cuando la unidad pertenece al dominio $d$ en cuestión, y cero cuando no pertenece al dominio. Como el tamaño de muestra en el dominio suele ser aleatorio, mediante este procedimiento se logra incluir una variabilidad extra que lo refleje. 
+En el caso de la estimación en dominios se debe remplazar la variable $y$, presente en la ecuación anterior \ref{ec:m13}, por una variable $y_d$ que toma el valor $y$ cuando la unidad pertenece al dominio $d$ en cuestión, y cero cuando no pertenece al dominio. Como el tamaño de muestra en el dominio suele ser aleatorio, mediante este procedimiento se logra incluir una variabilidad extra que lo refleje. 
 
 Una de las principales ventajas que presenta este método es que utiliza directamente los expansores o pesos muestrales que se encuentran en las bases públicas de la ECH.
 
 
 \subsection{Linearización de Taylor \label{subsec:taylor}}
 
-La mayoría de los indicadores trabajados no son lineales, ya que como se mencionó anteriormente son ratios o cocientes entre totales. La aproximación por linearización de Taylor, planteada entre otros por \citep{sarndal2003model}, se basa en expresar el estimador no lineal como función de estimadores lineales. En primer lugar se utiliza el desarrollo de Taylor de primer orden para aproximar el estimador de ratio $R=t_y/t_z$:
+La mayoría de los indicadores trabajados no son lineales, ya que como se mencionó anteriormente son cocientes entre totales. La aproximación por linearización de Taylor, planteada entre otros por \citep{sarndal2003model}, se basa en expresar el estimador no lineal como función de estimadores lineales. En primer lugar se utiliza el desarrollo de Taylor de primer orden para aproximar el estimador de ratio $R=t_y/t_z$:
 
 \[ \hat  R \approx R +\frac{1}{t_z}\times \sum\nolimits_{i\in s} w_i\times (y_i-Rz_i) \]
 
@@ -364,13 +364,13 @@ Para la estimación en un dominio en particular, se procede de la misma manera q
 
 \chapter{Métodos computacionales \label{cap:comp}}
 
-En este cápitulo se presentan en primer lugar los programas y funciones utilizados para la estimación de los indicadores, mostrando un ejemplo concreto. Luego se realiza una introducción a las aplicaciones web Shiny y se explica el funcionamiento de la app creada en este trabajo.
+En este cápitulo se presentan en primer lugar los programas y funciones utilizados para la estimación de los indicadores, utilizando un ejemplo en concreto. Luego se realiza una introducción a las aplicaciones web Shiny y se explica el funcionamiento de la app creada en este trabajo.
 
 \section{Estimación de los indicadores \label{sec:estindic}}
 
-Para replicar el diseño muestral de la ECH y poder llevar a cabo el cómputo de los indicadores, se utiliza el software libre \textit{R}, más precisamente el paquete \textit{srvyr} \citep{srvyr}. Este paquete utiliza las funciones del paquete \textit{survey} antes mencionado, permitiendo el uso de un estilo de sintaxis inspirado en el paquete \textit{dplyr} \citep{dplyr}.
+Para replicar el diseño muestral de la ECH y poder llevar a cabo el cálculo de los indicadores, se utiliza el software libre \textit{R}, más precisamente el paquete \textit{srvyr} \citep{srvyr}. Este paquete utiliza las funciones del paquete \textit{survey} antes mencionado, permitiendo el uso de un estilo de sintaxis inspirado en el paquete \textit{dplyr} \citep{dplyr}.
 
-El paquete \textit{srvyr} cuenta con funciones tales como $survey\_mean$ para calcular medias o proporciones, $survey\_ratio$ para ratios o $survey\_total$ para totales. Estas funciones utilizan el valor que toma el indicador en cada uno de los individuos (hogares o personas según corresponda) de la muestra y los ponderadores, dando como resultado tanto las estimaciones puntuales que correspondan, como las estimaciones de los errores estándar, utilizando las ecuaciones y metodologías descritas en este documento para realizar los cálculos.
+El paquete \textit{srvyr} cuenta con funciones tales como $survey\_mean$ para calcular medias o proporciones, $survey\_ratio$ para ratios o $survey\_total$ para totales. Estas funciones utilizan el valor que toma el indicador en cada uno de los individuos (hogares o personas según corresponda) de la muestra y los ponderadores, dando como resultado tanto las estimaciones puntuales, como las estimaciones de los errores estándar, utilizando las ecuaciones y metodologías descritas en este documento para realizar los cálculos.
 
 A continuación se presenta un breve ejemplo de cómo se utilizan las funciones de esta librería, para el caso concreto del indicador \textit{Utilización de computadora el último mes por sexo}.
 
@@ -388,9 +388,9 @@ ind<-diseno%>%
       summarise(estimacion.tot= survey_mean(eval(parse(text=variable))))
 @
 
-En primer lugar se crea el objeto de diseño mediante la función $as\_survey\_design$, donde los insumos que se le indican son las unidades primarias de muestreo ($upm\_fic$), los ponderadores ($pesoano$) y los estratos ($estrato$). Todas estas son variables presentes en la base de datos de la ECH. Luego se crean los objetos filtro y variable, el filtro define la población objetivo, que en este caso son las personas mayores de 5 años, mientras que la variable utilizada es $e61==1$, la cual es una variable presente en la ECH, que hace referencia a la utilización de computadora en el último mes.
+En primer lugar se crea el objeto de diseño mediante la función $as\_survey\_design$, donde los argumentos que se le indican son las unidades primarias de muestreo ($upm\_fic$), los ponderadores ($pesoano$) y los estratos ($estrato$). Todas estas son variables presentes en las base de datos de la ECH 2019. Luego se crean los objetos filtro y variable, el filtro define la población objetivo, que en este caso son las personas mayores de 5 años, mientras que la variable utilizada es $e61==1$, la cual es la variable de la ECH, que hace referencia a la utilización de computadora en el último mes.
 
-Las líneas de código siguientes son la base de las funciones creadas para el cálculo de los indicadores, donde en este caso se le indica el objeto de diseño, se le aplica el filtro necesario, se agrupa por departamento y por sexo ($e26$) y se estima la media de la variable indicada para cada sexo a nivel de cada departamento, dando como resultado un objeto (data frame) con las estimaciones puntuales y errores estándar para el indicador deseado.
+Las líneas de código siguientes son la base de las funciones creadas para el cálculo de los indicadores, donde en este caso se le indica el objeto de diseño, se le aplica el filtro necesario, se agrupa por departamento y por sexo ($e26$) y se estima la media de la variable indicada para cada sexo a nivel de cada departamento, dando como resultado un objeto (\emph{data frame}) con las estimaciones puntuales y errores estándar para el indicador deseado.
 
 Tanto para el filtro como para la variable se utilizan las funciones $eval$ y $parse$, la función $parse$ convierte texto en expresiones, mientras que la función $eval$ evalúa expresiones.
 
@@ -436,11 +436,11 @@ Este indicador es estimado en base a personas y con desagregación por departame
 
 \subsection{Descripción de los diseños \label{subsec:dis}}
 
-El insumo \textit{diseño muestral} que utilizan las funciones creadas para el cálculo de los indicadores, depende de la información disponible con la que cuente el usuario. En las bases públicas del INE no se cuenta con información del estrato ni de la UPM a la que pertenece el individuo, por lo que en la app aparecen dos opciones. La opción \textit{pública} se utiliza cuando no se cuenta con esta información, mientras que en caso de contar con la misma se utiliza la opción \textit{estratos+UPM}.
+El argumento \textit{diseño muestral} que utilizan las funciones creadas para el cálculo de los indicadores, depende de la información disponible con la que cuente el usuario. En las bases públicas del INE no se cuenta con información del estrato ni de la UPM a la que pertenece el individuo, por lo que en la app aparecen dos opciones. La opción \textit{pública} se utiliza cuando no se cuenta con esta información, mientras que en caso de contar con la misma se utiliza la opción \textit{estratos+UPM}.
 
 En caso de no contar con la información de estratos y UPM, los cálculos de los intervalos de confianza son incorrectos, ya que esta información es esencial para poder realizar una aproximación correcta de los SE y así poder construir los intervalos de confianza.
 
-Cabe aclarar que INE hizo pública esta información para los años 2018 y 2019.
+Cabe aclarar que el INE hizo pública esta información para los años 2018 y 2019.
 
 \section{Aplicación web utilizando Shiny \label{sec:shiny}}
 
@@ -550,15 +550,15 @@ En la misma pestaña se observan como resultados los dos tipos de gráficos ante
 \end{center}
 \end{figure}
 
-En el gráfico \ref{barras} los departamentos están ordenados por el valor que toman, más precisamente por el promedio de los tres valores (Hombre, Mujer y Total) correspondientes al departamento, por lo que podemos observar que los departamentos con mayor tasa de desempleo son Durazno y Salto, mientras Cerro Largo y San José son los que presentan menor desempleo. También podemos observar que el desempleo afecta más a las mujeres en prácticamente todos los departamentos.
+En la Figura \ref{barras} los departamentos están ordenados por el valor que toman, más precisamente por el promedio de los tres valores (Hombre, Mujer y Total) correspondientes al departamento, por lo que podemos observar que los departamentos con mayor tasa de desempleo son Durazno y Salto, mientras Cerro Largo y San José son los que presentan menor desempleo. También podemos observar que el desempleo afecta más a las mujeres en prácticamente todos los departamentos.
 
 Para el gráfico de mapa se debe seleccionar la categoría a graficar, en este caso las opciones son \textit{Hombre}, \textit{Mujer} o \textit{Total}, de las cuales se selecciona la categoría \textit{Hombre}. 
 
-En este gráfico presentado en la figura \ref{mapa} se pueden visualizar y analizar además aspectos geográficos, como comparar la tasa de desempleo en departamentos cercanos. Por ejemplo podemos observar que los departamentos ubicados en el sureste del país se comportan de manera similar en este caso.
+En este gráfico presentado en la Figura \ref{mapa} se pueden visualizar y analizar además aspectos geográficos, como comparar la tasa de desempleo en departamentos cercanos. Por ejemplo podemos observar que los departamentos ubicados en el sureste del país se comportan de manera similar en este caso.
 
-Como se puede observar en la figura \ref{mapa}, al colocar el cursor sobre uno de los departamentos, el gráfico nos brinda el valor de la estimación para dicho departamento. Esto también es posible en el diagrama de barras presentado y es una de las ventajas del uso de gráficos interactivos creados con la librería \textit{plotly}.
+Como se puede observar en la Figura \ref{mapa}, al colocar el cursor sobre uno de los departamentos, el gráfico nos brinda el valor de la estimación para dicho departamento. Esto también es posible en el diagrama de barras presentado y es una de las ventajas del uso de gráficos interactivos creados con la librería \textit{plotly}.
 
-En la segunda pestaña de esta sección se puede observar una tabla como la presentada en la figura \ref{tabl}, que contiene las estimaciones puntuales del indicador seleccionado, a nivel departamental y nacional.
+En la segunda pestaña de esta sección se puede observar una tabla como la presentada en la Figura \ref{tabl}, que contiene las estimaciones puntuales del indicador seleccionado, a nivel departamental y nacional.
 
 \begin{figure}[htbt]
 \begin{center}
@@ -599,7 +599,7 @@ La diferencia en este indicador es que se presenta un gráfico de barras apilada
 \begin{center}
 %\includegraphics[width=1\textwidth]{img/Barras_hog.PNG}
 \includegraphics[scale=.5]{img/Barras_hog.PNG}
-\caption{Gráfico de barras de la proporción de hogares por presencia de lugar para cocinar por departamento para el año 2019. \label{barras2}}
+\caption{Gráfico de barras apiladas al $100\%$ de la proporción de hogares por presencia de lugar para cocinar por departamento para el año 2019. \label{barras2}}
 \end{center}
 \end{figure}
 
@@ -619,7 +619,7 @@ En el caso de este indicador, como se observa en la figura \ref{IC2}, también h
 
 \chapter{Discusión \label{cap:discu}}
 
-La Encuesta Continua de Hogares permite obtener estimaciones sobre una gran cantidad de indicadores que abordan distintas dimensiones. Cada año el INE calcula una determinada cantidad de indicadores, en su mayoría a nivel de todo el país y desagregando en Montevideo e interior, añadiendo además algunas medidas de calidad de las estimaciones, como lo son los intervalos de confianza o coeficientes de variación.
+La Encuesta Continua de Hogares permite obtener estimaciones sobre una gran cantidad de indicadores que abordan distintas dimensiones. Cada año el INE calcula una determinada cantidad de indicadores, en su mayoría a nivel de todo el país y desagregando en Montevideo e Interior, añadiendo además algunas medidas de calidad de las estimaciones, como lo son los intervalos de confianza o coeficientes de variación.
 
 Cualquier usuario puede obtener sus propias estimaciones puntuales sobre distintos indicadores a partir de la ECH, ya que para ello es necesario contar únicamente con los pesos muestrales, los cuales, se encuentran incluidos en las bases de datos públicas. Sin embargo resulta más complejo el poder obtener ciertas medidas de calidad de las estimaciones.
 
