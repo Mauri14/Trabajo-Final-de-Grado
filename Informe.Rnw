@@ -85,7 +85,7 @@ Informe de Pasantía
 \vspace{2cm}
 
 \noindent Tutores:\\
-\noindent Ignacio Alvarez-Castro\\
+\noindent Ignacio Álvarez-Castro\\
 \noindent Juan José Goyeneche\\
 
 
@@ -466,7 +466,7 @@ Para una mejor visualización se utilizó la librería \emph{shinydashboard}, qu
 
 Dentro del encabezado solo aparece el título y un link que lleva directamente a la página del INE donde están disponibles las bases de datos de la ECH.
 
-La barra lateral es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función \textit{fileInput} y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPM (en caso de contar con este). También se incluye un widget mediante la función \textit{selectInput} para que el usuario pueda especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPM.
+La barra lateral \ref{lateral} es utilizada para cargar las bases de datos y para seleccionar la sección que se desee visualizar, ya sea la pestaña de introducción o las correspondientes a las diferentes categorías de los indicadores. Para cargar los datos se utiliza la función \textit{fileInput} y se deben cargar por separadas las bases de personas y de hogares de la ECH y el archivo que contiene la información acerca de los estratos y UPM (en caso de contar con este). También se incluye un widget mediante la función \textit{selectInput} para que el usuario pueda especificar si las bases utilizadas son las públicas o si se cuenta con la información de estratos y UPM.
 
 \begin{figure}[htb]
 \begin{center}
@@ -475,29 +475,31 @@ La barra lateral es utilizada para cargar las bases de datos y para seleccionar 
 \end{center}
 \end{figure}
 
-En el body se especifica el contenido de cada una de las secciones. En primer lugar se encuentra la ventana de inicio, que fue creada para realizar una introducción a la app, y cuenta con dos pestañas creadas con la función \emph{tabPanel}. En la primera de estas se encuentra un manual de uso de la aplicación, donde se explica su utilidad y los pasos a seguir para el correcto funcionamiento de la misma. Por otra parte, en la segunda pestaña se encuentra un listado con las variables de las bases de datos de la ECH que son utilizadas en la app, las cuales, como se mencionó anteriormente, son fundamentales para el funcionamiento de la aplicación.
+En el body se especifica el contenido de cada una de las secciones. En primer lugar se encuentra la ventana de inicio \ref{inicio}, que fue creada para realizar una introducción a la app, y cuenta con dos pestañas creadas con la función \emph{tabPanel}. En la primera de estas se encuentra un manual de uso de la aplicación, donde se explica su utilidad y los pasos a seguir para el correcto funcionamiento de la misma. Por otra parte, en la segunda pestaña se encuentra un listado con las variables de las bases de datos de la ECH que son utilizadas en la app, las cuales, como se mencionó anteriormente, son fundamentales para el funcionamiento de la aplicación.
 
-La sección de los indicadores cuenta con 3 pestañas (\ref{pest}).
 
-\begin{figure}[h]
+\begin{figure}[hbpt]
 \begin{center}
-\includegraphics[width=0.30\textwidth]{img/cat.PNG}
-\caption{Categorías de indicadores. \label{cat}}
+%\includegraphics[width=1\textwidth]{img/Mapa.png}
+\includegraphics[scale=.4]{img/inicio.PNG}
+\caption{Ventana inicial de la app. \label{inicio}}
 \end{center}
 \end{figure}
 
-\begin{figure}[h]
+
+\begin{figure}[hbpt]
 \begin{center}
-\includegraphics[width=0.30\textwidth]{img/pest.PNG}
-\caption{Pestañas. \label{pest}}
+%\includegraphics[width=1\textwidth]{img/Mapa.png}
+\includegraphics[scale=.4]{img/secc_ind.PNG}
+\caption{Sección indicadores. \label{indic}}
 \end{center}
 \end{figure}
 
-En la primera de estas pestañas se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para los resultados. Un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). El gráfico de mapa es una herramienta útil para poder visualizar los resultados, en este caso, a nivel departamental, pudiendo observar en caso de que existiese, alguna relación entre el indicador que se esté observando con el aspecto geográfico. Mientras el gráfico de barras se utiliza para resumir un conjunto de datos por categorías, utilizando las barras simples cuando la única categorización es departamental, agrupadas cuando se presenta además otra variable con diferentes categorías (por ejemplo el sexo), y apiladas cuando además de presentar otra variable categórica, estas categorías suman el $100\%$ dentro de cada grupo (departamento). 
+La sección de los indicadores cuenta con 3 pestañas. En la primera de estas \ref{indic} se selecciona el indicador que se quiere calcular y se pueden visualizar dos tipos de gráficos para los resultados. Un gráfico de mapa donde, en caso de que corresponda, se puede seleccionar la categoría a graficar, y un diagrama de barras (apiladas, agrupadas o simple según el caso). Para poder observar ambos gráficos se debe hacer click en el botón \textbf{Go} creado mediante \textit{actionButton}. El gráfico de mapa es una herramienta útil para poder visualizar los resultados, en este caso, a nivel departamental, pudiendo observar posibles aspectos geográficos. Mientras el gráfico de barras se utiliza para resumir un conjunto de datos por categorías, utilizando las barras simples cuando la única categorización es departamental, agrupadas cuando se presenta además otra variable con diferentes categorías (por ejemplo el sexo), y apiladas cuando además de presentar otra variable categórica, estas categorías suman el $100\%$ dentro de cada grupo (departamento). 
 
 En la segunda pestaña se puede observar una tabla para las estimaciones puntuales del indicador seleccionado y un botón de descarga (\textit{downloadButton}) para poder descargar dicha tabla en formato csv. A partir de una tabla se pueden visualizar los resultados en formato de filas y columnas, permitiendo al usuario filtrar valores. 
 
-Mientras la tercera pestaña cuenta con tres paneles, en los dos primeros aparecen las tablas para los límites de los intervalos de confianza de las estimaciones, primero para el límite inferior y en el segundo para el superior, ambas tablas también cuentan con un botón de descarga. En el tercer panel se encuentra un gráfico donde se visualiza la estimación puntual del indicador en cuestión, con su respectivo intervalo de confianza al $95\%$, contando además con un seleccionador de la categoría a graficar en caso de ser necesario. Esta última es posiblemente la forma más completa de visualizar los resultados, ya que se presenta en el mismo gráfico el valor de la estimación puntual del indicador junto con una medida de calidad de la estimación como lo es el intervalo de confianza.
+Mientras la tercera pestaña (IC) cuenta con un gráfico y una tabla donde se visualiza la estimación puntual del indicador en cuestión, con su respectivo intervalo de confianza al $95\%$, contando además con un seleccionador de la categoría a observar en caso de ser necesario. Esta última es posiblemente la forma más completa de visualizar los resultados, ya que se presenta en el mismo gráfico (o tabla) el valor de la estimación puntual del indicador junto con una medida de calidad de la estimación como lo es el intervalo de confianza. 
 
 \subsection{Comportamiento reactivo \label{subsec:server}}
 
@@ -568,7 +570,7 @@ En la segunda pestaña de esta sección se puede observar una tabla como la pres
 \end{center}
 \end{figure}
 
-Por último, en la pestaña \textit{IC}, se observan tablas con los límites de los intervalos de confianza al $95\%$ de las estimaciones anteriores y un gráfico donde se presenta la estimación puntual del indicador junto con su respectivo intervalo de confianza. Se presenta este gráfico para la tasa de desempleo en hombres.
+Por último, en la pestaña \textit{IC}, se observan un gráfico y una tabla donde se presenta la estimación puntual del indicador junto con su respectivo intervalo de confianza. Se presenta el gráfico y la tabla correspondientes para la tasa de desempleo en hombres en las Figuras \ref{ICdesem} y \ref{ICdesemtab} respectivamente.
 
 \begin{figure}[htb]
 \begin{center}
@@ -578,7 +580,15 @@ Por último, en la pestaña \textit{IC}, se observan tablas con los límites de 
 \end{center}
 \end{figure}
 
-En el gráfico \ref{ICdesem} el orden de los departamentos está determinado por el valor de la estimación puntual del indicador en el mismo. Podemos observar que la mayoría de los intervalos se solapan, por lo que las diferencias entre estos departamentos no son estadísticamente significativas. También se observa que los intervalos son menos amplios para el total país y los departamentos más poblados (Montevideo y Canelones), lo cual es esperable debido al mayor tamaño de muestra en estos casos.
+\begin{figure}[h!]
+\begin{center}
+%\includegraphics[width=1\textwidth]{img/IC.PNG}
+\includegraphics[scale=.4]{img/IC_tab1.PNG}
+\caption{Tabla con la estimación de la tasa de desempleo en hombres para los 19 departamentos y para todo el país en el año 2019, con los respectivos intervalos de confianza al $95\%$. \label{ICdesemtab}}
+\end{center}
+\end{figure}
+
+En la Figura \ref{ICdesem} el orden de los departamentos está determinado por el valor de la estimación puntual del indicador en el mismo. Podemos observar que la mayoría de los intervalos se solapan, por lo que las diferencias entre estos departamentos no son estadísticamente significativas. También se observa que los intervalos son menos amplios para el total país y los departamentos más poblados (Montevideo y Canelones), lo cual es esperable debido al mayor tamaño de muestra en estos casos.
 
 \section{Hogares por presencia de lugar para cocinar \label{sec:hog}}
 
@@ -603,7 +613,7 @@ La diferencia en este indicador es que se presenta un gráfico de barras apilada
 \end{center}
 \end{figure}
 
-En la figura \ref{barras2} se observa que en todos los departamentos predomina la presencia de lugar privado para cocinar en los hogares. En Río Negro es donde la categoría \emph{Compartido} tiene mayor frecuencia, mientras los departamentos de Durazno, Paysandú y Salto son aquellos en los que los hogares que no tienen lugar para cocinar representan un porcentaje mayor.
+En la Figura \ref{barras2} se observa que en todos los departamentos predomina la presencia de lugar privado para cocinar en los hogares. En Río Negro es donde la categoría \emph{Compartido} tiene mayor frecuencia, mientras los departamentos de Durazno, Paysandú y Salto son aquellos en los que los hogares que no tienen lugar para cocinar representan un porcentaje mayor.
 
 El gráfico de mapa es similar al presentado para la tasa de desempleo, donde también se puede seleccionar la categoría a visualizar. La visualización de las tablas de estimaciones puntuales e intervalos de confianza también son similares al caso del indicador anterior.
 
@@ -615,7 +625,7 @@ El gráfico de mapa es similar al presentado para la tasa de desempleo, donde ta
 \end{center}
 \end{figure}
 
-En el caso de este indicador, como se observa en la figura \ref{IC2}, también hay intervalos que se solapan, mientras que el departamento con el intervalo más amplio es Río Negro (0.843 - 0.90).
+En el caso de este indicador, como se observa en la Figura \ref{IC2}, también hay intervalos que se solapan, mientras que el departamento con el intervalo más amplio es Río Negro (0.843 - 0.90).
 
 \chapter{Discusión \label{cap:discu}}
 
