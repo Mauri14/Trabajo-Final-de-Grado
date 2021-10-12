@@ -1,7 +1,7 @@
 
 ##########
 ## ui.R ##
-##########
+#########
 
 #### Encabezado ####
 
@@ -47,6 +47,7 @@ barra_lateral <- dashboardSidebar(
              menuSubItem("Viviendas y hogares", tabName = "hogares", icon = icon("home"))
              
     )
+   
     
   )
 )
@@ -69,7 +70,7 @@ contenido <- dashboardBody(
                   p(strong("Para el correcto funcionamiento de la app se deben seguir los siguientes pasos:", style= "font-size: 18px;")),
                   p("En primer lugar se deben cargar las bases de datos de la ECH con las opciones presentes en la barra lateral. En el primer espacio se debe cargar la base de personas, en el segundo la base de hogares y por último se debe cargar el archivo que contiene la información sobre estratos y unidades primarias de muestreo, en caso de contar con la disponibilidad del mismo. Si se cuenta con esta información, se debe seleccionar la opción estratos+UPM, de lo contrario se debe seleccionar la opción pública. Es importante remarcar que todas las bases de datos deben ser cargadas en formato .SAV.
                     En la esquina superior de la app se encuentra el link de acceso a la página web del Instituto Nacional de Estadística (INE), donde se encuentran disponibles las bases de datos de la encuesta.",style="text-align:justify;color:black;background-color:lavender;padding:15px;border-radius:10px;font-size: 18px;"),
-                  p("Una vez cargados los datos, se debe seleccionar la sección", em("indicadores"), " y dentro de esta el indicador que se desea visualizar, contando con distintos tipos de gráficos y con una tabla con los resultados de las estimaciones puntuales. En el caso del gráfico de mapa, en la mayoría de los indicadores, se debe seleccionar la categoría a visualizar.
+                  p("Una vez cargados los datos, se debe seleccionar la sección", em("indicadores"), " y dentro de esta el indicador que se desea visualizar, contando con distintos tipos de gráficos y con una tabla con los resultados de las estimaciones puntuales. En el caso del gráfico de mapa, en la mayoría de los indicadores, se debe seleccionar la categoría a visualizar y posteriormente hacer click en Go.
                     
                     Además de las estimaciones puntuales para los indicadores, se encuentran los resultados de los intervalos de confianza al 95% para las estimaciones.", strong(" Cabe aclarar que, de no estar utilizando la información sobre los estratos y las unidades primarias de muestreo, no se debe tener en cuenta los resultados de los intervalos de confianza ya que son incorrectos."), " Esto se debe a que la información sobre el diseño muestral es fundamental para el cálculo de los errores estándar de las estimaciones y con ello de los intervalos de confianza. Todas las tablas pueden ser descargadas en formato csv con el botón de descarga que tienen abajo de cada una, mientras los gráficos se pueden descargar en formato png.",style="text-align:justify;color:black;background-color:lavender;padding:15px;border-radius:10px;font-size: 18px;"),
                   p("En la siguiente pestaña de esta sección, se encuentra el listado de variables de la ECH utilizadas en la app. Estas variables son fundamentales para el correcto funcionamiento de la aplicación, por lo que en caso de utilizar los datos de la encuesta para un año distinto a 2019, se debe verificar que estas variables no hayan sufrido cambios. En caso de que alguna de las variables haya cambiado de nombre en la base, se debe modificar el código de la app, o en su defecto modificar el nombre de la variable en la base de datos.",style="text-align:justify;color:black;background-color:lavender;padding:15px;border-radius:10px;font-size: 18px;"),
@@ -121,7 +122,7 @@ contenido <- dashboardBody(
                                                                                                                                                  "Promedio de años de educación de las personas de 25 años o más por sexo"="1380",
                                                                                                                                                  "Tasa bruta de asistencia de 6 a 11 años a educación primaria"="747",
                                                                                                                                                  "Tasa bruta de asistencia de 3 a 5 años a educación preescolar"="746",
-                                                                                                                                                 "Tasa bruta de asistencia de 12 a 17 años a educación media"="1808"))),
+                                                                                                                                                 "Tasa bruta de asistencia de 12 a 17 años a educación media"="1808")),actionButton("go_edu", "Go")),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionEdu")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_edu",height = 740), height = 800, width = 6), 
@@ -132,22 +133,11 @@ contenido <- dashboardBody(
                          tabBox(
                            width = 12,
                            tabPanel(
-                             status= "primary",
-                             title = "Inferior",
-                             DTOutput("InfEdu"),
-                             p(class = 'text-center', downloadButton('dinf1', 'Descargar'))
-                           ),
-                           tabPanel(
                              status= "success",
-                             title = "Superior",
-                             DTOutput("SupEdu"),
-                             p(class = 'text-center', downloadButton('dsup1', 'Descargar'))
-                           ),
-                           tabPanel(
-                             status= "success",
-                             title = "Gráfico",
+                             title = "IC",
                              uiOutput("SeleccionEdu2"),
-                             plotlyOutput("ic_edu", height = 740)
+                             plotlyOutput("ic_edu", height = 740), 
+                             DTOutput("tabla_ic_edu")
                            )
                          )
                          
@@ -160,7 +150,7 @@ contenido <- dashboardBody(
                        fluidRow(   
                          box(title= "Indicador", width = 7, solidHeader = TRUE, status = "primary",selectInput("Nombre2", "Indicador", choices= c("Personas afiliadas a emergencias móviles por sexo"="501",
                                                                                                                                                   "Personas afiliadas a emergencias móviles por tramos de edad"="529",
-                                                                                                                                                  "Personas por tipo de atención en salud"="517"))),
+                                                                                                                                                  "Personas por tipo de atención en salud"="517")),actionButton("go_salud", "Go")),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionSalud")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_salud",height = 740), height = 800, width = 6), 
@@ -171,23 +161,11 @@ contenido <- dashboardBody(
                          tabBox(
                            width = 12,
                            tabPanel(
-                             status= "primary",
-                             title = "Inferior",
-                             DTOutput("InfSalud"),
-                             p(class = 'text-center', downloadButton('dinf2', 'Descargar'))
-                           ),
-                           tabPanel(
                              status= "success",
-                             title = "Superior",
-                             DTOutput("SupSalud"),
-                             p(class = 'text-center', downloadButton('dsup2', 'Descargar'))
-                             
-                           ),
-                           tabPanel(
-                             status= "success",
-                             title = "Gráfico",
+                             title = "IC",
                              uiOutput("SeleccionSalud2"),
-                             plotlyOutput("ic_salud", height = 740)
+                             plotlyOutput("ic_salud", height = 740), 
+                             DTOutput("tabla_ic_salud")
                            )
                          )
                          
@@ -210,7 +188,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Tasa de desempleo por tramos de edad"="531",
                                                                                                                                                   "Tasa de empleo por tramos de edad"="534",
                                                                                                                                                   "Tasa de actividad por tramos de edad"="607",
-                                                                                                                                                  "Población por condición de actividad por sexo"="610"))),
+                                                                                                                                                  "Población por condición de actividad por sexo"="610")),actionButton("go_lab", "Go")),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionLab")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_lab",height = 740), height = 800, width = 6), 
@@ -221,23 +199,11 @@ contenido <- dashboardBody(
                          tabBox(
                            width = 12,
                            tabPanel(
-                             status= "primary",
-                             title = "Inferior",
-                             DTOutput("InfLab"),
-                             p(class = 'text-center', downloadButton('dinf3', 'Descargar'))
-                           ),
-                           tabPanel(
                              status= "success",
-                             title = "Superior",
-                             DTOutput("SupLab"),
-                             p(class = 'text-center', downloadButton('dsup3', 'Descargar'))
-                             
-                           ),
-                           tabPanel(
-                             status= "success",
-                             title = "Gráfico",
+                             title = "IC",
                              uiOutput("SeleccionLab2"),
-                             plotlyOutput("ic_lab", height = 740)
+                             plotlyOutput("ic_lab", height = 740), 
+                             DTOutput("tabla_ic_lab")
                            )
                          )
                          
@@ -255,7 +221,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Tasa de empleo por tramos de edad"="534",
                                                                                                                                                   "Hogares con hacinamiento"="577",
                                                                                                                                                   "Hogares con al menos un auto o camioneta"="1929",
-                                                                                                                                                  "Hogares en situación de pobreza"="553"))),
+                                                                                                                                                  "Hogares en situación de pobreza"="553")),actionButton("go_ing", "Go")),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionIng")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_ing",height = 740), height = 800, width = 6), 
@@ -266,23 +232,11 @@ contenido <- dashboardBody(
                          tabBox(
                            width = 12,
                            tabPanel(
-                             status= "primary",
-                             title = "Inferior",
-                             DTOutput("InfIng"),
-                             p(class = 'text-center', downloadButton('dinf4', 'Descargar'))
-                           ),
-                           tabPanel(
                              status= "success",
-                             title = "Superior",
-                             DTOutput("SupIng"),
-                             p(class = 'text-center', downloadButton('dsup4', 'Descargar'))
-                             
-                           ),
-                           tabPanel(
-                             status= "success",
-                             title = "Gráfico",
+                             title = "IC",
                              uiOutput("SeleccionIng2"),
-                             plotlyOutput("ic_ing", height = 740)
+                             plotlyOutput("ic_ing", height = 740), 
+                             DTOutput("tabla_ic_ing")
                            )
                          )
                          
@@ -299,7 +253,7 @@ contenido <- dashboardBody(
                                                                                                                                                   "Frecuencia de utilización de internet por sexo"="582",
                                                                                                                                                   "Hogares con conexión a internet"="591",
                                                                                                                                                   "Hogares con computadora o laptop"="594",
-                                                                                                                                                  "Hogares con al menos una computadora del Plan Ceibal"="584"))),
+                                                                                                                                                  "Hogares con al menos una computadora del Plan Ceibal"="584")),actionButton("go_tec", "Go")),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE , status = "primary",uiOutput("SeleccionTec")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_tec",height = 740), height = 800, width = 6), 
@@ -310,23 +264,11 @@ contenido <- dashboardBody(
                          tabBox(
                            width = 12,
                            tabPanel(
-                             status= "primary",
-                             title = "Inferior",
-                             DTOutput("InfTec"),
-                             p(class = 'text-center', downloadButton('dinf5', 'Descargar'))
-                           ),
-                           tabPanel(
                              status= "success",
-                             title = "Superior",
-                             DTOutput("SupTec"),
-                             p(class = 'text-center', downloadButton('dsup5', 'Descargar'))
-                             
-                           ),
-                           tabPanel(
-                             status= "success",
-                             title = "Gráfico",
+                             title = "IC",
                              uiOutput("SeleccionTec2"),
-                             plotlyOutput("ic_tec", height = 740)
+                             plotlyOutput("ic_tec", height = 740), 
+                             DTOutput("tabla_ic_tec")
                            )
                          )
                          
@@ -339,7 +281,7 @@ contenido <- dashboardBody(
                        fluidRow(    
                          box(title= "Indicador", width = 7, solidHeader = TRUE, status = "primary",selectInput("Nombre6", "Indicador", choices= c("Población por lugar de residencia hace 5 años"="678",
                                                                                                                                                   "Población por lugar de nacimiento"="654",
-                                                                                                                                                  "Población por lugar de residencia anterior"="655"))),
+                                                                                                                                                  "Población por lugar de residencia anterior"="655")),actionButton("go_demo", "Go")),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE ,status = "primary", uiOutput("SeleccionDemo")),
                          box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
                              plotlyOutput("map_demo",height = 740), height = 800, width = 6), 
@@ -351,23 +293,11 @@ contenido <- dashboardBody(
                          tabBox(
                            width = 12,
                            tabPanel(
-                             status= "primary",
-                             title = "Inferior",
-                             DTOutput("InfDemo"),
-                             p(class = 'text-center', downloadButton('dinf6', 'Descargar'))
-                           ),
-                           tabPanel(
                              status= "success",
-                             title = "Superior",
-                             DTOutput("SupDemo"),
-                             p(class = 'text-center', downloadButton('dsup6', 'Descargar'))
-                             
-                           ),
-                           tabPanel(
-                             status= "success",
-                             title = "Gráfico",
+                             title = "IC",
                              uiOutput("SeleccionDemo2"),
-                             plotlyOutput("ic_demo", height = 740)
+                             plotlyOutput("ic_demo", height = 740), 
+                             DTOutput("tabla_ic_demo")
                            )
                          )
                          
@@ -385,9 +315,9 @@ contenido <- dashboardBody(
                                                                                                                                                   "Hogares por origen del agua para beber y cocinar"="783",
                                                                                                                                                   "Hogares por presencia de lugar para cocinar"="765",
                                                                                                                                                   "Hogares por presencia y uso de baño"="766",
-                                                                                                                                                  "Hogares por tipo de relación con la vivienda"="774"))),
+                                                                                                                                                  "Hogares por tipo de relación con la vivienda"="774")),actionButton("go_hog", "Go")),
                          box(title = "Seleccionar categoría para el mapa", width = 5, solidHeader = TRUE ,status = "primary",uiOutput("SeleccionHog")),
-                         box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE, 
+                         box(title = "Mapa de Uruguay", status = "primary", solidHeader = TRUE,  
                              plotlyOutput("map_hog",height = 740), height = 800, width = 6), 
                          box(title= "Gráfico de barras", plotlyOutput("barras_hog",height = 740), status = "primary", solidHeader = TRUE,width = 6, height = 800)
                        )),
@@ -397,23 +327,11 @@ contenido <- dashboardBody(
                          tabBox(
                            width = 12,
                            tabPanel(
-                             status= "primary",
-                             title = "Inferior",
-                             DTOutput("InfHog"),
-                             p(class = 'text-center', downloadButton('dinf7', 'Descargar'))
-                           ),
-                           tabPanel(
                              status= "success",
-                             title = "Superior",
-                             DTOutput("SupHog"),
-                             p(class = 'text-center', downloadButton('dsup7', 'Descargar'))
-                             
-                           ),
-                           tabPanel(
-                             status= "success",
-                             title = "Gráfico",
+                             title = "IC",
                              uiOutput("SeleccionHog2"),
-                             plotlyOutput("ic_hog", height = 740)
+                             plotlyOutput("ic_hog", height = 740), 
+                             DTOutput("tabla_ic_hog")
                            )
                          )
                          
